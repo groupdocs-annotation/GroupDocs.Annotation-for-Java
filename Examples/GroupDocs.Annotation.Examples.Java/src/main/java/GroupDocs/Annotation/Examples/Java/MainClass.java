@@ -3,98 +3,100 @@ package GroupDocs.Annotation.Examples.Java;
 public class MainClass {
 
 	public static void main(String[] args) throws Throwable {
+		
 		// apply license
-		//Utilities.applyLicenseFromFile();
-		// region Annotation Functions for PDF
+		// Utilities.applyLicenseFromFile();
+		
+		// region Annotations for PDF
 
-		//add text annotations in PDF
-		// AnnotateDocuments.addTextAnnotationInPDF();
-
+		// add text annotations in PDF
+		// PDFAnnotation.addTextAnnotationInPDF();
+		 
 		// add area annotations in PDF
-		//AnnotateDocuments.addAreaAnnotationInPDF();
-
+		// PDFAnnotation.addAreaAnnotationInPDF();
+		 
 		// add point annotations in PDF
-		// AnnotateDocuments.addPointAnnotationInPDF();
-
-		//add strike out annotations in PDF
-		//AnnotateDocuments.addStrikeOutAnnotationInPDF();
-
+		// PDFAnnotation.addPointAnnotationInPDF();
+		
+		// add strike out annotations in PDF
+		// PDFAnnotation.addStrikeOutAnnotationInPDF();
+		
 		// add polyLine annotations in PDF
-		// AnnotateDocuments.addPolyLineAnnotationInPDF();
-
+		// PDFAnnotation.addPolyLineAnnotationInPDF();
+		
 		// add text field annotations in PDF
-		// AnnotateDocuments.addTextFieldAnnotationInPDF();
-
+		// PDFAnnotation.addTextFieldAnnotationInPDF();
+		 
 		// add Watermark annotations in PDF
-		// AnnotateDocuments.addWatermarkAnnotationInPDF();
-
+		// PDFAnnotation.addWatermarkAnnotationInPDF();
+		 
 		// add text replacement annotations in PDF
-		//AnnotateDocuments.addTextReplacementAnnotationInPDF();
-
+		// PDFAnnotation.addTextReplacementAnnotationInPDF();
+		  
 		// add arrow annotations in PDF
-		// AnnotateDocuments.addArrowAnnotationInPDF();
-
+		// PDFAnnotation.addArrowAnnotationInPDF();
+		 
 		// add text redaction annotations in PDF
-		//AnnotateDocuments.addTextRedactionAnnotationInPDF();
-
+		// PDFAnnotation.addTextRedactionAnnotationInPDF();
+		  
 		// add resource redaction annotations in PDF
-		// AnnotateDocuments.addResourceRedactionAnnotationInPDF();
-
+		// PDFAnnotation.addResourceRedactionAnnotationInPDF();
+		 
 		// add underline annotations in PDF
-		//AnnotateDocuments.addUnderlineAnnotationInPDF();
-
+		// PDFAnnotation.addUnderlineAnnotationInPDF();
+		 
 		// add distance annotations in PDF
-		// AnnotateDocuments.addDistanceAnnotationInPDF();
-
+		// PDFAnnotation.addDistanceAnnotationInPDF();
+		
 		// region Working with annotation in Cells
 
 		// add annotation in Cells
-		// AnnotateDocuments.addAnnotationInCells();
-
+		// CellsAnnotation.addAnnotationInCells();
+		
 		// region Working with annotation in Slides
 
 		// add annotation in Slides
-		// AnnotateDocuments.addAnnotationInSlides();
-
+		// SlidesAnnotation.addAnnotationInSlides();
+		
 		// region Working with annotation in Words
 
 		// add different annotations in words
-		// AnnotateDocuments.addDifferentAnnotationInWords();
-
+		// WordsAnnotation.addDifferentAnnotationInWords();
+		 
 		//  add text annotations in Words
-		//AnnotateDocuments.addTextAnnotationInWords();
-
+		// WordsAnnotation.addTextAnnotationInWords();
+		 
 		// add area annotations with replies with Words
-		// AnnotateDocuments.addAreaAnnotationWithRepliesInWords();
-
+		// WordsAnnotation.addAreaAnnotationWithRepliesInWords();
+		 
 		// add strike out annotations in Words
-		//AnnotateDocuments.addStrikeoutAnnotationInWords();
-
+		// WordsAnnotation.addStrikeoutAnnotationInWords();
+		 
 		// add text field annotations in Words
-		// AnnotateDocuments.addTextFieldAnnotationInWords();
-
+		// WordsAnnotation.addTextFieldAnnotationInWords();
+		 
 		//  add text replacement annotations in Words
-		 //AnnotateDocuments.addTextReplacementAnnotationInWords();
-
+		// WordsAnnotation.addTextReplacementAnnotationInWords();
+		 
 		// add arrow annotations in Words
-		// AnnotateDocuments.addArrowAnnotationInWords();
-
+		// WordsAnnotation.addArrowAnnotationInWords();
+		 
 		// add text redaction annotations in Words
-		//AnnotateDocuments.addTextRedactionAnnotationInWords();
-
+		// WordsAnnotation.addTextRedactionAnnotationInWords();
+		 
 		// add resource redaction annotations in Words
-		//AnnotateDocuments.addResourceRedactionAnnotationInWords();
-
+		// WordsAnnotation.addResourceRedactionAnnotationInWords();
+		 
 		// add underline annotations in Words
-		//AnnotateDocuments.addUnderlineAnnotationInWords();
-
+		// WordsAnnotation.addUnderlineAnnotationInWords();
+		 
 		// region Data storage functions
 
 		// create document
-		 //DataStorage.createDocument();
+		// DataStorage.createDocument();
 
 		// set document access rights
-		 //DataStorage.setDocumentAccessRights();
+		// DataStorage.setDocumentAccessRights();
 
 		// create and get annotations
 		// DataStorage.createAndGetAnnotations();
