@@ -1,0 +1,19 @@
+.rectangle {
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid blue;
+}
+
+.rectangle:hover {
+    background-color: rgba(0, 0, 200, 0.5);
+    border: 1px dotted black;
+    cursor: pointer;
+}
+
+.point {
+    color: red;
+}
+
+.point:hover {
+    background-color: rgba(0, 0, 200, 0.5);
+    cursor: pointer;
+}

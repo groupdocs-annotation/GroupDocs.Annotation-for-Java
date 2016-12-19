@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ngApp">
+<head>
+    <title>GroupDocs.Annotation for Java</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto:400,700'>
+    <link rel='stylesheet' href='style.css'>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/paper.js/0.22/paper.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-cloak>
+
+<md-toolbar ng-controller="ToolbarController" layout="row" class="md-toolbar-tools md-scroll-shrink md-whiteframe-4dp">
+    <md-button class="md-icon-button" aria-label="Show User List">
+        <md-icon>menu</md-icon>
+    </md-button>
+    <h1>GroupDocs.Annotation for Java</h1>
+    <span flex></span>
+    <md-button class="md-icon-button" ng-href="/download/annotated?file={{ selectedFile }}" target="_blank">
+        <md-icon>file_download</md-icon>
+        <md-tooltip>Download the annotated file</md-tooltip>
+    </md-button>
+    <div ng-controller="AvailableFilesController">
+        <md-select ng-model="selectedFile" aria-label="Files" ng-disabled="true">
+            <md-option ng-value="item" ng-repeat="item in list">{{ item }}</md-option>
+        </md-select>
+    </div>
+    <md-button class="md-icon-button">
+        <md-icon>more_vert</md-icon>
+    </md-button>
+</md-toolbar>
+<md-content flex layout="row">
+    <md-content flex id="content">
+        <div ng-controller="PageImageController">
+            <br/>
+            <div ng-repeat="pageInfo in docInfo.pages" style="width:100%">
+                <div class="page-image-wrapper" style="width:100%">
+                    <img class="page-image"
+                         ng-src="/page/image?file={{ selectedFile }}&page={{ $index + 1 }}"
+                         style="width:100%"
+                         ng-mousedown="onImageMouseDown($event, pageInfo)"
+                         ng-mousemove="onImageMouseMove($event, pageInfo)"
+                         ng-mouseup="onImageMouseUp($event, pageInfo)"
+                         oncontextmenu="return false"
+                         ondragstart="return false"
+                    />
+                </div>
+                <md-divider ng-if="!$last"></md-divider>
+            </div>
+        </div>
+    </md-content>
+    <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="right">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Annotations">
+                <md-content class="md-padding">
+                    <div ng-controller="CommentsController">
+                        <md-card ng-value="item" ng-repeat="item in list">
+                            <md-card-header>
+                                <md-card-avatar>
+                                    <md-icon>person</md-icon>
+                                </md-card-avatar>
+                                <md-card-header-text>
+                                    <span class="md-title" ng-if="item.creatorName">{{ item.creatorName }}</span>
+                                    <span class="md-title" ng-if="!item.creatorName">Anonymous</span>
+                                    <span class="md-subhead">{{ item.createdOn|date:'HH:mm'}} on {{ item.createdOn|date:'yyyy-MM-dd'}}</span>
+                                </md-card-header-text>
+                            </md-card-header>
+                            <md-card-content ng-if="item.fieldText">
+                                {{ item.fieldText }}
+                            </md-card-content>
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-button class="md-icon-button" aria-label="Edit">
+                                    <md-icon>edit</md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Reply">
+                                    <md-icon>reply</md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Save">
+                                    <md-icon>save</md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Delete" ng-click="deleteAnnotation(item)">
+                                    <md-icon>delete</md-icon>
+                                </md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab label="Tools">
+                <md-content class="md-padding">
+                    <md-button class="md-fab md-primary" aria-label="Pencil" ng-disabled="true">
+                        <md-icon>edit_mode</md-icon>
+                        <md-tooltip>Draw with Pencil</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-primary" aria-label="Rectangle">
+                        <md-icon>check_box_outline_blank</md-icon>
+                        <md-tooltip>Draw a Rectangle</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-primary" aria-label="Circle" ng-disabled="true">
+                        <md-icon>radio_button_unchecked</md-icon>
+                        <md-tooltip>Draw a Circle</md-tooltip>
+                    </md-button>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+
+
+    </md-sidenav>
+</md-content>
+
+</body>
+</html>
