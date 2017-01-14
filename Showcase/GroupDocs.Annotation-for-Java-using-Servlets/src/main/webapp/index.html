@@ -46,7 +46,7 @@
                 <div class="page-image-wrapper" style="width:100%">
                     <img class="page-image"
                          ng-src="/page/image?file={{ selectedFile }}&page={{ $index + 1 }}"
-                         style="width:100%"
+                         style="width:100%; cursor: crosshair"
                          ng-mousedown="onImageMouseDown($event, pageInfo)"
                          ng-mousemove="onImageMouseMove($event, pageInfo)"
                          ng-mouseup="onImageMouseUp($event, pageInfo)"
@@ -69,13 +69,13 @@
                                     <md-icon>person</md-icon>
                                 </md-card-avatar>
                                 <md-card-header-text>
-                                    <span class="md-title" ng-if="item.creatorName">{{ item.creatorName }}</span>
+                                    <span class="md-title" ng-if="item.creatorName">{{ item.annotation.creatorName }}</span>
                                     <span class="md-title" ng-if="!item.creatorName">Anonymous</span>
-                                    <span class="md-subhead">{{ item.createdOn|date:'HH:mm'}} on {{ item.createdOn|date:'yyyy-MM-dd'}}</span>
+                                    <span class="md-subhead">{{ item.annotation.createdOn|date:'HH:mm'}} on {{ item.annotation.createdOn|date:'yyyy-MM-dd'}}</span>
                                 </md-card-header-text>
                             </md-card-header>
-                            <md-card-content ng-if="item.fieldText">
-                                {{ item.fieldText }}
+                            <md-card-content ng-if="item.annotation.fieldText">
+                                {{ item.annotation.fieldText }}
                             </md-card-content>
                             <md-card-actions layout="row" layout-align="end center">
                                 <md-button class="md-icon-button" aria-label="Edit">

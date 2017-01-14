@@ -75,8 +75,20 @@ ngApp.controller('AvailableFilesController', function AvailableFilesController($
     $scope.selectedFile = FilesFactory.selectedFile;
 });
 
-ngApp.controller('ToolbarController', function ToolbarController($scope, FilesFactory) {
+ngApp.controller('ToolbarController', function ToolbarController($scope, $mdToast, FilesFactory) {
     $scope.selectedFile = FilesFactory.selectedFile;
+
+    $scope.$on('annotation-added', function (event, args) {
+        $mdToast.show(
+            $mdToast.simple().textContent('Annotation added')
+        );
+    });
+
+    $scope.$on('annotation-deleted', function (event, args) {
+        $mdToast.show(
+            $mdToast.simple().textContent('Annotation deleted')
+        );
+    });
 });
 
 ngApp.controller('PageImageController',
@@ -188,14 +200,10 @@ ngApp.controller('PageImageController',
 );
 
 ngApp.controller('CommentsController',
-    function CommentsController($rootScope, $scope, $http, $mdToast, FilesFactory, AnnotationListFactory) {
+    function CommentsController($rootScope, $scope, $http, FilesFactory, AnnotationListFactory) {
         $scope.list = AnnotationListFactory.query();
 
         $scope.$on('annotation-added', function (event, args) {
-            $mdToast.show(
-                $mdToast.simple().textContent('Annotation added')
-            );
-
             $scope.list = AnnotationListFactory.query();
         });
 
@@ -204,13 +212,12 @@ ngApp.controller('CommentsController',
         });
 
         $scope.deleteAnnotation = function (item) {
-            $http.post(
+            $http.get(
                 '/annotation/delete',
-                null,
                 {
                     params: {
                         file: FilesFactory.selectedFile,
-                        annotationId: item.guid
+                        annotationId: item.id
                     }
                 }
             ).success(function () {

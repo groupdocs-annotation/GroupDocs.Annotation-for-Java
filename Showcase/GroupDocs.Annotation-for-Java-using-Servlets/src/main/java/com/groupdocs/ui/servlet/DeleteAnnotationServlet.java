@@ -14,12 +14,12 @@ import java.io.IOException;
 
 @WebServlet("/annotation/delete")
 public class DeleteAnnotationServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setHeader("Content-Type", "application/json");
         AnnotationImageHandler imageHandler = Utils.createAnnotationImageHandler();
         String filename = request.getParameter("file");
-        long annotationId = Long.valueOf(request.getParameter("id"));
+        long annotationId = Long.valueOf(request.getParameter("annotationId"));
 
         DeleteAnnotationResult result = imageHandler.deleteAnnotation(annotationId);
         new ObjectMapper().writeValue(response.getOutputStream(), result);
