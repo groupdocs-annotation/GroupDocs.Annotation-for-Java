@@ -1,5 +1,7 @@
 'use strict';
 
+var ANNOTATION_TYPE_AREA = 1;
+
 var ngApp = angular.module('ngApp', ['ngMaterial', 'ngResource']);
 
 ngApp.factory('FilesFactory', function () {
@@ -70,6 +72,18 @@ ngApp.factory('AnnotationDeleteFactory', function ($resource, FilesFactory) {
     });
 });
 
+ngApp.directive('onimageload', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            scope.element = element;
+            element.bind('load', function() {
+                scope.$apply(attrs.onimageload);
+            });
+        }
+    };
+});
+
 ngApp.controller('AvailableFilesController', function AvailableFilesController($scope, FilesFactory) {
     $scope.list = FilesFactory.list();
     $scope.selectedFile = FilesFactory.selectedFile;
@@ -95,6 +109,7 @@ ngApp.controller('PageImageController',
     function PageImageController($rootScope, $scope, $cacheFactory, $mdDialog, AnnotationListFactory, AnnotationAddFactory, FilesFactory, DocumentInfoFactory) {
         $scope.docInfo = DocumentInfoFactory.get();
         $scope.selectedFile = FilesFactory.selectedFile;
+        $scope.annotationsList = AnnotationListFactory.query();
 
         $scope.mouse = {
             x: 0,
@@ -122,6 +137,29 @@ ngApp.controller('PageImageController',
 
         $scope.drawingElement = null;
 
+        $scope.onImageLoad = function ($event, page) {
+            var l = $scope.annotationsList;
+            var element = this.element[0];
+
+            for (var i = 0; i < l.length; i++) {
+                var item = l[i];
+                if (page.number - 1 != item.annotation.pageNumber) {
+                    continue;
+                }
+
+                if (item.annotation.type == ANNOTATION_TYPE_AREA) {
+                    var e = document.createElement("div");
+                    e.style.position = "absolute";
+                    e.style.left = item.annotation.box.x + "px";
+                    e.style.top = item.annotation.box.y + "px";
+                    e.style.width = item.annotation.box.width + "px";
+                    e.style.height = item.annotation.box.height + "px";
+                    e.setAttribute("class", "rectangle");
+                    element.parentNode.appendChild(e);
+                }
+            }
+        };
+
         $scope.onImageMouseDown = function ($event, page) {
             updateMousePosition($event);
             $scope.drawingElement = document.createElement("div");
@@ -142,10 +180,10 @@ ngApp.controller('PageImageController',
 
             if ($scope.mouse.x > 0 && $scope.mouse.y > 0) {
                 if (($scope.mouse.x + $event.target.offsetLeft) > $scope.mouse.startX) {
-                    $scope.drawingElement.style.width = (($scope.mouse.x + $event.target.offsetLeft) - $scope.mouse.startX) + "px";
+                    $scope.drawingElement.style.width = (($scope.mouse.x + $event.target.offsetLeft) - $scope.mouse.startX) - 10 + "px";
                 }
                 if (($scope.mouse.y + $event.target.offsetTop) > $scope.mouse.startY) {
-                    $scope.drawingElement.style.height = (($scope.mouse.y + $event.target.offsetTop) - $scope.mouse.startY) + "px";
+                    $scope.drawingElement.style.height = (($scope.mouse.y + $event.target.offsetTop) - $scope.mouse.startY) - 10 + "px";
                 }
             }
 
@@ -166,11 +204,12 @@ ngApp.controller('PageImageController',
                 box: {
                     x: $scope.mouse.startX,
                     y: $scope.mouse.startY,
-                    width: $scope.mouse.x - $scope.mouse.startX,
-                    height: $scope.mouse.y - $scope.mouse.startY
+                    width: $scope.mouse.x - $scope.mouse.startX - 10,
+                    height: $scope.mouse.y - $scope.mouse.startY - 10
                 },
                 fieldText: null,
-                type: 1
+                type: 1,
+                pageNumber: page.number - 1
             };
 
             var confirm = $mdDialog.prompt()

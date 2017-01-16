@@ -41,12 +41,13 @@
 <md-content flex layout="row">
     <md-content flex id="content">
         <div ng-controller="PageImageController">
-            <br/>
-            <div ng-repeat="pageInfo in docInfo.pages" style="width:100%">
-                <div class="page-image-wrapper" style="width:100%">
+            <div ng-repeat="pageInfo in docInfo.pages">
+                <div class="page-image-wrapper" style="position:relative;width:{{ pageInfo.width }}px;margin:auto;">
                     <img class="page-image"
-                         ng-src="/page/image?file={{ selectedFile }}&page={{ $index + 1 }}"
-                         style="width:100%; cursor: crosshair"
+                         ng-src="/page/image?file={{ selectedFile }}&page={{ $index + 1 }}&width={{ pageInfo.width }}&height={{ pageInfo.height }}"
+                         onimageload="onImageLoad($event, pageInfo)"
+                         style="cursor:crosshair"
+                         width="{{ pageInfo.width }}"
                          ng-mousedown="onImageMouseDown($event, pageInfo)"
                          ng-mousemove="onImageMouseMove($event, pageInfo)"
                          ng-mouseup="onImageMouseUp($event, pageInfo)"
