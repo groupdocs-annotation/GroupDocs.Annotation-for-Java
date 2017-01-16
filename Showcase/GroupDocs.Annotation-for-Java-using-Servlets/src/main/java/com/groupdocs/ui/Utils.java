@@ -9,6 +9,9 @@ import com.groupdocs.annotation.handler.input.dataobjects.Document;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.Properties;
 
 public class Utils {
@@ -45,7 +48,12 @@ public class Utils {
 
     public static void loadLicense() {
         License l = new License();
-        l.setLicense(getProjectProperty("license.path"));
+        if (Files.exists(FileSystems.getDefault().getPath(getProjectProperty("license.path")))) {
+            l.setLicense(getProjectProperty("license.path"));
+            if (!License.isValidLicense()) {
+                throw new RuntimeException("Invalid license found.");
+            }
+        }
     }
 
     public static String getStoragePath() {
