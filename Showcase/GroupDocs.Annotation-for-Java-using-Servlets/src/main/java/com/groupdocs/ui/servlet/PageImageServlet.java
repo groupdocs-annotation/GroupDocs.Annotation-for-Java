@@ -37,7 +37,7 @@ public class PageImageServlet
             o.setWidth(Integer.valueOf(request.getParameter("width")));
         }
         if (request.getParameterMap().containsKey("height")) {
-            o.setWidth(Integer.valueOf(request.getParameter("height")));
+            o.setHeight(Integer.valueOf(request.getParameter("height")));
         }
 
         String filename = request.getParameter("file");
