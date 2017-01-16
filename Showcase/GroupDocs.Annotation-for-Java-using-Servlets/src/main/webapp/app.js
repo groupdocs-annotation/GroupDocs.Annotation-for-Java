@@ -72,12 +72,12 @@ ngApp.factory('AnnotationDeleteFactory', function ($resource, FilesFactory) {
     });
 });
 
-ngApp.directive('onimageload', function() {
+ngApp.directive('onimageload', function () {
     return {
         restrict: 'A',
-        link: function(scope, element, attrs) {
+        link: function (scope, element, attrs) {
             scope.element = element;
-            element.bind('load', function() {
+            element.bind('load', function () {
                 scope.$apply(attrs.onimageload);
             });
         }
@@ -154,11 +154,16 @@ ngApp.controller('PageImageController',
                     e.style.top = item.annotation.box.y + "px";
                     e.style.width = item.annotation.box.width + "px";
                     e.style.height = item.annotation.box.height + "px";
-                    e.setAttribute("class", "rectangle");
+                    e.setAttribute("class", "rendered-annotation rectangle");
+                    e.setAttribute("data-annotation-id", item.id);
                     element.parentNode.appendChild(e);
                 }
             }
         };
+
+        $scope.$on('annotation-deleted', function (event, args) {
+            angular.element('div.rendered-annotation[data-annotation-id=' + args.id + ']').remove();
+        });
 
         $scope.onImageMouseDown = function ($event, page) {
             updateMousePosition($event);
@@ -166,7 +171,7 @@ ngApp.controller('PageImageController',
             $scope.drawingElement.style.position = "absolute";
             $scope.drawingElement.style.left = $scope.mouse.x + "px";
             $scope.drawingElement.style.top = $scope.mouse.y + "px";
-            $scope.drawingElement.setAttribute("class", "rectangle");
+            $scope.drawingElement.setAttribute("class", "rendered-annotation rectangle");
 
             $event.target.parentNode.appendChild($scope.drawingElement);
         };
@@ -225,10 +230,11 @@ ngApp.controller('PageImageController',
                 .then(
                     function (result) {
                         ant.fieldText = result;
-                        AnnotationAddFactory.save(ant, function () {
+                        AnnotationAddFactory.save(ant, function (response) {
+                            $scope.drawingElement.setAttribute("data-annotation-id", response.id);
+                            $scope.drawingElement = null;
                             $rootScope.$broadcast('annotation-added');
                         });
-                        $scope.drawingElement = null;
                     },
                     function () {
                         $scope.drawingElement.parentNode.removeChild($scope.drawingElement);
@@ -259,8 +265,8 @@ ngApp.controller('CommentsController',
                         annotationId: item.id
                     }
                 }
-            ).success(function () {
-                $rootScope.$broadcast('annotation-deleted');
+            ).success(function (response) {
+                $rootScope.$broadcast('annotation-deleted', response);
             });
         };
     }
