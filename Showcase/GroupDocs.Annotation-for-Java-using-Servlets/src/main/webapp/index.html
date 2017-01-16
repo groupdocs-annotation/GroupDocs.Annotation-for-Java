@@ -79,13 +79,13 @@
                                 {{ item.annotation.fieldText }}
                             </md-card-content>
                             <md-card-actions layout="row" layout-align="end center">
-                                <md-button class="md-icon-button" aria-label="Edit">
+                                <md-button class="md-icon-button" aria-label="Edit" ng-disabled="true">
                                     <md-icon>edit</md-icon>
                                 </md-button>
-                                <md-button class="md-icon-button" aria-label="Reply">
+                                <md-button class="md-icon-button" aria-label="Reply" ng-disabled="true">
                                     <md-icon>reply</md-icon>
                                 </md-button>
-                                <md-button class="md-icon-button" aria-label="Save">
+                                <md-button class="md-icon-button" aria-label="Save" ng-disabled="true">
                                     <md-icon>save</md-icon>
                                 </md-button>
                                 <md-button class="md-icon-button" aria-label="Delete" ng-click="deleteAnnotation(item)">
