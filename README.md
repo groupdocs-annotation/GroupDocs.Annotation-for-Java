@@ -16,7 +16,7 @@ Directory | Description
 [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Contains the package of all Java examples and sample files that will help you learn how to use product features. 
 [Showcases](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Showcase)  | Explore the open source showcase projects that allow users to view and annotate a document in a web browser.  
 
-## Resources
+# Resources
 
 + **Website:** [www.groupdocs.com](http://www.groupdocs.com)
 + **Product Home:** [GroupDocs.Annotation for Java](https://www.groupdocs.com/products/annotation/java)
