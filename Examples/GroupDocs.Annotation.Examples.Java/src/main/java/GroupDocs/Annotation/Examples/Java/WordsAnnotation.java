@@ -2,10 +2,12 @@ package GroupDocs.Annotation.Examples.Java;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -395,5 +397,26 @@ public class WordsAnnotation {
 		}
 		//ExEnd:addUnderlineAnnotationInWords
 	}
-
+	/*
+	 * import annotations from word docs
+	 */
+	public static void importingAnnotationsFromWordDoc() throws Throwable{
+		//ExStart:importingAnnotationsFromWordDoc
+		AnnotationConfig cfg = Utilities.getConfiguration();
+		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+		// Importing annotations from Words document
+		FileInputStream stream = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+		AnnotationInfo[] annotations = annotator.importAnnotations(stream, DocumentType.Words);
+		 
+		// Export imported annotation to another document 
+		InputStream clearDocument = new FileInputStream(Utilities.storagePath + File.separator + "Clear.docx");
+		InputStream output = annotator.exportAnnotationsToDocument(clearDocument, Arrays.asList(annotations), DocumentType.Words);
+		 
+		// Save results after export
+		OutputStream fileStream = new FileOutputStream(
+				Utilities.outputPath + File.separator + "words-annotated.docx");
+		System.out.println(output.available());
+		IOUtils.copy(output, fileStream);
+		//ExEnd:importingAnnotationsFromWordDoc
+	}
 }
