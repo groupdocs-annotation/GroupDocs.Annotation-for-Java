@@ -5,7 +5,7 @@ public class MainClass {
 	public static void main(String[] args) throws Throwable {
 		
 		// apply license
-		// Utilities.applyLicenseFromFile();
+		 Utilities.applyLicenseFromFile();
 		
 		// region Annotations for PDF
 
@@ -147,6 +147,21 @@ public class MainClass {
 
 		// Get text coordinates in image representation of the document
 		// Utilities.getTextCoordinates("sample.pdf");
+		
+		// Importing annotations from word docs
+		//WordsAnnotation.importingAnnotationsFromWordDoc();
+		
+		// Creating different annotations for slides
+		//SlidesAnnotation.differentAnnotationsForSlides();
+		
+		// Importing annotations from slides
+		//SlidesAnnotation.importingAnnotationsToSlide();
+		
+		// Creating different annotations for image
+		//ImagesAnnotation.differentAnnotationsForImages();
+		 
+		//Users With Different Rights
+		 //PDFAnnotation.usersWithDifferentRights();
 
 	}
 
