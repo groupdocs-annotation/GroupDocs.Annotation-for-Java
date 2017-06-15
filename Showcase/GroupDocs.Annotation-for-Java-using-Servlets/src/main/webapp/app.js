@@ -1,111 +1,124 @@
-'use strict';
+(function () {
+    'use strict';
 
-var ANNOTATION_TYPE_AREA = 1;
+    var ANNOTATION_TYPE_AREA = 1;
 
-var ngApp = angular.module('ngApp', ['ngMaterial', 'ngResource']);
+    angular
+        .module('GroupDocsAnnotationApp', ['ngMaterial', 'ngResource'])
+        .factory('FilesFactory', FilesFactory)
+        .factory('DocumentInfoFactory', DocumentInfoFactory)
+        .factory('PageCountFactory', PageCountFactory)
+        .factory('AnnotationListFactory', AnnotationListFactory)
+        .factory('AnnotationAddFactory', AnnotationAddFactory)
+        .factory('AnnotationDeleteFactory', AnnotationDeleteFactory)
+        .directive('onimageload', onimageload)
+        .controller('AvailableFilesController', AvailableFilesController)
+        .controller('ToolbarController', ToolbarController)
+        .controller('PageImageController', PageImageController)
+        .controller('CommentsController', CommentsController)
+    ;
 
-ngApp.factory('FilesFactory', function () {
-    var fileList = [
-        'candy.pdf'
-    ];
-    return {
-        list: function () {
-            return fileList;
-        },
-        selectedFile: fileList[0]
-    };
-});
-
-ngApp.factory('DocumentInfoFactory', function ($resource, FilesFactory) {
-    return $resource('/document/info?file=:filename', {}, {
-        get: {
-            method: 'GET',
-            params: {
-                filename: FilesFactory.selectedFile
-            }
-        }
-    });
-});
-
-ngApp.factory('PageCountFactory', function ($resource, FilesFactory) {
-    return $resource('/page/count?file=:filename', {}, {
-        get: {
-            method: 'GET',
-            params: {
-                filename: FilesFactory.selectedFile
-            }
-        }
-    });
-});
-
-ngApp.factory('AnnotationListFactory', function ($resource, FilesFactory) {
-    return $resource('/annotation/list?file=:filename', {}, {
-        query: {
-            method: 'GET',
-            params: {
-                filename: FilesFactory.selectedFile
+    function FilesFactory() {
+        var fileList = [
+            'test.pdf'
+        ];
+        return {
+            list: function () {
+                return fileList;
             },
-            isArray: true
-        }
-    });
-});
+            selectedFile: fileList[0]
+        };
+    }
 
-ngApp.factory('AnnotationAddFactory', function ($resource, FilesFactory) {
-    return $resource('/annotation/add?file=:filename', {}, {
-        save: {
-            method: 'POST',
-            params: {
-                filename: FilesFactory.selectedFile
+    function DocumentInfoFactory($resource, FilesFactory) {
+        return $resource('/document/info?file=:filename', {}, {
+            get: {
+                method: 'GET',
+                params: {
+                    filename: FilesFactory.selectedFile
+                }
             }
-        }
-    });
-});
+        });
+    }
 
-ngApp.factory('AnnotationDeleteFactory', function ($resource, FilesFactory) {
-    return $resource('/annotation/delete?file=:filename&id=:annotationId', {}, {
-        save: {
-            method: 'POST',
-            params: {
-                filename: FilesFactory.selectedFile
+    function PageCountFactory($resource, FilesFactory) {
+        return $resource('/page/count?file=:filename', {}, {
+            get: {
+                method: 'GET',
+                params: {
+                    filename: FilesFactory.selectedFile
+                }
             }
-        }
-    });
-});
+        });
+    }
 
-ngApp.directive('onimageload', function () {
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            scope.element = element;
-            element.bind('load', function () {
-                scope.$apply(attrs.onimageload);
-            });
-        }
-    };
-});
+    function AnnotationListFactory($resource, FilesFactory) {
+        return $resource('/annotation/list?file=:filename', {}, {
+            query: {
+                method: 'GET',
+                params: {
+                    filename: FilesFactory.selectedFile
+                },
+                isArray: true
+            }
+        });
+    }
 
-ngApp.controller('AvailableFilesController', function AvailableFilesController($scope, FilesFactory) {
-    $scope.list = FilesFactory.list();
-    $scope.selectedFile = FilesFactory.selectedFile;
-});
+    function AnnotationAddFactory($resource, FilesFactory) {
+        return $resource('/annotation/add?file=:filename', {}, {
+            save: {
+                method: 'POST',
+                params: {
+                    filename: FilesFactory.selectedFile
+                }
+            }
+        });
+    }
 
-ngApp.controller('ToolbarController', function ToolbarController($scope, $mdToast, FilesFactory) {
-    $scope.selectedFile = FilesFactory.selectedFile;
+    function AnnotationDeleteFactory($resource, FilesFactory) {
+        return $resource('/annotation/delete?file=:filename&id=:annotationId', {}, {
+            save: {
+                method: 'POST',
+                params: {
+                    filename: FilesFactory.selectedFile
+                }
+            }
+        });
+    }
 
-    $scope.$on('annotation-added', function (event, args) {
-        $mdToast.show(
-            $mdToast.simple().textContent('Annotation added')
-        );
-    });
+    function onimageload() {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                scope.element = element;
+                element.bind('load', function () {
+                    scope.$apply(attrs.onimageload);
+                });
+            }
+        };
+    }
 
-    $scope.$on('annotation-deleted', function (event, args) {
-        $mdToast.show(
-            $mdToast.simple().textContent('Annotation deleted')
-        );
-    });
-});
+    function AvailableFilesController($scope, FilesFactory) {
+        $scope.list = FilesFactory.list();
+        $scope.selectedFile = FilesFactory.selectedFile;
+    }
 
-ngApp.controller('PageImageController',
+    function ToolbarController($scope, $mdToast, FilesFactory) {
+        $scope.selectedFile = FilesFactory.selectedFile;
+
+        $scope.$on('annotation-added', function (event, args) {
+            $mdToast.show(
+                $mdToast.simple().textContent('Annotation added')
+            );
+        });
+
+        $scope.$on('annotation-deleted', function (event, args) {
+            $mdToast.show(
+                $mdToast.simple().textContent('Annotation deleted')
+            );
+        });
+    }
+
     function PageImageController($rootScope, $scope, $cacheFactory, $mdDialog, AnnotationListFactory, AnnotationAddFactory, FilesFactory, DocumentInfoFactory) {
         $scope.docInfo = DocumentInfoFactory.get();
         $scope.selectedFile = FilesFactory.selectedFile;
@@ -242,9 +255,7 @@ ngApp.controller('PageImageController',
                     });
         };
     }
-);
 
-ngApp.controller('CommentsController',
     function CommentsController($rootScope, $scope, $http, FilesFactory, AnnotationListFactory) {
         $scope.list = AnnotationListFactory.query();
 
@@ -270,4 +281,6 @@ ngApp.controller('CommentsController',
             });
         };
     }
-);
+
+})();
+
