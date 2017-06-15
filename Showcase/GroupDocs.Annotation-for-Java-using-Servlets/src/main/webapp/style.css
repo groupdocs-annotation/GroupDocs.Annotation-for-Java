@@ -17,3 +17,9 @@
     background-color: rgba(0, 0, 200, 0.5);
     cursor: pointer;
 }
+
+gdx-anno-page {
+    position: relative;
+    margin: 0 auto;
+    align-items: center;
+}
