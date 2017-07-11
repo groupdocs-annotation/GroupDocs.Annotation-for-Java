@@ -5,7 +5,7 @@ public class MainClass {
 	public static void main(String[] args) throws Throwable {
 		
 		// apply license
-		 Utilities.applyLicenseFromFile();
+		// Utilities.applyLicenseFromFile();
 		
 		// region Annotations for PDF
 
@@ -158,10 +158,16 @@ public class MainClass {
 		//SlidesAnnotation.importingAnnotationsToSlide();
 		
 		// Creating different annotations for image
-		//ImagesAnnotation.differentAnnotationsForImages();
+		//ImagesAnnotation.differentAnnotationsForPngImages("image.png");
+		
 		 
 		//Users With Different Rights
-		 //PDFAnnotation.usersWithDifferentRights();
+		//PDFAnnotation.usersWithDifferentRights();
+		//PDFAnnotation.gettingTextCoordinates("sample.pdf");
+		 
+		 //EmailAnnotation.differentAnnotationsForEmail("DEPOSIT.eml");
+		 
+		 //HtmlAnnotation.createAnnotationForHtml("source.html");
 
 	}
 

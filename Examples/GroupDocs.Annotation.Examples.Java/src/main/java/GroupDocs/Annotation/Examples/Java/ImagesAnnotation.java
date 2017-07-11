@@ -14,8 +14,11 @@ import org.apache.commons.io.IOUtils;
 import com.groupdocs.annotation.domain.AnnotationInfo;
 import com.groupdocs.annotation.domain.AnnotationType;
 import com.groupdocs.annotation.domain.DocumentType;
+import com.groupdocs.annotation.domain.PageData;
 import com.groupdocs.annotation.domain.Rectangle;
+import com.groupdocs.annotation.domain.RowData;
 import com.groupdocs.annotation.domain.config.AnnotationConfig;
+import com.groupdocs.annotation.domain.containers.DocumentInfoContainer;
 import com.groupdocs.annotation.handler.AnnotationImageHandler;
 
 public class ImagesAnnotation {
@@ -23,11 +26,11 @@ public class ImagesAnnotation {
 	/*
 	 * document name
 	 */
-	public static String fileName = "image.png";
-	public static void differentAnnotationsForImages() throws Throwable{
+	//From version 17.1.0 you can work with images of EMF/WMF, CAD-files (DWG), DICOM, DjVu, PNG, JPG, TIFF, BMP and GIF(static without animation) format images
+	public static void differentAnnotationsForImages(String fileName) throws Throwable{
 		AnnotationConfig cfg = Utilities.getConfiguration();
 		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
-		//From version 17.1.0 you can work with images of JPG, TIFF, BMP and GIF(static without animation) format images
+		
 		FileInputStream cleanPresentation = new FileInputStream(Utilities.storagePath + File.separator + fileName);
 		ArrayList<AnnotationInfo> annotations;
 		annotations = new ArrayList<AnnotationInfo>();
@@ -161,4 +164,5 @@ public class ImagesAnnotation {
 		}
 		//ExEnd:ImagesAnnotation
 	}
+
 }
