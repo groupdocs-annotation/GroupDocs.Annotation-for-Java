@@ -6,7 +6,7 @@ GroupDocs.Annotation is essentially devised to add annotations in documents with
 
 <p align="center">
 
-  <a title="Download complete GroupDocs.Annotation for Java source code" href="#">
+  <a title="Download complete GroupDocs.Annotation for Java source code" href="https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/archive/master.zip">
 	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" />
   </a>
 </p>
