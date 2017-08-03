@@ -3,7 +3,7 @@
 This package contains Java Example Projects for [GroupDocs.Annotation for Java](#) and sample input templates used in the examples.
 
 <p align="center">
-  <a title="Download complete GroupDocs.Annotation for Java Example source code" href="#">
+  <a title="Download complete GroupDocs.Annotation for Java Example source code" href="https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/archive/master.zip">
 	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" />
   </a>
 </p>
