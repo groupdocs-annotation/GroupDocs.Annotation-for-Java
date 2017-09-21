@@ -6,7 +6,9 @@
         $scope.selectRectangleTool = function ($event) {
             $rootScope.selectedDrawingTool = 'rectangle';
         };
-
+        $scope.selectArrowTool = function ($event) {
+            $rootScope.selectedDrawingTool = 'arrow';
+        };
         $scope.selectPencilTool = function ($event) {
             $rootScope.selectedDrawingTool = 'pencil';
         };
@@ -16,7 +18,7 @@
         $scope.selectPointTool = function ($event) {
             $rootScope.selectedDrawingTool = 'point';
         };
-
+        
         $scope.selectSelectTool();
     }
 

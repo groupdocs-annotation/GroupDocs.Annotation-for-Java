@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    function main($rootScope, AnnotationFactory, AnnotationAddFactory) {
+    function main($rootScope, cfpLoadingBar, AnnotationFactory, AnnotationAddFactory) {
         return {
             restrict: 'E',
             link: {
@@ -11,7 +11,7 @@
                     setupCanvas($rootScope, scope, element, attrs);
                     setupPageImage($rootScope, scope, element, attrs);
                     setupDrawingTools($rootScope, AnnotationFactory, AnnotationAddFactory, scope, element, attrs);
-                    setupAnnotations($rootScope, scope, element, attrs);
+                    // setupAnnotations has been moved to pageImage.onLoad
                     setupAnnotationDeletion($rootScope, AnnotationFactory, scope, element, attrs);
                 }
             }
@@ -42,12 +42,20 @@
             + "&width=" + attrs.width
             + "&height=" + attrs.height;
 
+        var loadingIndicator = new ps.Raster({
+            source: '/loading_indicator.gif',
+            position: ps.view.center
+        });
+
         var pageImage = new ps.Raster({
             source: pageImageUrl,
             position: ps.view.center
         });
+
         pageImage.onLoad = function () {
             pageImage.scale(attrs.width / pageImage.width);
+            setupAnnotations($rootScope, scope, element, attrs);
+            loadingIndicator.remove();
         };
     }
 
@@ -74,7 +82,17 @@
                         currentObject = hitResult.item;
                         currentObject.selected = true;
                         $rootScope.selectedAnnotationGuid = currentObject.name;
-                        $rootScope.$apply();
+                        if (!$rootScope.$$phase) {
+                            $rootScope.$apply();
+                        }
+                    }
+                    else if (hitResult && hitResult.item._parent._name) {
+                        currentObject = hitResult.item._parent;
+                        currentObject.selected = true;
+                        $rootScope.selectedAnnotationGuid = currentObject._name;
+                        if (!$rootScope.$$phase) {
+                            $rootScope.$apply();
+                        }
                     }
                     break;
                 case 'rectangle':
@@ -82,7 +100,6 @@
                     currentObject = new ps.Path.Rectangle(shape);
                     currentObject.strokeColor = 'black';
                     currentObject.strokeWidth = 2;
-
                     break;
                 case 'pencil':
                     currentObject = new ps.Path();
@@ -104,7 +121,7 @@
             switch ($rootScope.selectedDrawingTool) {
                 case 'select':
                     angular.forEach(scope.annotationsList, function (item) {
-                        if (currentObject && item.annotation.guid === currentObject.name && item.annotation.type === 4) {
+                        if (currentObject && item.annotation.guid === currentObject.name && item.annotation.type === 4 && item.annotation.type === 8) {
                             currentObject = null;
                         }
                     });
@@ -123,6 +140,28 @@
                 case 'point':
                     currentObject.position.x += event.delta.x;
                     currentObject.position.y += event.delta.y;
+                    break;
+                case 'arrow':
+                    if (currentObject) {
+                        currentObject.remove();
+                    }
+                    var start = new ps.Point(event.downPoint);
+                    var end = new ps.Point(event.point);
+
+                    var tailLine = new ps.Path.Line(start, end);
+                    var tailVector = end.subtract(start);
+                    var headLine = tailVector.normalize(10);
+
+                    currentObject = new ps.Group([
+                        new ps.Path([start, end]),
+                        new ps.Path([
+                            end.add(headLine.rotate(150)),
+                            end,
+                            end.add(headLine.rotate(-150))
+                        ])
+                    ]);
+                    currentObject.strokeColor = 'black';
+                    currentObject.strokeWidth = 2;
                     break;
             }
         };
@@ -170,6 +209,11 @@
                         }
                     });
                     break;
+                case 'arrow':
+                    ant.type = 8;
+                    ant.svgPath = currentObject.exportSVG().firstChild.getAttribute('d');
+                    ant.svgPath += " " + currentObject.exportSVG().lastChild.getAttribute('d');
+                    break;
             }
 
             if (ant.type) {
@@ -179,7 +223,9 @@
                     currentObject.selected = true;
                     currentObject = null;
                     $rootScope.selectedAnnotationGuid = response.guid;
-                    $rootScope.$apply();
+                    if (!$rootScope.$$phase) {
+                        $rootScope.$apply();
+                    }
                 });
             } else {
                 currentObject = null;
@@ -189,9 +235,13 @@
         ps.tool.onKeyDown = function (event) {
             if (event.key === 'delete') {
                 angular.forEach(ps.project.selectedItems, function (item) {
-                    if (item.name.length > 0) {
+                    if (item.name) {
                         $rootScope.$broadcast('request-annotation-deletion', item.name);
                     }
+                    else if (item._parent._name) {
+                        $rootScope.$broadcast('request-annotation-deletion', item._parent._name);
+                    }
+
                 });
             }
         }
@@ -226,6 +276,14 @@
 
                     break;
 
+                case 5:
+                    var line = new ps.Path();
+                    line.pathData = item.annotation.svgPath;
+                    line.strokeColor = 'black';
+                    line.strokeWidth = 2;
+                    line.name = item.annotation.guid;
+
+                    break;
                 case 4:
                     var line = new ps.Path();
                     line.pathData = item.annotation.svgPath;
@@ -241,6 +299,15 @@
                     ptp.fillColor = 'black';
                     ptp.strokeWidth = 2;
                     ptp.name = item.annotation.guid;
+                    break;
+                case 8:
+                    var arrow = new ps.Group([
+                        new ps.Path(item.annotation.svgPath.split(" ")[0]),
+                        new ps.Path(item.annotation.svgPath.split(" ")[1])
+                    ]);
+                    arrow.strokeColor = 'black';
+                    arrow.strokeWidth = 2;
+                    arrow.name = item.annotation.guid;
                     break;
             }
         })
@@ -263,14 +330,16 @@
                         item.remove();
                         ps.project.deselectAll();
                         $rootScope.selectedAnnotationGuid = null;
-                        $rootScope.$apply();
+                        if (!$rootScope.$$phase) {
+                            $rootScope.$apply();
+                        }
                     });
             }
 
         });
     }
 
-    angular.module('GroupDocsAnnotationApp').directive('gdxAnnoPage', main);
+    angular.module('GroupDocsAnnotationApp').directive('gdxAnnoPage', main, ['cfpLoadingBar']);
 
 })();
 
