@@ -22,6 +22,6 @@ Directory | Description
 + **Product Home:** [GroupDocs.Annotation for Java](https://www.groupdocs.com/products/annotation/java)
 + **Download:** [Download GroupDocs.Annotation for Java](https://downloads.groupdocs.com/annotation/java)
 + **Documentation:** [GroupDocs.Annotation for Java Documentation](https://docs.groupdocs.com/display/annotationjava/Home)
-+ **Forum:** [GroupDocs.Annotation for Java Forum](http://www.groupdocs.com/Community/forums/groupdocs.annotation-product-family/5/showforum.aspx)
-+ **Blog:** [GroupDocs.Annotation for Java Blog](https://blog.groupdocs.com/)
++ **Forum:** [GroupDocs.Annotation for Java Forum](https://forum.groupdocs.com/c/annotation)
++ **Blog:** [GroupDocs.Annotation for Java Blog](https://blog.groupdocs.com/category/groupdocs-annotation-product-family/)
 

@@ -18,6 +18,17 @@
     cursor: pointer;
 }
 
+.arrow {
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid blue;
+}
+
+.arrow:hover {
+    background-color: rgba(0, 0, 200, 0.5);
+    border: 1px dotted black;
+    cursor: pointer;
+}
+
 gdx-anno-page {
     position: relative;
     margin: 0 auto;

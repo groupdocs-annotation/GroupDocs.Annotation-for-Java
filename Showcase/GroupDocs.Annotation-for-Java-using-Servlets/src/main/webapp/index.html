@@ -5,16 +5,21 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.css">
-    <link rel='stylesheet' href='//fonts.googleapis.com/icon?family=Material+Icons|Roboto+Condensed:400,700'>
-    <link rel='stylesheet' href='style.css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css">
+    <link rel='stylesheet' href="//fonts.googleapis.com/icon?family=Material+Icons|Roboto+Condensed:400,700">
+
+    <link rel='stylesheet' href="style.css">
+
     <script src="//code.jquery.com/jquery-latest.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-aria.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-messages.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js"></script>
+
     <script src="app.js"></script>
     <script src="app.factory.annotation.js"></script>
     <script src="app.factory.replies.js"></script>
@@ -23,6 +28,7 @@
     <script src="app.controller.pageCanvas.js"></script>
     <script src="app.controller.thread.js"></script>
     <script src="app.controller.tools.js"></script>
+    <script src="app.config.js"></script>
 </head>
 <body ng-cloak>
 
@@ -63,6 +69,10 @@
             <md-button class="md-icon-button" aria-label="Rectangle" ng-click="selectRectangleTool()">
                 <md-icon>check_box_outline_blank</md-icon>
                 <md-tooltip>Area</md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Arrow" ng-click="selectArrowTool()">
+                <md-icon>arrow_forward</md-icon>
+                <md-tooltip>Arrow</md-tooltip>
             </md-button>
         </div>
     </div>
