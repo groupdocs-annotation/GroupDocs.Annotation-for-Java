@@ -74,6 +74,18 @@
                 <md-icon>arrow_forward</md-icon>
                 <md-tooltip>Arrow</md-tooltip>
             </md-button>
+            <md-button class="md-icon-button" aria-label="Distance" ng-click="selectDistanceTool()">
+                <md-icon>compare_arrows</md-icon>
+                <md-tooltip>Distance</md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Underline" ng-click="selectUnderlineTool()">
+                <md-icon>format_underlined</md-icon>
+                <md-tooltip>Underline</md-tooltip>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Strikeout" ng-click="selectStrikeoutTool()">
+                <md-icon>format_strikethrough</md-icon>
+                <md-tooltip>Strikeout</md-tooltip>
+            </md-button>
         </div>
     </div>
     <md-content flex id="content" ng-controller="PageCanvasController">

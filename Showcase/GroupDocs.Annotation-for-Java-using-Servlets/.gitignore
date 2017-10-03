@@ -8,3 +8,6 @@ Thumbs.db
 /storage/[Tt]emp/
 /storage/GroupDocs.annotation*.xml
 *.lic
+/.settings/
+*.classpath
+*.project
