@@ -1,4 +1,4 @@
-# GroupDocs_Annotation_Java
+# GroupDocs.Annotation for Java
 
 This package contains exmaples and showcase projects that will help you in understanding the API's working and writing your own applications.
 
