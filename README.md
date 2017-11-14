@@ -19,7 +19,7 @@ Directory | Description
 # Resources
 
 + **Website:** [www.groupdocs.com](http://www.groupdocs.com)
-+ **Product Home:** [GroupDocs.Annotation for Java](https://www.groupdocs.com/products/annotation/java)
++ **Product Home:** [GroupDocs.Annotation for Java](https://products.groupdocs.com/annotation/java)
 + **Download:** [Download GroupDocs.Annotation for Java](https://downloads.groupdocs.com/annotation/java)
 + **Documentation:** [GroupDocs.Annotation for Java Documentation](https://docs.groupdocs.com/display/annotationjava/Home)
 + **Forum:** [GroupDocs.Annotation for Java Forum](https://forum.groupdocs.com/c/annotation)
