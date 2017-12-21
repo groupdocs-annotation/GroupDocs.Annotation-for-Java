@@ -109,6 +109,7 @@ public class PDFAnnotation {
 			areaAnnnotation.setPenColor(2222222);
 			areaAnnnotation.setPenStyle((byte) 1);
 			areaAnnnotation.setPenWidth((byte) 1);
+			areaAnnnotation.setOpacity(0.5);
 			areaAnnnotation.setType(AnnotationType.Area);
 			areaAnnnotation.setCreatorName("Anonym A.");
 			annotations.add(areaAnnnotation);
@@ -175,6 +176,7 @@ public class PDFAnnotation {
 			strikeoutAnnotation.setBox(new Rectangle(68, 154, 102, 9));
 			strikeoutAnnotation.setPageNumber(0);
 			strikeoutAnnotation.setPenColor(0);
+			strikeoutAnnotation.setOpacity(0.5);
 			strikeoutAnnotation.setType(AnnotationType.TextStrikeout);
 			strikeoutAnnotation.setCreatorName("Anonym A.");
 			annotations.add(strikeoutAnnotation);
@@ -451,6 +453,7 @@ public class PDFAnnotation {
 			underlineAnnotation.setBox(new Rectangle(68f, 154f, 102f, 9f));
 			underlineAnnotation.setPageNumber(0);
 			underlineAnnotation.setPenColor(1201033);
+			underlineAnnotation.setOpacity(0.5);
 			underlineAnnotation.setType(AnnotationType.TextUnderline);
 			underlineAnnotation.setCreatorName("Anonym A.");
 			annotations.add(underlineAnnotation);
