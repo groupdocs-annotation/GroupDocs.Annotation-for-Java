@@ -5,21 +5,21 @@ public class MainClass {
 	public static void main(String[] args) throws Throwable {
 
 		// apply license
-		// Utilities.applyLicenseFromFile();
+		//Utilities.applyLicenseFromFile();
 
 		// region Annotations for PDF
 
 		// add text annotations in PDF
-		// PDFAnnotation.addTextAnnotationInPDF();
+		//PDFAnnotation.addTextAnnotationInPDF();
 
 		// add area annotations in PDF
-		// PDFAnnotation.addAreaAnnotationInPDF();
+		//PDFAnnotation.addAreaAnnotationInPDF();
 
 		// add point annotations in PDF
 		// PDFAnnotation.addPointAnnotationInPDF();
 
 		// add strike out annotations in PDF
-		// PDFAnnotation.addStrikeOutAnnotationInPDF();
+		//PDFAnnotation.addStrikeOutAnnotationInPDF();
 
 		// add polyLine annotations in PDF
 		// PDFAnnotation.addPolyLineAnnotationInPDF();
@@ -43,7 +43,7 @@ public class MainClass {
 		// PDFAnnotation.addResourceRedactionAnnotationInPDF();
 
 		// add underline annotations in PDF
-		// PDFAnnotation.addUnderlineAnnotationInPDF();
+		//PDFAnnotation.addUnderlineAnnotationInPDF();
 
 		// add distance annotations in PDF
 		// PDFAnnotation.addDistanceAnnotationInPDF();

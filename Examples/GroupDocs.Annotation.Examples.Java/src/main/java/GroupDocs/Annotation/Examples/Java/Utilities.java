@@ -26,7 +26,7 @@ public class Utilities {
 	// ExStart:commonutilities
 	public final static String storagePath = "./Data/SourceFiles/";
 	public final static String outputPath = "./Data/OutputFiles/";
-	public static final String licensePath = "D://GroupDocs.Total.Java.lic";
+	public static final String licensePath = "E://GroupDocs.Total.Java.lic";
 	// ExEnd::commonutilities
 	// Applies License
 	public static void applyLicenseFromFile() {

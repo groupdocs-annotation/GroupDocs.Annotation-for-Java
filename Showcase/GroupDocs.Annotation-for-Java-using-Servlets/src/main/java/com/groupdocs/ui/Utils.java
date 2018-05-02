@@ -39,7 +39,7 @@ public class Utils {
         long documentId = imageHandler.createDocument(name);
 
         try (InputStream original = new FileInputStream(Utils.getStoragePath() + "/" + name)) {
-            imageHandler.importAnnotations(original, documentId);
+            imageHandler.importAnnotations(original, ""+documentId);
         } catch (Exception x) {
             throw new RuntimeException(x);
         }
