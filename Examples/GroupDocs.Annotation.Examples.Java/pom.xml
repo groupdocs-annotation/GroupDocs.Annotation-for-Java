@@ -31,6 +31,13 @@
 			<version>2.6.4</version>
 		</dependency>
 	</dependencies>
+	   <repositories>
+		<repository>
+			<id>GroupDocsJavaAPI</id>
+			<name>GroupDocs Java API</name>
+			<url>http://artifact.groupdocs.com/repo/</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
@@ -59,11 +66,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
-	<repositories>
-		<repository>
-			<id>maven-central</id>
-			<url>http://repo1.maven.org/maven2</url>
-		</repository>
-	</repositories>
+	</build> 
 </project>
