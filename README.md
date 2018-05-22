@@ -16,12 +16,14 @@ Directory | Description
 [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Contains the package of all Java examples and sample files that will help you learn how to use product features. 
 [Showcases](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Showcase)  | Explore the open source showcase projects that allow users to view and annotate a document in a web browser.  
 
-# Resources
+#  Resources
 
-+ **Website:** [www.groupdocs.com](http://www.groupdocs.com)
++ **Website:** [www.groupdocs.com](https://www.groupdocs.com)
 + **Product Home:** [GroupDocs.Annotation for Java](https://products.groupdocs.com/annotation/java)
-+ **Download:** [Download GroupDocs.Annotation for Java](https://downloads.groupdocs.com/annotation/java)
++ **API Reference:** [GroupDocs.Annotation for Java API Reference](https://apireference.groupdocs.com/java/annotation)
++ **Download:** [Download GroupDocs.Annotation for Java](https://artifact.groupdocs.com/repo/com/groupdocs/groupdocs-annotation/)
 + **Documentation:** [GroupDocs.Annotation for Java Documentation](https://docs.groupdocs.com/display/annotationjava/Home)
-+ **Forum:** [GroupDocs.Annotation for Java Forum](https://forum.groupdocs.com/c/annotation)
++ **Free Support:** [GroupDocs.Annotation for Java Free Support Forum](https://forum.groupdocs.com/c/annotation)
++ **Paid Support:** [GroupDocs.Annotation for Java Paid Support Helpdesk](https://helpdesk.groupdocs.com/)
 + **Blog:** [GroupDocs.Annotation for Java Blog](https://blog.groupdocs.com/category/groupdocs-annotation-product-family/)
 
