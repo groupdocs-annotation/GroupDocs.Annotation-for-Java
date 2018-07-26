@@ -21,6 +21,7 @@ import com.groupdocs.annotation.domain.image.PageImage;
 import com.groupdocs.annotation.domain.options.ImageOptions;
 import com.groupdocs.annotation.handler.AnnotationImageHandler;
 import com.groupdocs.annotation.handler.input.IDocumentDataHandler;
+import com.groupdocs.signature.examples.Metered;
 
 public class Utilities {
 	// ExStart:commonutilities
@@ -41,7 +42,14 @@ public class Utilities {
 		}
 		//ExEnd:applyLicenseFromFile
 	}
-
+	public static void setMeteredLicense(){
+		//ExStart:setMeteredLicense
+		String PublicKey = ""; // Your public license key
+		String PrivateKey = ""; // Your private license key
+		com.groupdocs.annotation.common.license.Metered metered = new com.groupdocs.annotation.common.license.Metered();
+		metered.setMeteredKey(PublicKey, PrivateKey);
+		//ExEnd:setMeteredLicense
+	}
 	// Returns AnnotationConfig configurations
 	public static AnnotationConfig getConfiguration() {
 		//ExStart:getConfiguration
