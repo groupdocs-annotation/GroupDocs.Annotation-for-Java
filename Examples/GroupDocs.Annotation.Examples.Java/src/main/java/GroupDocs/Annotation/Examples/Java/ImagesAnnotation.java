@@ -230,13 +230,10 @@ public class ImagesAnnotation {
 		// ExStart:addAnnotationDiagrams
 		AnnotationConfig cfg = Utilities.getConfiguration();
 		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
-		InputStream cleanDiagramFile = new FileInputStream(Utilities.storagePath + File.separator + fileName);
-		// FileInputStream input = new
-		// FileInputStream("AddAnnotations.TestData.");
-		// //Assembly.GetExecutingAssembly().GetManifestResourceStream("AddAnnotations.TestData.");
+		InputStream cleanDiagramFile = new FileInputStream(Utilities.storagePath + File.separator + fileName);		
 		List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
 
-		// Area annotation with 2 replies
+		// Area annotation
 		AnnotationInfo areaAnnnotation = new AnnotationInfo();
 		areaAnnnotation.setCreatedOn(new Date());
 		areaAnnnotation.setType(AnnotationType.Area);
@@ -268,6 +265,7 @@ public class ImagesAnnotation {
 		AnnotationInfo resourceRedactionAnnotation = new AnnotationInfo();
 		resourceRedactionAnnotation.setType(AnnotationType.ResourcesRedaction);
 		resourceRedactionAnnotation.setBox(new Rectangle(200, 114.5f, 282.3f, 103.7f));
+		
 		annotations.add(areaAnnnotation);
 		annotations.add(polylineAnnotation);
 		annotations.add(textFieldAnnotation);
@@ -281,5 +279,77 @@ public class ImagesAnnotation {
 		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.vsdx");
 		IOUtils.copy(result, fileStream);
 		// ExEnd:addAnnotationDiagrams
+	}
+	
+	public static void addDistanceAnnotationInDiagrams(String fileName) throws Throwable {
+		// ExStart:addDistanceAnnotationInDiagrams
+		AnnotationConfig cfg = Utilities.getConfiguration();
+		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+		InputStream cleanDiagramFile = new FileInputStream(Utilities.storagePath + File.separator + fileName);		
+		List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+		// Distance annotation
+		AnnotationInfo distanceAnnotation = new AnnotationInfo();
+		distanceAnnotation.setCreatedOn(new Date());
+		distanceAnnotation.setType(AnnotationType.Distance);
+		distanceAnnotation.setBox(new Rectangle((float)248.73202514648438, (float)287.85653686523438, (float)115.9178466796875, (float)25.143020629882812));
+		distanceAnnotation.setSvgPath("M248.73201877934272,295.5439436619718 l115.28309859154929,-4.192112676056338");
+		
+		annotations.add(distanceAnnotation);
+
+		// Add annotation to the document
+		InputStream result = annotator.exportAnnotationsToDocument(cleanDiagramFile, annotations);
+		// Save result stream to file.
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.vsdx");
+		IOUtils.copy(result, fileStream);
+		// ExEnd:addDistanceAnnotationInDiagrams
+	}
+	
+	public static void addPointAnnotationInDiagrams(String fileName) throws Throwable {
+		// ExStart:addPointAnnotationInDiagrams
+		AnnotationConfig cfg = Utilities.getConfiguration();
+		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+		InputStream cleanDiagramFile = new FileInputStream(Utilities.storagePath + File.separator + fileName);		
+		List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+		// Point annotation
+		AnnotationInfo pointAnnnotation = new AnnotationInfo();
+		pointAnnnotation.setCreatedOn(new Date());
+		pointAnnnotation.setType(AnnotationType.Point);
+		pointAnnnotation.setBox(new Rectangle(150.32f, 99.22f, 0, 0));
+		pointAnnnotation.setPageNumber(0);
+		
+		annotations.add(pointAnnnotation);
+
+		// Add annotation to the document
+		InputStream result = annotator.exportAnnotationsToDocument(cleanDiagramFile, annotations);
+		// Save result stream to file.
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.vsdx");
+		IOUtils.copy(result, fileStream);
+		// ExEnd:addPointAnnotationInDiagrams
+	}
+	
+	public static void addWatermarkAnnotationInDiagrams(String fileName) throws Throwable {
+		// ExStart:addWatermarkAnnotationInDiagrams
+		AnnotationConfig cfg = Utilities.getConfiguration();
+		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+		InputStream cleanDiagramFile = new FileInputStream(Utilities.storagePath + File.separator + fileName);		
+		List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+		// Watermark annotation
+		AnnotationInfo watermarkAnnnotation = new AnnotationInfo();
+		watermarkAnnnotation.setCreatedOn(new Date());
+		watermarkAnnnotation.setFieldText("Watermark text");
+		watermarkAnnnotation.setFontColor(16711680);
+		watermarkAnnnotation.setFontFamily("Microsoft Sans Serif");
+		watermarkAnnnotation.setFontSize(17);
+		watermarkAnnnotation.setOpacity(0.3);
+		watermarkAnnnotation.setType(AnnotationType.Watermark);
+		
+		annotations.add(watermarkAnnnotation);
+
+		// Add annotation to the document
+		InputStream result = annotator.exportAnnotationsToDocument(cleanDiagramFile, annotations);
+		// Save result stream to file.
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.vsd");
+		IOUtils.copy(result, fileStream);
+		// ExEnd:addWatermarkAnnotationInDiagrams
 	}
 }

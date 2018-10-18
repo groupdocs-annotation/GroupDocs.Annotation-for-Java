@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 
 import com.groupdocs.annotation.common.license.License;
+import com.groupdocs.annotation.common.license.Metered;
 import com.groupdocs.annotation.domain.AnnotationInfo;
 import com.groupdocs.annotation.domain.DocumentType;
 import com.groupdocs.annotation.domain.PageData;
@@ -21,7 +22,7 @@ import com.groupdocs.annotation.domain.image.PageImage;
 import com.groupdocs.annotation.domain.options.ImageOptions;
 import com.groupdocs.annotation.handler.AnnotationImageHandler;
 import com.groupdocs.annotation.handler.input.IDocumentDataHandler;
-import com.groupdocs.signature.examples.Metered;
+
 
 public class Utilities {
 	// ExStart:commonutilities
@@ -29,6 +30,7 @@ public class Utilities {
 	public final static String outputPath = "./Data/OutputFiles/";
 	public static final String licensePath = "E://GroupDocs.Total.Java.lic";
 	// ExEnd::commonutilities
+	
 	// Applies License
 	public static void applyLicenseFromFile() {
 		//ExStart:applyLicenseFromFile
@@ -42,11 +44,12 @@ public class Utilities {
 		}
 		//ExEnd:applyLicenseFromFile
 	}
-	public static void setMeteredLicense(){
+	
+	public static void setMeteredLicense() throws Exception{
 		//ExStart:setMeteredLicense
 		String PublicKey = ""; // Your public license key
 		String PrivateKey = ""; // Your private license key
-		com.groupdocs.annotation.common.license.Metered metered = new com.groupdocs.annotation.common.license.Metered();
+		Metered metered = new Metered();
 		metered.setMeteredKey(PublicKey, PrivateKey);
 		//ExEnd:setMeteredLicense
 	}
@@ -127,5 +130,4 @@ public class Utilities {
 		}
 		//ExEnd:getTextCoordinates
 	}
-
 }
