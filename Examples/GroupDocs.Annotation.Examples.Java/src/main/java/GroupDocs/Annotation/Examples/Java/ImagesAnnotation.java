@@ -169,11 +169,10 @@ public class ImagesAnnotation {
 
 		InputStream result = annotator.exportAnnotationsToDocument(cleanPresentation, annotations, DocumentType.Images);
 
-		try (OutputStream fileStream = new FileOutputStream(
-				Utilities.outputPath + File.separator + "Image-annotated.png")) {
-			System.out.println(result.available());
-			IOUtils.copy(result, fileStream);
-		}
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Image-annotated.png");
+		System.out.println(result.available());
+		IOUtils.copy(result, fileStream);
+		
 		// ExEnd:differentAnnotationsForImages
 	}
 
@@ -340,7 +339,7 @@ public class ImagesAnnotation {
 		watermarkAnnnotation.setFontColor(16711680);
 		watermarkAnnnotation.setFontFamily("Microsoft Sans Serif");
 		watermarkAnnnotation.setFontSize(17);
-		watermarkAnnnotation.setOpacity(0.3);
+		//watermarkAnnnotation.setOpacity(0.3);
 		watermarkAnnnotation.setType(AnnotationType.Watermark);
 		
 		annotations.add(watermarkAnnnotation);

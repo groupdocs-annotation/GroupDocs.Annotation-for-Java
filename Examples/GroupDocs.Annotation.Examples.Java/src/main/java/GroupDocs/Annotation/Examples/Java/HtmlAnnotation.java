@@ -96,10 +96,11 @@ public class HtmlAnnotation {
 		InputStream result = annotator.exportAnnotationsToDocument(cleanDoc, annotations, DocumentType.Words);
 		 
 		// Save result stream to file.
-		try (OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.html")) { // "../../Annotated.html"
-		    System.out.println(result.available());
-		    IOUtils.copy(result, fileStream);
-		}
+		
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.html");
+	    System.out.println(result.available());
+	    IOUtils.copy(result, fileStream);
+		
 		//ExEnd:createAnnotationForHtml
 	}
 }

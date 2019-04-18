@@ -177,10 +177,11 @@ public class SlidesAnnotation {
 		annotations.add(underlineAnnotation);
 		 
 		InputStream result = annotator.exportAnnotationsToDocument(cleanPresentation, annotations, DocumentType.Slides);
-		try (OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "slides-annotated.pptx")) {
-		    System.out.println(result.available());
-		    IOUtils.copy(result, fileStream);
-		}
+		
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "slides-annotated.pptx");
+	    System.out.println(result.available());
+	    IOUtils.copy(result, fileStream);
+		
 		//ExEnd:differentAnnotationsForSlides
 	}
 
