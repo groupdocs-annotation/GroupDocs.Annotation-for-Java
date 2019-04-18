@@ -24,6 +24,7 @@ import com.groupdocs.annotation.domain.ReviewerInfo;
 import com.groupdocs.annotation.domain.RowData;
 import com.groupdocs.annotation.domain.config.AnnotationConfig;
 import com.groupdocs.annotation.domain.containers.DocumentInfoContainer;
+import com.groupdocs.annotation.domain.options.ExportOptions;
 import com.groupdocs.annotation.domain.results.CreateAnnotationResult;
 import com.groupdocs.annotation.domain.results.GetCollaboratorsResult;
 import com.groupdocs.annotation.domain.results.SetCollaboratorsResult;
@@ -40,7 +41,7 @@ public class PDFAnnotation {
 	/*
 	 * document name
 	 */
-	public static String fileName = "sample.pdf";
+	public static String fileName = "source.pdf";
 	
 	// region Working with Annotations in PDF
 
@@ -109,7 +110,7 @@ public class PDFAnnotation {
 			areaAnnnotation.setPenColor(2222222);
 			areaAnnnotation.setPenStyle((byte) 1);
 			areaAnnnotation.setPenWidth((byte) 1);
-			areaAnnnotation.setOpacity(0.5);
+			//areaAnnnotation.setOpacity(0.5);
 			areaAnnnotation.setType(AnnotationType.Area);
 			areaAnnnotation.setCreatorName("Anonym A.");
 			annotations.add(areaAnnnotation);
@@ -176,7 +177,7 @@ public class PDFAnnotation {
 			strikeoutAnnotation.setBox(new Rectangle(68, 154, 102, 9));
 			strikeoutAnnotation.setPageNumber(0);
 			strikeoutAnnotation.setPenColor(0);
-			strikeoutAnnotation.setOpacity(0.5);
+			//strikeoutAnnotation.setOpacity(0.5);
 			strikeoutAnnotation.setType(AnnotationType.TextStrikeout);
 			strikeoutAnnotation.setCreatorName("Anonym A.");
 			annotations.add(strikeoutAnnotation);
@@ -453,7 +454,7 @@ public class PDFAnnotation {
 			underlineAnnotation.setBox(new Rectangle(68f, 154f, 102f, 9f));
 			underlineAnnotation.setPageNumber(0);
 			underlineAnnotation.setPenColor(1201033);
-			underlineAnnotation.setOpacity(0.5);
+			//underlineAnnotation.setOpacity(0.5);
 			underlineAnnotation.setType(AnnotationType.TextUnderline);
 			underlineAnnotation.setCreatorName("Anonym A.");
 			annotations.add(underlineAnnotation);
@@ -626,5 +627,54 @@ public class PDFAnnotation {
 		    }
 		}
 		//ExEnd:gettingTextCoordinates
+	}
+	
+	/*
+	 * Export Annotations using ExportOptions
+	 */
+	public static void exportAnnotationsUsingExportOption() {
+		//ExStart:exportAnnotationsUsingExportOption
+		try {
+			AnnotationConfig cfg = Utilities.getConfiguration();
+			AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+			annotator.getDocumentDataHandler();
+			InputStream cleanPdf = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+			
+			List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+			// text annotation
+			AnnotationInfo textAnnotation = new AnnotationInfo();
+			textAnnotation.setBox(new Rectangle(68, 154, 102, 9));
+			textAnnotation.setPageNumber(0);
+			textAnnotation.setType(AnnotationType.Text);
+			textAnnotation.setCreatorName("Anonym A.");
+			annotations.add(textAnnotation);
+			
+			// export options
+			ExportOptions options = new ExportOptions();
+			options.setDocumentType(DocumentType.Pdf);
+
+			/** Export specific types of Annotations **/
+			List<Byte> typesToExport = new ArrayList<Byte>();
+			typesToExport.add(AnnotationType.Text);
+			options.setAnnotationTypes(typesToExport);
+
+			/** Export only pages with annotations **/
+			options.setAnnotatedPages(true);
+
+			/** Export page range **/
+			options.setFirstPage(0);
+			options.setLastPage(1);
+			
+			// Add annotation to the document
+			InputStream result = annotator.exportAnnotationsToDocument(cleanPdf, annotations, options);
+			// Save result stream to file.
+			OutputStream fileStream = new FileOutputStream(
+					Utilities.outputPath + File.separator + "annotated-text.pdf");
+			IOUtils.copy(result, fileStream);
+		} catch (Exception e) {
+			System.out.println("Exception :" + e.getMessage());
+			e.printStackTrace();
+		}
+		//ExEnd:exportAnnotationsUsingExportOption
 	}
 }

@@ -96,10 +96,11 @@ public class EmailAnnotation {
 		InputStream result = annotator.exportAnnotationsToDocument(cleanDoc, annotations, DocumentType.Words);
 		 
 		// Save result stream to file.
-		try (OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.eml")) { // "../../Annotated.eml"
-		    System.out.println(result.available());
-		    IOUtils.copy(result, fileStream);
-		}
+		
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.eml");
+	    System.out.println(result.available());
+	    IOUtils.copy(result, fileStream);
+		
 		//ExEnd:differentAnnotationsForEmail
 	}
 }

@@ -493,7 +493,7 @@ public class WordsAnnotation {
 			watermarkAnnnotation.setFontColor(16711680);
 			watermarkAnnnotation.setFontFamily("Microsoft Sans Serif");
 			watermarkAnnnotation.setFontSize(17);
-			watermarkAnnnotation.setOpacity(0.3);
+			//watermarkAnnnotation.setOpacity(0.3);
 			watermarkAnnnotation.setType(AnnotationType.Watermark);
 			
 			annotations.add(watermarkAnnnotation);

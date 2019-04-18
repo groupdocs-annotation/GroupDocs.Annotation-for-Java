@@ -25,6 +25,9 @@ public class MainClass {
 		// 	PDFAnnotation.addDistanceAnnotationInPDF();
 		//	PDFAnnotation.usersWithDifferentRights();
 		//	PDFAnnotation.gettingTextCoordinates("sample.pdf");
+		
+		//	PDFAnnotation.exportAnnotationsUsingExportOption();
+		
 
 		// 	Annotation in Cells
 
