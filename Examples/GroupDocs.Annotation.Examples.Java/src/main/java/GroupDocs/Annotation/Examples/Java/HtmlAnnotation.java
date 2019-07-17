@@ -20,6 +20,7 @@ import com.groupdocs.annotation.domain.config.AnnotationConfig;
 import com.groupdocs.annotation.handler.AnnotationImageHandler;
 
 public class HtmlAnnotation {
+	//Sami
 	public static void createAnnotationForHtml(String fileName) throws Throwable, Throwable{
 		//ExStart:createAnnotationForHtml
 		AnnotationConfig cfg = Utilities.getConfiguration();
@@ -50,14 +51,14 @@ public class HtmlAnnotation {
 		AnnotationInfo textFieldAnnotation = new AnnotationInfo();
 		textFieldAnnotation.setFieldText("text in the box");
 		textFieldAnnotation.setFontFamily("Arial");
-		textFieldAnnotation.setFontSize(10);
+		textFieldAnnotation.setFontSize(10D);
 		textFieldAnnotation.setBox(new Rectangle(92f, 73f, 106f, 45f));
 		textFieldAnnotation.setPageNumber(1);
 		textFieldAnnotation.setType(AnnotationType.TextField);
 		 
 		AnnotationInfo textReplacementAnnotation = new AnnotationInfo();
 		textReplacementAnnotation.setFieldText(" \"REPLACED TEXT\" ");
-		textReplacementAnnotation.setFontSize(10);
+		textReplacementAnnotation.setFontSize(10D);
 		textReplacementAnnotation.setSvgPath("[{\"x\":251.224,\"y\":637.20401},{\"x\":327.89,\"y\":637.20401},{\"x\":251.224,\"y\":628.20401},{\"x\":327.89,\"y\":628.20401}]");
 		textReplacementAnnotation.setPageNumber(0);
 		textReplacementAnnotation.setType(AnnotationType.TextReplacement);
