@@ -64,6 +64,7 @@ public class SlidesAnnotation {
 	/*
 	 * Creating annotations of different types
 	 */
+	
 	public static void differentAnnotationsForSlides() throws Throwable{
 		//ExStart:differentAnnotationsForSlides
 		AnnotationConfig cfg = Utilities.getConfiguration();
@@ -140,7 +141,7 @@ public class SlidesAnnotation {
 		watermarkAnnotation.setFieldText("This is watermark");
 		watermarkAnnotation.setFontFamily("arial");
 		watermarkAnnotation.setBox(new Rectangle(100,50,50,0));
-		watermarkAnnotation.setFontSize(25);
+		watermarkAnnotation.setFontSize(25D);
 		watermarkAnnotation.setFontColor(-15988609);
 		//Text annotations
 		 
@@ -203,5 +204,36 @@ public class SlidesAnnotation {
 		System.out.println(output.available());
 		IOUtils.copy(output, fileStream);
 		//ExEnd:importingAnnotationsToSlide
+	}
+	
+	/*
+	 * Add Ellipse Annotation in Slides
+	 */
+	public static void addEllipseAnnotationInSlides() {
+		//ExStart:addEllipseAnnotationInSlides
+		try {
+			AnnotationConfig cfg = Utilities.getConfiguration();
+			AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+			annotator.getDocumentDataHandler();
+			InputStream inputStream = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+			List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+			// Ellipse annotation
+			AnnotationInfo ellipseAnnotation = new AnnotationInfo();
+			ellipseAnnotation.setBox(new Rectangle(430f, 272f, 66f, 51f));
+			ellipseAnnotation.setPageNumber(0);
+			ellipseAnnotation.setType(AnnotationType.Ellipse);
+			ellipseAnnotation.setCreatorName("Anonym A.");			
+			annotations.add(ellipseAnnotation);
+			// Add annotation to the document
+			InputStream result = annotator.exportAnnotationsToDocument(inputStream, annotations, DocumentType.Slides);
+			// Save result stream to file.
+			OutputStream fileStream = new FileOutputStream(
+					Utilities.outputPath + File.separator + "slides-annotated.pptx");
+			IOUtils.copy(result, fileStream);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+		//ExEnd:addEllipseAnnotationInSlides
 	}
 }

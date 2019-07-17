@@ -24,6 +24,7 @@ import com.groupdocs.annotation.domain.ReviewerInfo;
 import com.groupdocs.annotation.domain.RowData;
 import com.groupdocs.annotation.domain.config.AnnotationConfig;
 import com.groupdocs.annotation.domain.containers.DocumentInfoContainer;
+import com.groupdocs.annotation.domain.image.PageImage;
 import com.groupdocs.annotation.domain.options.ExportOptions;
 import com.groupdocs.annotation.domain.results.CreateAnnotationResult;
 import com.groupdocs.annotation.domain.results.GetCollaboratorsResult;
@@ -233,6 +234,7 @@ public class PDFAnnotation {
 	/*
 	 * add text field annotation in PDF
 	 */
+	
 	public static void addTextFieldAnnotationInPDF() {
 		//ExStart:addTextFieldAnnotationInPDF
 		try {
@@ -246,7 +248,7 @@ public class PDFAnnotation {
 			textFieldAnnotation.setAnnotationPosition(new Point(852.0, 201.0));
 			textFieldAnnotation.setFieldText("text in the box");
 			textFieldAnnotation.setFontFamily("Arial");
-			textFieldAnnotation.setFontSize(10);
+			textFieldAnnotation.setFontSize(10D);
 			textFieldAnnotation.setBox(new Rectangle(66f, 201f, 64f, 37f));
 			textFieldAnnotation.setPageNumber(0);
 			textFieldAnnotation.setType(AnnotationType.TextField);
@@ -268,6 +270,7 @@ public class PDFAnnotation {
 	/*
 	 * add watermark annotation in PDF
 	 */
+	
 	public static void addWatermarkAnnotationInPDF() {
 		//ExStart:addWatermarkAnnotationInPDF
 		try {
@@ -281,11 +284,11 @@ public class PDFAnnotation {
 			watermarkAnnotation.setAnnotationPosition(new Point(852.0, 300.0));
 			watermarkAnnotation.setFieldText("TEXT STAMP");
 			watermarkAnnotation.setFontFamily("Microsoft Sans Serif");
-			watermarkAnnotation.setFontSize(10);
+			watermarkAnnotation.setFontSize(10D);
 			watermarkAnnotation.setFontColor(2222222);
 			watermarkAnnotation.setBox(new Rectangle(430f, 272f, 66f, 51f));
 			watermarkAnnotation.setPageNumber(0);
-			watermarkAnnotation.setType(AnnotationType.TextField);
+			watermarkAnnotation.setType(AnnotationType.Watermark);
 			watermarkAnnotation.setCreatorName("Anonym A.");
 			annotations.add(watermarkAnnotation);
 			// Add annotation to the document
@@ -304,6 +307,7 @@ public class PDFAnnotation {
 	/*
 	 * add text replacement annotation in PDF
 	 */
+	
 	public static void addTextReplacementAnnotationInPDF() {
 		//ExStart:addTextReplacementAnnotationInPDF
 		try {
@@ -316,7 +320,7 @@ public class PDFAnnotation {
 			AnnotationInfo textReplacementAnnotation = new AnnotationInfo();
 			textReplacementAnnotation.setAnnotationPosition(new Point(852.0, 172.0));
 			textReplacementAnnotation.setFieldText("Replaced text");
-			textReplacementAnnotation.setFontSize(10);
+			textReplacementAnnotation.setFontSize(10D);
 			textReplacementAnnotation.setBox(new Rectangle(68f, 154f, 102f, 9f));
 			textReplacementAnnotation.setPageNumber(0);
 			textReplacementAnnotation.setType(AnnotationType.TextReplacement);
@@ -677,4 +681,104 @@ public class PDFAnnotation {
 		}
 		//ExEnd:exportAnnotationsUsingExportOption
 	}
+	
+	/*
+	 * Add Ellipse Annotation in PDF
+	 */
+	public static void addEllipseAnnotationInPDF() {
+		//ExStart:addEllipseAnnotationInPDF
+		try {
+			AnnotationConfig cfg = Utilities.getConfiguration();
+			AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+			annotator.getDocumentDataHandler();
+			InputStream inputStream = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+			List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+			// Ellipse annotation
+			AnnotationInfo ellipseAnnotation = new AnnotationInfo();
+			ellipseAnnotation.setBox(new Rectangle(430f, 272f, 66f, 51f));
+			ellipseAnnotation.setPageNumber(0);
+			ellipseAnnotation.setType(AnnotationType.Ellipse);
+			ellipseAnnotation.setCreatorName("Anonym A.");			
+			annotations.add(ellipseAnnotation);
+			// Add annotation to the document
+			InputStream result = annotator.exportAnnotationsToDocument(inputStream, annotations, DocumentType.Pdf);
+			// Save result stream to file.
+			OutputStream fileStream = new FileOutputStream(
+					Utilities.outputPath + File.separator + "annotated-ellipsed.pdf");
+			IOUtils.copy(result, fileStream);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+		//ExEnd:addEllipseAnnotationInPDF
+	}
+	
+	/*
+	 * Get Thumbnails Of Document Pages
+	 */
+	public static void getThumbnailsOfPagesForPDF() {
+		//ExStart:getThumbnailsOfPagesForPDF
+		try {
+			AnnotationConfig cfg = Utilities.getConfiguration();
+			AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+			annotator.getDocumentDataHandler();
+			//InputStream inputFile = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+			List<PageImage> pages = annotator.getPages(fileName);
+			  
+			// get thumbnails:
+			for (int i = 0; i < pages.size(); i++) {
+			    InputStream stream = pages.get(i).getThumbnail();
+			    // do something with stream 
+			}
+			  
+			// Default image size was 300x180.
+			for (int i = 0; i < pages.size(); i++) {
+			    InputStream stream = pages.get(i).getThumbnail(100, 100);
+			    // do something with stream 
+			}
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+		//ExEnd:getThumbnailsOfPagesForPDF
+	}
+	
+	/*
+	 * Set Watermark Angle for PDF
+	 */
+	public static void setWatermarkAngleForPDF() {
+		//ExStart:setWatermarkAngleForPDF
+		try {
+			AnnotationConfig cfg = Utilities.getConfiguration();
+			AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+			annotator.getDocumentDataHandler();
+			InputStream inputStream = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+			List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+			// Watermark annotation
+			AnnotationInfo watermarkAnnotation = new AnnotationInfo();
+			watermarkAnnotation.setFieldText("TEXT STAMP");
+			watermarkAnnotation.setFontFamily("Microsoft Sans Serif");
+			watermarkAnnotation.setFontSize(10D);
+			watermarkAnnotation.setFontColor(2222222);
+			watermarkAnnotation.setBox(new Rectangle(430f, 272f, 66f, 51f));
+			watermarkAnnotation.setPageNumber(0);
+			watermarkAnnotation.setType(AnnotationType.Watermark);
+			watermarkAnnotation.setCreatorName("Anonym A.");
+			//set Angle
+			watermarkAnnotation.setAngle(45.0);
+			annotations.add(watermarkAnnotation);
+			// Add annotation to the document
+			InputStream result = annotator.exportAnnotationsToDocument(inputStream, annotations, DocumentType.Pdf);
+			// Save result stream to file.
+			OutputStream fileStream = new FileOutputStream(
+					Utilities.outputPath + File.separator + "annotated-angled-watermark.pdf");
+			IOUtils.copy(result, fileStream);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+		//ExEnd:setWatermarkAngleForPDF
+	}
+	
+	
 }

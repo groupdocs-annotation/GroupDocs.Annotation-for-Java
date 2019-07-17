@@ -258,6 +258,7 @@ public class DataStorage {
 	}
 
 	// Updates the text in the annotation
+	
 	public static void editTextFieldAnnotations() {
 		//ExStart:editTextFieldAnnotations
 		try {
@@ -272,7 +273,7 @@ public class DataStorage {
 			textFieldAnnotation.setAnnotationPosition(new Point(852.0, 201.0));
 			textFieldAnnotation.setFieldText("text in the box");
 			textFieldAnnotation.setFontFamily("Arial");
-			textFieldAnnotation.setFontSize(10);
+			textFieldAnnotation.setFontSize(10D);
 			textFieldAnnotation.setBox(new Rectangle(66f, 201f, 64f, 37f));
 			textFieldAnnotation.setPageNumber(0);
 			textFieldAnnotation.setType(AnnotationType.TextField);
@@ -284,7 +285,7 @@ public class DataStorage {
 			final TextFieldInfo textFieldInfo = new TextFieldInfo();
 			textFieldInfo.setFieldText("new text");
 			textFieldInfo.setFontFamily("Colibri");
-			textFieldInfo.setFontSize(12);
+			textFieldInfo.setFontSize(12D);
 			SaveAnnotationTextResult saveTextFieldResult = annotator
 					.saveTextField(createTextFieldAnnotationResult.getId(), textFieldInfo);
 			System.out.println(saveTextFieldResult);
@@ -472,6 +473,7 @@ public class DataStorage {
 	}
 
 	// Updates document collaborator
+	
 	public static void updateCollaborator() {
 		//ExStart:updateCollaborator
 		try {
@@ -506,7 +508,7 @@ public class DataStorage {
 			reviewerInfo.setAccessRights(AnnotationReviewerRights.All);
 			// Update collaborator. Only color and access rights will be
 			// updated.
-			reviewerInfo.setColor(3355443L);
+			reviewerInfo.setColor(3355443);
 			SetCollaboratorsResult updateCollaboratorResult = annotator.updateCollaborator(documentId, reviewerInfo);
 			System.out.println(updateCollaboratorResult);
 		} catch (Exception e) {

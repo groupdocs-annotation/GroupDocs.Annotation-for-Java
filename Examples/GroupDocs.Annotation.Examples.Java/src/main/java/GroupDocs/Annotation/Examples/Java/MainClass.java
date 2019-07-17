@@ -6,7 +6,7 @@ public class MainClass {
 		
 		//	Apply license
 		
-		//	Utilities.applyLicenseFromFile();
+		//  Utilities.applyLicenseFromFile();
 
 		//	Annotations in PDF
 		
@@ -24,20 +24,27 @@ public class MainClass {
 		//	PDFAnnotation.addUnderlineAnnotationInPDF();
 		// 	PDFAnnotation.addDistanceAnnotationInPDF();
 		//	PDFAnnotation.usersWithDifferentRights();
-		//	PDFAnnotation.gettingTextCoordinates("sample.pdf");
-		
+		//	PDFAnnotation.gettingTextCoordinates("sample.pdf");		
 		//	PDFAnnotation.exportAnnotationsUsingExportOption();
+		
+		//  PDFAnnotation.addEllipseAnnotationInPDF();
+		//  PDFAnnotation.getThumbnailsOfPagesForPDF();
+		//  PDFAnnotation.setWatermarkAngleForPDF();
 		
 
 		// 	Annotation in Cells
 
 		// 	CellsAnnotation.addAnnotationInCells();
+		
+		//  CellsAnnotation.addEllipseAnnotationInCells();
 
 		// 	Annotation in Slides
 		
 		// 	SlidesAnnotation.addAnnotationInSlides();
 		//	SlidesAnnotation.differentAnnotationsForSlides();
 		//	SlidesAnnotation.importingAnnotationsToSlide();
+		
+		//  SlidesAnnotation.addEllipseAnnotationInSlides();
 
 		// 	Annotation in Words
 		
@@ -51,12 +58,13 @@ public class MainClass {
 		// 	WordsAnnotation.addTextRedactionAnnotationInWords();
 		// 	WordsAnnotation.addResourceRedactionAnnotationInWords();
 		// 	WordsAnnotation.addUnderlineAnnotationInWords();
-		//	WordsAnnotation.importingAnnotationsFromWordDoc();
-		
+		//	WordsAnnotation.importingAnnotationsFromWordDoc();		
 		//	WordsAnnotation.addDistanceAnnotationInWords();
 		//	WordsAnnotation.addPolylineAnnotationInWords();
 		//	WordsAnnotation.addWatermarkAnnotationInWords();
 		//	WordsAnnotation.addPointAnnotationInWords();
+		
+		//  WordsAnnotation.addEllipseAnnotationInWords();
 
 		// 	Data Storage Functions
 			
@@ -77,16 +85,24 @@ public class MainClass {
 		// 	DataStorage.managesCollaboratorRights();
 		// 	DataStorage.exportAnnotations();
 		
-		//	Annotation in Images/Diagrams
+		//	Annotation in Images
 			
-		//	ImagesAnnotation.differentAnnotationsForImages("image.png");
-		//	ImagesAnnotation.getDocInfoForDiagram("sample.vsd");
-		//	ImagesAnnotation.getPageImagesForDiagramDocs("sample.vsd");
-		//	ImagesAnnotation.addAnnotationDiagrams("sample.vsd");
-			
-		//	ImagesAnnotation.addDistanceAnnotationInDiagrams("sample.vsd");
-		//	ImagesAnnotation.addPointAnnotationInDiagrams("sample.vsd");
-		//	ImagesAnnotation.addWatermarkAnnotationInDiagrams("sample.vsd");
+		//	ImagesAnnotation.differentAnnotationsForImages();
+		
+		//  ImagesAnnotation.addEllipseAnnotationInImages();
+		
+		//	Annotation in Diagrams
+		
+		//	DiagramsAnnotation.getDocInfoForDiagram();
+		//	DiagramsAnnotation.getPageImagesForDiagramDocs();
+		//	DiagramsAnnotation.addAnnotationDiagrams();			
+		//	DiagramsAnnotation.addDistanceAnnotationInDiagrams();
+		//	DiagramsAnnotation.addPointAnnotationInDiagrams();
+		//	DiagramsAnnotation.addWatermarkAnnotationInDiagrams();
+		
+		//	DiagramsAnnotation.addEllipseAnnotationInDiagrams();
+		
+		
 			
 		//	Annotation in Emails
 			

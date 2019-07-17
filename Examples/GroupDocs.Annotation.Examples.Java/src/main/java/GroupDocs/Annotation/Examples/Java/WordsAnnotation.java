@@ -34,6 +34,7 @@ public class WordsAnnotation {
 	/*
 	 * add different annotations in words
 	 */
+	
 	public static void addDifferentAnnotationInWords() {
 		//ExStart:addDifferentAnnotationInWords
 		try {
@@ -63,13 +64,13 @@ public class WordsAnnotation {
 			AnnotationInfo textFieldAnnotation = new AnnotationInfo();
 			textFieldAnnotation.setFieldText("text in the box");
 			textFieldAnnotation.setFontFamily("Arial");
-			textFieldAnnotation.setFontSize(10);
+			textFieldAnnotation.setFontSize(10D);
 			textFieldAnnotation.setBox(new Rectangle(92f, 73f, 106f, 45f));
 			textFieldAnnotation.setPageNumber(1);
 			textFieldAnnotation.setType(AnnotationType.TextField);
 			AnnotationInfo textReplacementAnnotation = new AnnotationInfo();
 			textReplacementAnnotation.setFieldText(" \"REPLACED TEXT\" ");
-			textReplacementAnnotation.setFontSize(10);
+			textReplacementAnnotation.setFontSize(10D);
 			textReplacementAnnotation.setSvgPath(
 					"[{\"x\":251.224,\"y\":637.20401},{\"x\":327.89,\"y\":637.20401},{\"x\":251.224,\"y\":628.20401},{\"x\":327.89,\"y\":628.20401}]");
 			textReplacementAnnotation.setPageNumber(1);
@@ -214,6 +215,7 @@ public class WordsAnnotation {
 	/*
 	 * add text field annotation in words
 	 */
+	
 	public static void addTextFieldAnnotationInWords() {
 		//ExStart:addTextFieldAnnotationInWords
 		try {
@@ -225,7 +227,7 @@ public class WordsAnnotation {
 			AnnotationInfo textFieldAnnotation = new AnnotationInfo();
 			textFieldAnnotation.setFieldText("text in the box");
 			textFieldAnnotation.setFontFamily("Arial");
-			textFieldAnnotation.setFontSize(10);
+			textFieldAnnotation.setFontSize(10D);
 			textFieldAnnotation.setBox(new Rectangle(92f, 73f, 106f, 45f));
 			textFieldAnnotation.setPageNumber(1);
 			textFieldAnnotation.setType(AnnotationType.TextField);
@@ -247,6 +249,7 @@ public class WordsAnnotation {
 	/*
 	 * add text replacement annotation in words
 	 */
+	
 	public static void addTextReplacementAnnotationInWords() {
 		//ExStart:addTextReplacementAnnotationInWords
 		try {
@@ -257,7 +260,7 @@ public class WordsAnnotation {
 			// init text replacement annotations
 			AnnotationInfo textReplacementAnnotation = new AnnotationInfo();
 			textReplacementAnnotation.setFieldText(" \"REPLACED TEXT\" ");
-			textReplacementAnnotation.setFontSize(10);
+			textReplacementAnnotation.setFontSize(10D);
 			textReplacementAnnotation.setSvgPath(
 					"[{\"x\":251.224,\"y\":637.20401},{\"x\":327.89,\"y\":637.20401},{\"x\":251.224,\"y\":628.20401},{\"x\":327.89,\"y\":628.20401}]");
 			textReplacementAnnotation.setPageNumber(1);
@@ -492,7 +495,7 @@ public class WordsAnnotation {
 			watermarkAnnnotation.setFieldText("Watermark text");
 			watermarkAnnnotation.setFontColor(16711680);
 			watermarkAnnnotation.setFontFamily("Microsoft Sans Serif");
-			watermarkAnnnotation.setFontSize(17);
+			watermarkAnnnotation.setFontSize(17D);
 			//watermarkAnnnotation.setOpacity(0.3);
 			watermarkAnnnotation.setType(AnnotationType.Watermark);
 			
@@ -539,5 +542,36 @@ public class WordsAnnotation {
 			e.printStackTrace();
 		}
 		//ExEnd:addPointAnnotationInWords
+	}
+	
+	/*
+	 * Add Ellipse Annotation in Words
+	 */
+	public static void addEllipseAnnotationInWords() {
+		//ExStart:addEllipseAnnotationInWords
+		try {
+			AnnotationConfig cfg = Utilities.getConfiguration();
+			AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
+			annotator.getDocumentDataHandler();
+			InputStream inputStream = new FileInputStream(Utilities.storagePath + File.separator + fileName);
+			List<AnnotationInfo> annotations = new ArrayList<AnnotationInfo>();
+			// Ellipse annotation
+			AnnotationInfo ellipseAnnotation = new AnnotationInfo();
+			ellipseAnnotation.setBox(new Rectangle(430f, 272f, 66f, 51f));
+			ellipseAnnotation.setPageNumber(0);
+			ellipseAnnotation.setType(AnnotationType.Ellipse);
+			ellipseAnnotation.setCreatorName("Anonym A.");			
+			annotations.add(ellipseAnnotation);
+			// Add annotation to the document
+			InputStream result = annotator.exportAnnotationsToDocument(inputStream, annotations, DocumentType.Words);
+			// Save result stream to file.
+			OutputStream fileStream = new FileOutputStream(
+					Utilities.outputPath + File.separator + "words-annotated.docx");
+			IOUtils.copy(result, fileStream);
+		} catch (Exception e) {
+			System.out.println("Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+		//ExEnd:addEllipseAnnotationInWords
 	}
 }
