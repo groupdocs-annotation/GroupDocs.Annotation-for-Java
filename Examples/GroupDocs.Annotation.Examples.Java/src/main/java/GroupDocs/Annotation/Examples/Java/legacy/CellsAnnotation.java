@@ -1,5 +1,4 @@
-
-package GroupDocs.Annotation.Examples.Java;
+package GroupDocs.Annotation.Examples.Java.legacy;
 
 import java.io.File;
 import java.io.FileInputStream;
