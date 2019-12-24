@@ -1,4 +1,4 @@
-package GroupDocs.Annotation.Examples.Java.legacy;
+package GroupDocs.Annotation.Examples.Java;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,10 +19,10 @@ import com.groupdocs.annotation.domain.Rectangle;
 import com.groupdocs.annotation.domain.config.AnnotationConfig;
 import com.groupdocs.annotation.handler.AnnotationImageHandler;
 
-public class HtmlAnnotation {
+public class EmailAnnotation {
 	//Sami
-	public static void createAnnotationForHtml(String fileName) throws Throwable, Throwable{
-		//ExStart:createAnnotationForHtml
+	public static void differentAnnotationsForEmail(String fileName) throws Throwable, Throwable{
+		//ExStart:differentAnnotationsForEmail
 		AnnotationConfig cfg = Utilities.getConfiguration();
 		AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
 		//there can be also documents of Emlx Msg formats
@@ -53,7 +53,7 @@ public class HtmlAnnotation {
 		textFieldAnnotation.setFontFamily("Arial");
 		textFieldAnnotation.setFontSize(10D);
 		textFieldAnnotation.setBox(new Rectangle(92f, 73f, 106f, 45f));
-		textFieldAnnotation.setPageNumber(1);
+		textFieldAnnotation.setPageNumber(0);
 		textFieldAnnotation.setType(AnnotationType.TextField);
 		 
 		AnnotationInfo textReplacementAnnotation = new AnnotationInfo();
@@ -69,17 +69,17 @@ public class HtmlAnnotation {
 		arrowAnnotation.setType(AnnotationType.Arrow);
 		 
 		AnnotationInfo textRedactionAnnotation = new AnnotationInfo();
-		textRedactionAnnotation.setPageNumber(1);
+		textRedactionAnnotation.setPageNumber(0);
 		textRedactionAnnotation.setSvgPath("[{\"x\":72,\"y\":676.07},{\"x\":196.427,\"y\":676.074},{\"x\":72,\"y\":662.674},{\"x\":196.427,\"y\":662.674}]");
 		textRedactionAnnotation.setType(AnnotationType.TextRedaction);
 		 
 		AnnotationInfo resourceRedactionAnnotation = new AnnotationInfo();
 		resourceRedactionAnnotation.setBox(new Rectangle(69f, 337f, 449f, 118f));
-		resourceRedactionAnnotation.setPageNumber(1);
+		resourceRedactionAnnotation.setPageNumber(0);
 		resourceRedactionAnnotation.setType(AnnotationType.ResourcesRedaction);
 		 
 		AnnotationInfo underlineAnnotation = new AnnotationInfo();
-		underlineAnnotation.setPageNumber(1);
+		underlineAnnotation.setPageNumber(0);
 		underlineAnnotation.setSvgPath("[{\"x\":415.17499,\"y\":628.874},{\"x\":511.85101,\"y\":628.874},{\"x\":415.17499,\"y\":619.874},{\"x\":511.85101,\"y\":619.874}]");
 		underlineAnnotation.setType(AnnotationType.TextUnderline);
 		 
@@ -98,10 +98,10 @@ public class HtmlAnnotation {
 		 
 		// Save result stream to file.
 		
-		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.html");
+		OutputStream fileStream = new FileOutputStream(Utilities.outputPath + File.separator + "Annotated.eml");
 	    System.out.println(result.available());
 	    IOUtils.copy(result, fileStream);
 		
-		//ExEnd:createAnnotationForHtml
+		//ExEnd:differentAnnotationsForEmail
 	}
 }
