@@ -1,4 +1,4 @@
-package GroupDocs.Annotation.Examples.Java;
+package GroupDocs.Annotation.Examples.Java.legacy;
 
 import java.util.Collections;
 import java.util.Comparator;

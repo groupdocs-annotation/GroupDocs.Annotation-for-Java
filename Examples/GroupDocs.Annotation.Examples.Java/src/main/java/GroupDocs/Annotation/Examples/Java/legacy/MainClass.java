@@ -1,4 +1,4 @@
-package GroupDocs.Annotation.Examples.Java;
+package GroupDocs.Annotation.Examples.Java.legacy;
 
 public class MainClass {
 
