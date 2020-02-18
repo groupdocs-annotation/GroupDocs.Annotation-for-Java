@@ -22,7 +22,7 @@ Directory | Description
 + Extract the contents of the ZIP file to any folder on your computer.
 + Open Java IDE and import the project to get started with it.
 + On the first run, the dependencies will automatically be downloaded.
-+ Open MainClass.java file, all the examples are called from here.
++ Open RunExamples.java file, all the examples are called from here.
 + Uncomment the examples you want to run from within the project.
 
 Please find more details for how to run the examples [here](https://docs.groupdocs.com/display/annotationjava/How+to+Run+Examples).

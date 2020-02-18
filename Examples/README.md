@@ -1,30 +1,26 @@
-# GroupDocs.Annotation for Java Examples
+# GroupDocs_Annotation_Java
 
-This package contains Java Example Projects for [GroupDocs.Annotation for Java](https://products.groupdocs.com/annotation/java) and sample input templates used in the examples.
+This package contains [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples) that will help you in understanding the API's working and writing your own applications.
+
+GroupDocs.Annotation is essentially devised to add annotations in documents within a Java applications. API comes with an extensive number of markup tools. These tools permit users to highlight, strikeout, and comment on text and images. This doesn't end up here user can avail numerous properties to control annotation's appearance in the document.
 
 <p align="center">
-  <a title="Download complete GroupDocs.Annotation for Java Example source code" href="https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/archive/master.zip">
+
+  <a title="Download complete GroupDocs.Annotation for Java source code" href="https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/archive/master.zip">
 	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" />
   </a>
 </p>
 
-# How to Run the Examples?
+Directory | Description
+--------- | -----------
+[Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Contains the package of all Java examples and sample files that will help you learn how to use product features. 
+## Resources
 
-It is assumed that maven is installed and configured in your system path. You can edit the project by opening in your favorite IDE like NetBeans, Eclipse, and IntelliJ IDEA. Please visit our [documentation website](https://docs.groupdocs.com/display/annotationjava/How+to+Run+Examples) for more details.
++ **Website:** [www.groupdocs.com](http://www.groupdocs.com)
++ **Product Home:** [GroupDocs.Annotation for Java](#)
++ **Product API:** [API of GroupDocs.Annotation for Java](#)
++ **Download:** [Download GroupDocs.Annotation for Java](#)
++ **Documentation:** [GroupDocs.Annotation for Java Documentation](#)
++ **Forum:** [GroupDocs.Annotation for Java Forum](#)
++ **Blog:** [GroupDocs.Annotation for Java Blog](#)
 
-## Install and Configure Maven
-
-You may find following resources helpful:
-
-1. Learn how to <a href="http://www.tutorialspoint.com/maven/maven_environment_setup.htm">install and configure</a> Maven - Environment Setup
-2. Maven <a href="http://www.tutorialspoint.com/maven/maven_netbeans.htm">support</a> for NetBeans
-3. Maven <a href="http://www.tutorialspoint.com/maven/maven_intellij_idea.htm">support</a> for IntelliJ IDEA
-4. Maven <a href="http://www.tutorialspoint.com/maven/maven_eclispe_ide.htm">support</a> for Eclipse IDE
-
-# Apply License
-
-Follow below steps if you have product license
-
-1. Open Utilities.java.
-2. Set "licensePath" variable to your license path.
-3. Call applyLicenseFromFile method from MainClass
