@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ArrayOfAnnotationBase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AnnotationBase xsi:type="AreaAnnotation">
+    <Id>0</Id>
+    <CreatedOn>0001-01-01T00:00:00</CreatedOn>
+    <Message>This is rectangle annotation</Message>
+    <PageNumber xsi:nil="true" />
+    <Replies />
+    <Type>Area</Type>
+    <BackgroundColor>65535</BackgroundColor>
+    <Box>
+      <X>100</X>
+      <Y>100</Y>
+      <Width>100</Width>
+      <Height>100</Height>
+    </Box>
+    <Opacity xsi:nil="true" />
+    <PenColor xsi:nil="true" />
+    <PenStyle xsi:nil="true" />
+    <PenWidth xsi:nil="true" />
+  </AnnotationBase>
+</ArrayOfAnnotationBase>
