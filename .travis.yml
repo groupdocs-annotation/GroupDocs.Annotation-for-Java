@@ -25,5 +25,4 @@ script:
 after_success:
 - scp -i ./deploy_key -r Docs/docs-common/public/annotation $USER@$HOST:/var/www/docs.groupdocs.com/html/
 - scp -i ./deploy_key -r Docs/docs-common/public/product-sitemap.xml $USER@$HOST:/var/www/docs.groupdocs.com/html/sitemaps/annotation-java.xml
-- scp -i ./deploy_key -r Docs/docs-common/public/search-json/annotation-java.json
-  $USER@$HOST:/var/www/docs.groupdocs.com/html/search-json/annotation-java.json
+- scp -i ./deploy_key -r Docs/docs-common/public/search-json/annotation-java.json $USER@$HOST:/var/www/docs.groupdocs.com/html/search-json/annotation-java.json
