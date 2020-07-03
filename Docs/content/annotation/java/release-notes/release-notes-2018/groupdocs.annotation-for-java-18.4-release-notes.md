@@ -89,4 +89,4 @@ Below is the list of new features improvements and fixes in this release of Gro
 
 {{< alert style="info" >}}This section lists public API changes that were introduced in GroupDocs.Annotation for Java 18.4. It includes not only new and obsoleted public methods, but also a description of any changes in the behavior behind the scenes in GroupDocs.Annotation which may affect existing code. Any behavior introduced that could be seen as a regression and modifies existing behavior is especially important and is documented here.{{< /alert >}}
 
-1.  None
+None

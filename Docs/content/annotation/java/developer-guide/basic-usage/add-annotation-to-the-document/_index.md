@@ -8,17 +8,17 @@ keywords: What is annotation, document annotation, add annotation
 productName: GroupDocs.Annotation for Java
 hideChildren: False
 ---
-# What is a document annotation?
+## What is a document annotation?
 
 **Annotation** is a textual or graphic notes, comments and remarks attached to a specific part of a document content - sections, paragraphs, sentences or even words. Annotations are often used by a group of collaborators to edit and review documents in a quick and handy manner - the document is shared with reviewers who then mark it up and add notes. Then assigned team members read these annotations and modify document content accordingly.
 
 Today annotations can be programmatically added to a documents and images of various  types - PDF, Microsoft Word and Open Document text documents, Microsoft Excel spreadsheets, Microsoft PowerPoint presentations, PNG / JPG / TIFF images etc. 
 
-# Add annotation to the document
+### Add annotation to the document
 
 **[GroupDocs.Annotation](https://products.groupdocs.com/annotation/java)** allows to apply multiple annotation types to the different document formats. Supported annotations list is described in a table below. 
 
-## List of supported annotations
+### List of supported annotations
 
 | Annotation | Description |
 | --- | --- |

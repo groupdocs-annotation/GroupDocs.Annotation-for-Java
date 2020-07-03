@@ -83,24 +83,24 @@ Below the list of  new features and fixed bugs in this regular monthly release 
 | ANNOTATIONJAVA-1036 | Exception is thrown when retrieving area annotation from DOCX file | Bug |
 | ANNOTATIONJAVA-1037 | API fails to create Temp Directory in storage path | Bug |
 
-# Public API and Backward Incompatible Changes
+## Public API and Backward Incompatible Changes
 
 {{< alert style="info" >}}This section lists public API changes that were introduced in GroupDocs.Annotation for Java 17.10. It includes not only new and obsoleted public methods, but also a description of any changes in the behavior behind the scenes in GroupDocs.Annotation which may affect existing code. Any behavior introduced that could be seen as a regression and modifies existing behavior is especially important and is documented here.{{< /alert >}}
 
 To *AnnotationInfo* object added new *Opacity* field that sets opacity of annotation (can be null or float number between 0 and 1)
 
-**Java**
 
-```csharp
+
+```java
 public void setOpacity(Double value);
 public Double getOpacity();
 ```
 
 Sample of usage
 
-**Java**
 
-```csharp
+
+```java
 AnnotationInfo textAnnotation = new AnnotationInfo();
 textAnnotation.setBox(new Rectangle(68, 154, 102, 9));
 textAnnotation.setPageNumber(0);
@@ -112,9 +112,9 @@ textAnnotation.setOpacity(0.1);
 
 Import annotations from Diagram documents
 
-**Java**
 
-```csharp
+
+```java
 AnnotationConfig cfg = new AnnotationConfig();
 cfg.setStoragePath(Utilities.STORAGE_PATH);
  

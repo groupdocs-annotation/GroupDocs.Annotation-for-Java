@@ -16,7 +16,7 @@ hideChildren: False
 | --- | --- | --- |
 | ANNOTATIONJAVA-1063 | Import added annotations from exported PDF document | Bug |
 
-# Public API and Backward Incompatible Changes
+## Public API and Backward Incompatible Changes
 
 {{< alert style="info" >}}This section lists public API changes that were introduced in GroupDocs.Annotation for Java 17.10.3. It includes not only new and obsoleted public methods, but also a description of any changes in the behavior behind the scenes in GroupDocs.Annotation which may affect existing code. Any behavior introduced that could be seen as a regression and modifies existing behavior is especially important and is documented here.{{< /alert >}}
 

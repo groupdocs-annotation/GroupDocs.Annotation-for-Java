@@ -52,9 +52,9 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
 
 1.  Added new types of annotations for Diagrams (Watermark, Point)
     
-    **Java**
     
-    ```csharp
+    
+    ```java
     AnnotationConfig cfg = new AnnotationConfig();
     cfg.setStoragePath(storagePath);
     AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);
@@ -135,9 +135,9 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
     
 2.  Added new types of annotations for Words (Polyline, Watermark, Point)
     
-    **Java**
     
-    ```csharp
+    
+    ```java
     AnnotationConfig cfg = new AnnotationConfig();
     cfg.setStoragePath(storagePath);
     AnnotationImageHandler annotator = new AnnotationImageHandler(cfg);

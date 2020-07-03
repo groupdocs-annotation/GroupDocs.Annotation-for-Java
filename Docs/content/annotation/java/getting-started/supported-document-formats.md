@@ -33,10 +33,10 @@ The list of supported by GroupDocs.Annotation document formats and types
 | [ODP](https://wiki.fileformat.com/presentation/odp/) | OpenDocument Presentation | ![(tick)](annotation/java/images/check.png) |
 | [PPS](https://wiki.fileformat.com/presentation/pps/) | Microsoft PowerPoint 97-2003 Slide Show | ![(tick)](annotation/java/images/check.png) |
 | [TIF](https://wiki.fileformat.com/image/tiff/), [TIFF](https://wiki.fileformat.com/image/tiff/) | Tagged Image File Format (TIFF) | ![(tick)](annotation/java/images/check.png) |
-| [JPG](https://wiki.fileformat.com/image/jpeg) [JPEG](https://wiki.fileformat.com/image/jpeg)   | Joint Photographic Experts Group (JPEG) | ![(tick)](annotation/java/images/check.png) |
+| [JPG](https://wiki.fileformat.com/image/jpeg), [JPEG](https://wiki.fileformat.com/image/jpeg)   | Joint Photographic Experts Group (JPEG) | ![(tick)](annotation/java/images/check.png) |
 | [PNG](https://wiki.fileformat.com/image/png/) | Portable Network Graphics (PNG) | ![(tick)](annotation/java/images/check.png) |
 | [BMP](https://wiki.fileformat.com/image/bmp/) | Bitmap Picture (BMP) | ![(tick)](annotation/java/images/check.png) |
-| [PDF](https://wiki.fileformat.com/view/pdf/) (PDF/A-1a,PDF/A-1b,PDF/A-2a) | Adobe Portable Document Format (PDF) | ![(tick)](annotation/java/images/check.png)![(tick)](annotation/java/images/check.png)![(tick)](annotation/java/images/check.png)![(tick)](annotation/java/images/check.png) |
+| [PDF](https://wiki.fileformat.com/view/pdf/) (PDF/A-1a,PDF/A-1b,PDF/A-2a) | Adobe Portable Document Format (PDF) | ![(tick)](annotation/java/images/check.png) |
 | [HTML](https://wiki.fileformat.com/web/html/) | HyperText Markup Language (HTML) | ![(tick)](annotation/java/images/check.png) |
 | [EML](https://wiki.fileformat.com/email/eml/) | E-mail Message | ![(tick)](annotation/java/images/check.png) |
 | [VSD](https://wiki.fileformat.com/image/vsd/) | Microsoft Visio 2003-2010 Drawing | ![(tick)](annotation/java/images/check.png) |
