@@ -137,14 +137,9 @@ Fixed bug with wrong annotation orientation (After export PDF annotations are sh
 
   
 
-Added ability to import annotations from Words documents: Documentation article
-
-Added ability to annotate Slides documents with different annotations types: Documentation article
-
-Added ability to import annotations from Slides documents: Documentation article
-
-Added ability to add text annotations to Slides documents (TextHighlight, TextStrikeout, TextUnderline): Documentation article
-
-Added ability to annotate images: Documentation article
-
-Added new formats to annotating images article: Documentation article
+* Added ability to import annotations from Words documents
+* Added ability to annotate Slides documents with different annotations types
+* Added ability to import annotations from Slides documents
+* Added ability to add text annotations to Slides documents (TextHighlight, TextStrikeout, TextUnderline)
+* Added ability to annotate images
+* Added new formats to annotating images article

@@ -55,7 +55,7 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
 
 1.   Adding Ellipse annotation.
     
-    ```csharp
+    ```java
     // minimal set of parameters
     AnnotationInfo ellipse = new AnnotationInfo();
     ellipse.setBox(new Rectangle(100, 100.0, 50, 50));
@@ -65,7 +65,7 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
 2.  GetThumbnail method returns JPEG image stream.  
     Assume we are getting pages from document:
     
-    ```csharp
+    ```java
     List<PageImage> pages = annotationHandler.getPages(document);
      
     // Then if we want get thumbnail we call GetThumbnail() method of PageImage item:
@@ -85,7 +85,7 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
 3.  Added ability to set text watermarks angle.  
     The same as adding Watermark annotation, but you should additionally set Watermark rotation angle by setting AnnotationInfo.Angle property (in degrees)
     
-    ```csharp
+    ```java
     AnnotationInfo annotation = new AnnotationInfo();
     annotation.setType(AnnotationType.Watermark);
     annotation.setAngle(45.0);

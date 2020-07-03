@@ -90,53 +90,40 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
 {{< alert style="info" >}}This section lists public API changes that were introduced in GroupDocs.Annotation for Java 19.4. It includes not only new and obsoleted public methods, but also a description of any changes in the behavior behind the scenes in GroupDocs.Annotation which may affect existing code. Any behavior introduced that could be seen as a regression and modifies existing behavior is especially important and is documented here.{{< /alert >}}
 
 1.  **Export page range:**
-    
     To export specific pages  you should just to setup *ExportOptions *class, and then export as before.
     
-    **Java**
-    
-    ```csharp
+    ```java
     ExportOptions options = new ExportOptions();
     options.setFirstPage(5);
     options.setLastPage(8);
     ```
-    
     Result: will be exported document pages started from page 6 and ending page 9.
     
-    **Java**
-    
-    ```csharp
+    ```java
     ExportOptions options = new ExportOptions();
     options.setFirstPage(4);
     options.setLastPage(4);
     ```
     
     Result: document will contain only one page with index 5.
-    
     Note: there will be no effect if:
-    
     *   FirstPage > LastPage;
-        
     *   If FirstPage or / and LastPage < 0
-        
     *   If LastPage > document pages number
         
 2.  **Export only pages with annotations:**
     
     To export only pages that contains annotations you should specify *AnnotatedPages = true *of *ExportOptions *class.
     
-    **Java**
-    
-    ```csharp
+    ```java
     ExportOptions options = new ExportOptions();
     options.setAnnotatedPages(true);
     ```
     
     Result: document that contains only annotated pages.
     
-    **Java**
     
-    ```csharp
+    ```java
     ExportOptions options = new ExportOptions();
     options.setFirstPage(5);
     options.setLastPage(8);
@@ -147,21 +134,16 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
     
 3.  **Export annotations of specific types:**
     
-    **Java**
-    
-    ```csharp
+    ```java
     List<Byte> typesToExport = new ArrayList<Byte>();
     typesToExport.add(AnnotationType.Area);
     typesToExport.add(AnnotationType.Polyline);
     ExportOptions options = new ExportOptions();
     options.setAnnotationTypes(typesToExport);
     ```
-    
     Result: document that contains only Area and Polyline annotations.
     
-    **Java**
-    
-    ```csharp
+    ```java
     List<Byte> typesToExport = new ArrayList<Byte>();
     typesToExport.add(AnnotationType.Area);
     ExportOptions options = new ExportOptions();
@@ -171,9 +153,8 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
     
     Result: document that contains only annotated pages with only Area annotations.
     
-    **Java**
     
-    ```csharp
+    ```java
     List<Byte> typesToExport = new ArrayList<Byte>();
     typesToExport.add(AnnotationType.Area);
     ExportOptions options = new ExportOptions();

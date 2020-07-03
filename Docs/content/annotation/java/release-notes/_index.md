@@ -8,4 +8,3 @@ keywords:
 productName: GroupDocs.Annotation for Java
 hideChildren: False
 ---
-### Release Notes

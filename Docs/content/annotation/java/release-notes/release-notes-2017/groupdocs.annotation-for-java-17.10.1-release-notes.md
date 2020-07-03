@@ -27,7 +27,7 @@ Below the list of fixed bugs in this release of GroupDocs.Annotation for Java.
 | ANNOTATIONJAVA-1045 | Exception generated while importing annotation from diagram | Bug |
 | ANNOTATIONJAVA-1005 | AnnotationImageHandler.getPages does not respect ImageOptions.setWidth | Bug |
 
-# Public API and Backward Incompatible Changes
+## Public API and Backward Incompatible Changes
 
 {{< alert style="info" >}}This section lists public API changes that were introduced in GroupDocs.Annotation for Java 17.10.1. It includes not only new and obsoleted public methods, but also a description of any changes in the behavior behind the scenes in GroupDocs.Annotation which may affect existing code. Any behavior introduced that could be seen as a regression and modifies existing behavior is especially important and is documented here.{{< /alert >}}
 

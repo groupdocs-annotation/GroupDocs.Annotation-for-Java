@@ -10,7 +10,7 @@ hideChildren: False
 ---
 {{< alert style="info" >}}This page contains release notes for GroupDocs.Annotation for Java 17.6.0{{< /alert >}}
 
-# Major Features 
+## Major Features 
 
 Below the list of  new features and fixed bugs in this regular monthly release of GroupDocs.Annotation for Java. The most notable are:
 
@@ -20,7 +20,6 @@ Below the list of  new features and fixed bugs in this regular monthly release 
     3.  ResourceRedaction annotation
     4.  Polyline annotation
     5.  TextField annotation
-
 *   Implement proper error handling when user try to invoke GetDocumentInfo method for images documents
 *   Updated and improved library obfuscation
 

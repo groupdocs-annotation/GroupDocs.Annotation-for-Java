@@ -8,8 +8,6 @@ keywords: Load document from file path, Load document from URL, Load document fr
 productName: GroupDocs.Annotation for Java
 hideChildren: False
 ---
-# Loading documents from different sources
-
 [**GroupDocs.Annotation**](https://products.groupdocs.com/annotation/java) allows you to annotate remotely located documents. The document processing would be similar to [Load document from stream]({{< ref "annotation/java/developer-guide/advanced-usage/loading/loading-documents-from-different-sources/load-document-from-stream.md" >}}).
 
 Following examples demonstrates how to load documents from different sources.

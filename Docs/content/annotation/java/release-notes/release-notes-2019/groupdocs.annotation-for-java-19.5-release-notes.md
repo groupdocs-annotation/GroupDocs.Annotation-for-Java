@@ -78,7 +78,7 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
     
     You can get image representation of pages of your pdf document by using *GetPages* method of *AnnotationImageHandler* class.
     
-    ```csharp
+    ```java
     List<PageImage> GetPages(Stream fileStream, ImageOptions options)
     List<PageImage> GetPages(string guid, ImageOptions options)
     List<PageImage> GetPages(string guid)
@@ -86,9 +86,9 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
     
     Following example demonstrates how to use *GetPages* method:
     
-    **Java**
     
-    ```csharp
+    
+    ```java
     using System.Collections.Generic;
     using System.IO;
     using GroupDocs.Annotation.Config;
@@ -127,9 +127,9 @@ Below is the list of most notable changes in release of GroupDocs.Annotation for
     
 2.  **Enabling caching for opening same document pages**
     
-    **Java**
     
-    ```csharp
+    
+    ```java
     ImageOptions imageOptions = new ImageOptions();
     imageOptions.CacheStoragePath = AnnotationImageHandler.GetFileDataStore().TempPath;
     imageOptions.EnableCaching = true;

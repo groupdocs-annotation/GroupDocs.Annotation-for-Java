@@ -13,8 +13,6 @@ hideChildren: False
 ## Major Features
 
 Below the list of improvements, fixed bugs and new features in this regular monthly release of GroupDocs.Annotation for Java. The most notable are:  
-Implemented annotations annotating documents of following types:
-
 *   Add Metered licensing support
 *   Implemented DICOM documents annotating 
 *   Implemented Otp documents annotating 
@@ -70,9 +68,7 @@ Implemented annotations annotating documents of following types:
 
 ### Metered licensing
 
-**Java**
-
-```csharp
+```java
 String storagePath = Utilities.STORAGE_PATH;
         
 // Setup Annotation configuration
