@@ -8,4 +8,6 @@ keywords: GroupDocs.Annotation Developer Guide, GroupDocs.Annotation Java Develo
 productName: GroupDocs.Annotation for Java
 hideChildren: False
 ---
-{{< alert style="info" >}}This section describes some basic and advanced use cases of GroupDocs.Annotation for Java. Please refer to GitHub repository for more examples and samples.{{< /alert >}}
+{{< alert style="info" >}}
+This section describes some basic and advanced use cases of GroupDocs.Annotation for Java. Please refer to [GitHub repository](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java) for more examples and samples.
+{{< /alert >}}

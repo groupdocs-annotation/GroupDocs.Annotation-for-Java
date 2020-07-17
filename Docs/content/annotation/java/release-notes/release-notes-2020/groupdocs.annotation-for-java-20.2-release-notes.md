@@ -8,12 +8,15 @@ keywords:
 productName: GroupDocs.Annotation for Java
 hideChildren: False
 ---
-{{< alert style="info" >}}This page contains release notes for GroupDocs.Annotation for Java 20.2{{< /alert >}}{{< alert style="danger" >}}In this version we're introducing new public API which was designed to be simple and easy to use. For more details about new API please check Migration Notes and Developer Guide sections.{{< /alert >}}
+{{< alert style="info" >}}
+This page contains release notes for GroupDocs.Annotation for Java 20.2
+{{< /alert >}}{{< alert style="danger" >}}
+Breaking changes
+In this version we're introducing new public API which was designed to be simple and easy to use. For more details about new API please check [Migration Notes]({{< ref "annotation/java/developer-guide/migration-notes.md" >}}) and [Developer Guide](https://docs.groupdocs.com/display/annotationjava/Developer+Guide) sections.
+{{< /alert >}}
 
 ## Major Features
-
 In this version Below the list of most notable changes in release of GroupDocs.Annotation for Java 20.2:
-
 *   Ability to generate document page thumbnails 
 *   Implemented ability to add ellipse annotation to different formats
 *   Implemented angled watermarks for different formats
@@ -23,9 +26,7 @@ In this version Below the list of most notable changes in release of GroupDocs.
 *   Fixed several bugs and issues  
       
     
-
 ## Full List of Issues Covering all Changes in this Release
-
 | Key | Summary | Issue Type |
 | --- | --- | --- |
 | ANNOTATIONNET-851 | Add Thumbnails of the selected document | Feature |

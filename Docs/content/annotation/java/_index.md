@@ -8,12 +8,12 @@ keywords:
 productName: GroupDocs.Annotation for Java
 hideChildren: True
 ---
-{{< alert style="info" >}}Welcome to the GroupDocs.Annotation for JavaGroupDocs.Annotation for Java is a lightweight API that lets you seamlessly enhance your Java app with document viewing and annotation functionality. API supports Microsoft Word DOCX, Excel XLSX, PowerPoint PPTX and PDF documents currently. Image formats will be available soon. Consuming API, you can enable end users to view, annotate, share and print both types of documents from within your Java app.{{< /alert >}}
+{{< alert style="info" >}} ![](annotation/java/images/home.png)**Welcome to the GroupDocs.Annotation for Java**  
+GroupDocs.Annotation for Java is a lightweight API that lets you seamlessly enhance your Java app with document viewing and annotation functionality. API supports Microsoft Word DOCX, Excel XLSX, PowerPoint PPTX and PDF documents currently. Image formats will be available soon. Consuming API, you can enable end users to view, annotate, share and print both types of documents from within your Java app. 
+{{< /alert >}}
 
 ## GroupDocs.Annotation for Java Resources
-
 Following are the links to some useful resources you may need to accomplish your tasks.
-
 *   [GroupDocs.Annotation for Java Online Documentation]({{< ref "annotation/java" >}})
 *   [GroupDocs.Annotation for Java Features]({{< ref "annotation/java/getting-started/features-overview.md" >}})
 *   [GroupDocs.Annotation for Java Limitations]({{< ref "annotation/java/getting-started/evaluation-limitations-and-licensing.md" >}})
