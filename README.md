@@ -1,6 +1,6 @@
 # Java Library for Document Annotation
 
-GroupDocs.Annotation for Java is a [Document Annotation API] that supports over 13 different annotation types for [over 50 document formats](https://docs.groupdocs.com/annotation/java/supported-document-formats/) with full control over annotation's appearance.
+GroupDocs.Annotation for Java is a [Document Annotation API](https://products.groupdocs.com/annotation/java) that supports over 13 different annotation types for [over 50 document formats](https://docs.groupdocs.com/annotation/java/supported-document-formats/) with full control over annotation's appearance.
 
 <p align="center">
 
@@ -13,22 +13,21 @@ Directory | Description
 --------- | -----------
 [Docs](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET/tree/master/Docs)  | Product documentation containing the Developer's Guide, Release Notes and more.
 [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Java examples and sample documents for you to get started quickly. 
-[Showcases](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Showcase)  | Explore the open source showcase projects that allow users to view and annotate a document in a web browser.  
 
 ## Annotate Documents via Java
 
-- Add, extract or remove annotations. 
+- Add, extract, update or remove annotations. 
 - Import existing annotations from documents.
 - Add or remove comments.
 - Export annotated documents.
-- Generate document page previews & thumbnails.
+- [Generate document previews & thumbnails](https://docs.groupdocs.com/annotation/java/generate-document-pages-preview/).
 - Load password protected documents.
 - Save annotated pages or pages by range.
 
 ## Annotation Objects
 
-**Graphic Annotation:** Area, Arrow, Distance, Ellipse, Point, Polyline, Resource Redaction, TextField 
-**Text Annotation:** Highlight, Link, Replacement, Strikeout, Reduction, Underline
+**Graphic Annotation:** Area, Arrow, Distance, Ellipse, Point, Polyline, Resource Redaction, TextField \
+**Text Annotation:** Highlight, Link, Replacement, Strikeout, Reduction, Underline \
 **Watermark:** Diagonal, Horizontal
 
 ## Get Started with GroupDocs.Annotation for Java
