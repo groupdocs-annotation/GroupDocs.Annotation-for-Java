@@ -1,8 +1,6 @@
-## GroupDocs.Annotation for Java Examples
+# Java Library for Document Annotation
 
-This package contains exmaples and showcase projects that will help you in understanding the API's working and writing your own applications.
-
-GroupDocs.Annotation is essentially devised to add annotations in documents within a Java applications. API comes with an extensive number of markup tools. These tools permit users to highlight, strikeout, and comment on text and images. This doesn't end up here user can avail numerous properties to control annotation's appearance in the document.
+GroupDocs.Annotation for Java is a [Document Annotation API] that supports over 13 different annotation types for [over 50 document formats](https://docs.groupdocs.com/annotation/java/supported-document-formats/) with full control over annotation's appearance.
 
 <p align="center">
 
@@ -13,28 +11,66 @@ GroupDocs.Annotation is essentially devised to add annotations in documents with
 
 Directory | Description
 --------- | -----------
-[Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Contains the package of all Java examples and sample files that will help you learn how to use product features. 
+[Docs](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET/tree/master/Docs)  | Product documentation containing the Developer's Guide, Release Notes and more.
+[Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Java examples and sample documents for you to get started quickly. 
 [Showcases](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Showcase)  | Explore the open source showcase projects that allow users to view and annotate a document in a web browser.  
 
-## How to Run the Examples
+## Annotate Documents via Java
 
-+ You can either clone the repository using your favorite GitHub client or download the ZIP file from the above button.
-+ Extract the contents of the ZIP file to any folder on your computer.
-+ Open Java IDE and import the project to get started with it.
-+ On the first run, the dependencies will automatically be downloaded.
-+ Open RunExamples.java file, all the examples are called from here.
-+ Uncomment the examples you want to run from within the project.
+- Add, extract or remove annotations. 
+- Import existing annotations from documents.
+- Add or remove comments.
+- Export annotated documents.
+- Generate document page previews & thumbnails.
+- Load password protected documents.
+- Save annotated pages or pages by range.
 
-Please find more details for how to run the examples [here](https://docs.groupdocs.com/display/annotationjava/How+to+Run+Examples).
+## Annotation Objects
 
-##  Resources
+**Graphic Annotation:** Area, Arrow, Distance, Ellipse, Point, Polyline, Resource Redaction, TextField 
+**Text Annotation:** Highlight, Link, Replacement, Strikeout, Reduction, Underline
+**Watermark:** Diagonal, Horizontal
 
-+ **Website:** [www.groupdocs.com](https://www.groupdocs.com)
-+ **Product Home:** [GroupDocs.Annotation for Java](https://products.groupdocs.com/annotation/java)
-+ **API Reference:** [GroupDocs.Annotation for Java API Reference](https://apireference.groupdocs.com/java/annotation)
-+ **Download:** [Download GroupDocs.Annotation for Java](https://artifact.groupdocs.com/repo/com/groupdocs/groupdocs-annotation/)
-+ **Documentation:** [GroupDocs.Annotation for Java Documentation](https://docs.groupdocs.com/display/annotationjava/Home)
-+ **Free Support:** [GroupDocs.Annotation for Java Free Support Forum](https://forum.groupdocs.com/c/annotation)
-+ **Paid Support:** [GroupDocs.Annotation for Java Paid Support Helpdesk](https://helpdesk.groupdocs.com/)
-+ **Blog:** [GroupDocs.Annotation for Java Blog](https://blog.groupdocs.com/category/groupdocs-annotation-product-family/)
+## Get Started with GroupDocs.Annotation for Java
 
+GroupDocs.Annotation for Java requires J2SE 7.0 (1.7), J2SE 8.0 (1.8) or above. Please install Java first if you do not have it already. 
+
+GroupDocs hosts all Java APIs on [GroupDocs Artifact Repository](https://artifact.groupdocs.com/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-annotation), so simply [configure](https://docs.groupdocs.com/annotation/java/installation/) your Maven project to fetch the dependencies automatically.
+
+## Add Watermark Annotation
+
+```java
+String outputPath = Constants.getOutputFilePath("AddWatermarkAnnotation", FilenameUtils.getExtension(Constants.INPUT));
+final Annotator annotator = new Annotator(Constants.INPUT);
+try {
+	Reply reply1 = new Reply();
+	reply1.setComment("First comment");
+	reply1.setRepliedOn(Calendar.getInstance().getTime());
+	Reply reply2 = new Reply();
+	reply2.setComment("Second comment");
+	reply2.setRepliedOn(Calendar.getInstance().getTime());
+	java.util.List<Reply> replies =  new ArrayList<Reply>();
+	replies.add(reply1);
+	replies.add(reply2);
+	WatermarkAnnotation watermark = new WatermarkAnnotation();
+	watermark.setAngle((double) 75);
+	watermark.setBox(new Rectangle(200, 200, 100, 50));
+	watermark.setCreatedOn(Calendar.getInstance().getTime());
+	watermark.setText("Watermark");
+	watermark.setFontColor(65535);
+	watermark.setFontSize((double) 12);
+	watermark.setMessage("This is watermark annotation");
+	watermark.setOpacity(0.7);
+	watermark.setPageNumber(0);
+	watermark.setReplies(replies);
+	annotator.add(watermark);
+	annotator.save(outputPath);
+} finally {
+	if (annotator != null) {
+		annotator.dispose();
+	}
+}
+```
+
+
+[Home](https://www.groupdocs.com/) | [Product Page](https://products.groupdocs.com/annotation/java) | [Documentation](https://docs.groupdocs.com/annotation/java/) | [Demos](https://products.groupdocs.app/annotation/family) | [API Reference](https://apireference.groupdocs.com/java/annotation) | [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples) | [Blog](https://blog.groupdocs.com/category/annotation/) | [Free Support](https://forum.groupdocs.com/c/annotation) | [Temporary License](https://purchase.groupdocs.com/temporary-license)
