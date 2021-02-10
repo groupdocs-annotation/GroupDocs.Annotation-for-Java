@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/groupdocs-viewer/GroupDocs.Viewer-for-.NET.svg?branch=master)](https://travis-ci.com/groupdocs-annotation/GroupDocs.Annotation-for-Java) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/groupdocs-annotation/GroupDocs.Annotation-for-Java) ![GitHub all releases](https://img.shields.io/github/downloads/groupdocs-annotation/GroupDocs.Annotation-for-Java/total) ![GitHub](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java)
 # Java Library for Document Annotation
 
 GroupDocs.Annotation for Java is a [Document Annotation API](https://products.groupdocs.com/annotation/java) that supports over 13 different annotation types for [over 50 document formats](https://docs.groupdocs.com/annotation/java/supported-document-formats/) with full control over annotation's appearance.
