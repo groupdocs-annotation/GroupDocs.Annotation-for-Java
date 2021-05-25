@@ -4,3 +4,6 @@ Examples/.classpath
 Examples/.project
 Examples/.settings/
 deploy_key
+
+#License files
+*.lic
