@@ -1,10 +1,10 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/groupdocs-annotation/GroupDocs.Annotation-for-Java) ![GitHub all releases](https://img.shields.io/github/downloads/groupdocs-annotation/GroupDocs.Annotation-for-Java/total) ![GitHub](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java)
+
 # Java Library for Document Annotation
 
 GroupDocs.Annotation for Java is a [Document Annotation API](https://products.groupdocs.com/annotation/java) that supports over 13 different annotation types for [over 50 document formats](https://docs.groupdocs.com/annotation/java/supported-document-formats/) with full control over annotation's appearance.
 
 <p align="center">
-
   <a title="Download complete GroupDocs.Annotation for Java source code" href="https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/archive/master.zip">
 	<img src="https://raw.github.com/AsposeExamples/java-examples-dashboard/master/images/downloadZip-Button-Large.png" />
   </a>
@@ -12,7 +12,6 @@ GroupDocs.Annotation for Java is a [Document Annotation API](https://products.gr
 
 Directory | Description
 --------- | -----------
-[Docs](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET/tree/master/Docs)  | Product documentation containing the Developer's Guide, Release Notes and more.
 [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples)  | Java examples and sample documents for you to get started quickly. 
 
 ## Annotate Documents via Java
@@ -33,7 +32,7 @@ Directory | Description
 
 ## Get Started with GroupDocs.Annotation for Java
 
-GroupDocs.Annotation for Java requires J2SE 7.0 (1.7), J2SE 8.0 (1.8) or above. Please install Java first if you do not have it already. 
+GroupDocs.Annotation for Java requires J2SE 7.0 (1.7), J2SE 8.0 (1.8) or above. Please install Java first if you do not have it already.
 
 GroupDocs hosts all Java APIs on [GroupDocs Artifact Repository](https://artifact.groupdocs.com/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-annotation), so simply [configure](https://docs.groupdocs.com/annotation/java/installation/) your Maven project to fetch the dependencies automatically.
 
@@ -71,6 +70,5 @@ try {
 	}
 }
 ```
-
 
 [Home](https://www.groupdocs.com/) | [Product Page](https://products.groupdocs.com/annotation/java) | [Documentation](https://docs.groupdocs.com/annotation/java/) | [Demos](https://products.groupdocs.app/annotation/family) | [API Reference](https://apireference.groupdocs.com/java/annotation) | [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples) | [Blog](https://blog.groupdocs.com/category/annotation/) | [Free Support](https://forum.groupdocs.com/c/annotation) | [Temporary License](https://purchase.groupdocs.com/temporary-license)
