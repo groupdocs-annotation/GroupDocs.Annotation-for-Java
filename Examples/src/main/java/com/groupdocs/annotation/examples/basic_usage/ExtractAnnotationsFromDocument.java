@@ -18,7 +18,6 @@ public class ExtractAnnotationsFromDocument {
     public static void run() throws IOException {
 
         LoadOptions loadOptions = new LoadOptions();
-        loadOptions.setImportAnnotations(true);
         final Annotator annotator = new Annotator(Constants.ANNOTATED_IMPORT, loadOptions);
 
         List<AnnotationBase> annotations = annotator.get();
