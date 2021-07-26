@@ -49,7 +49,6 @@ public class UpdateAnnotation {
         annotator.dispose();
 
         LoadOptions loadOptions = new LoadOptions();
-        loadOptions.setImportAnnotations(true);
 
         // open annotated document
         final Annotator annotator1 = new Annotator(outputPath, loadOptions);

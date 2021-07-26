@@ -18,7 +18,6 @@ public class RemoveRepliesById {
     public static void run() {
         String outputPath = Constants.getOutputFilePath("RemoveRepliesById", FilenameUtils.getExtension(Constants.INPUT));
         LoadOptions loadOptions = new LoadOptions();
-        loadOptions.setImportAnnotations(true);
 
         // NOTE: Input document already contain annotations with replies
         final Annotator annotator = new Annotator(Constants.ANNOTATED_AREA_REPLIES_5, loadOptions);
