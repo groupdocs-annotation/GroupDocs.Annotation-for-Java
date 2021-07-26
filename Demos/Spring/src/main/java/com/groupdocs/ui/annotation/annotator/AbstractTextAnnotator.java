@@ -1,31 +1,23 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.PageData;
-import com.groupdocs.annotation.domain.Rectangle;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.Point;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
-import org.springframework.util.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.text.ParseException;
+public abstract class AbstractTextAnnotator extends BaseAnnotator {
 
-public abstract class AbstractTextAnnotator extends Annotator {
-
-    public AbstractTextAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    protected AbstractTextAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
     }
 
-    @Override
-    protected AnnotationInfo initAnnotationInfo() throws ParseException {
-        AnnotationInfo annotationInfo = super.initAnnotationInfo();
-        annotationInfo.setFieldText(annotationData.getText());
-        annotationInfo.setFontFamily(StringUtils.capitalize(annotationData.getFont()));
-        annotationInfo.setFontSize(annotationData.getFontSize());
-        annotationInfo.setFontColor(annotationData.getFontColor());
-        return annotationInfo;
-    }
-
-    @Override
-    protected Rectangle getBox() {
-        return new Rectangle(annotationData.getLeft(), annotationData.getTop(), annotationData.getWidth(), annotationData.getHeight());
+    protected static java.util.List<Point> getPoints(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        List<Point> tmp0 = new ArrayList<>();
+        tmp0.add(new Point(annotationData.getLeft(), pageInfo.getHeight() - annotationData.getTop()));
+        tmp0.add(new Point(annotationData.getLeft()+ annotationData.getWidth(), pageInfo.getHeight() - annotationData.getTop()));
+        tmp0.add(new Point(annotationData.getLeft(), pageInfo.getHeight() - annotationData.getTop()- annotationData.getHeight()));
+        tmp0.add(new Point(annotationData.getLeft()+ annotationData.getWidth(), pageInfo.getHeight() - annotationData.getTop()- annotationData.getHeight()));
+        return tmp0;
     }
 }

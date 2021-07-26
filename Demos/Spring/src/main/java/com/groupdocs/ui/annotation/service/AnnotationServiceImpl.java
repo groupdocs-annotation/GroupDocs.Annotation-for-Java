@@ -1,25 +1,26 @@
 package com.groupdocs.ui.annotation.service;
 
-import com.groupdocs.annotation.common.exception.AnnotatorException;
-import com.groupdocs.annotation.common.license.License;
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.FileDescription;
-import com.groupdocs.annotation.domain.PageData;
-import com.groupdocs.annotation.domain.config.AnnotationConfig;
-import com.groupdocs.annotation.domain.containers.DocumentInfoContainer;
-import com.groupdocs.annotation.domain.containers.FileTreeContainer;
-import com.groupdocs.annotation.domain.image.PageImage;
-import com.groupdocs.annotation.domain.options.FileTreeOptions;
-import com.groupdocs.annotation.domain.options.ImageOptions;
-import com.groupdocs.annotation.handler.AnnotationImageHandler;
+import com.groupdocs.annotation.license.License;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.Annotator;
+import com.groupdocs.annotation.IDocumentInfo;
+import com.groupdocs.annotation.exceptions.AnnotatorException;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.options.LoadOptions;
+import com.groupdocs.annotation.options.PreviewFormats;
+import com.groupdocs.annotation.options.export.AnnotationType;
+import com.groupdocs.annotation.options.export.SaveOptions;
+import com.groupdocs.annotation.options.pagepreview.CreatePageStream;
+import com.groupdocs.annotation.options.pagepreview.PreviewOptions;
 import com.groupdocs.ui.annotation.annotator.AnnotatorFactory;
+import com.groupdocs.ui.annotation.annotator.BaseAnnotator;
 import com.groupdocs.ui.annotation.config.AnnotationConfiguration;
-import com.groupdocs.ui.annotation.entity.request.AnnotateDocumentRequest;
 import com.groupdocs.ui.annotation.entity.web.AnnotatedDocumentEntity;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
-import com.groupdocs.ui.annotation.entity.web.AnnotationPageDescriptionEntity;
-import com.groupdocs.ui.annotation.importer.Importer;
+import com.groupdocs.ui.annotation.entity.web.AnnotationPostedDataEntity;
+import com.groupdocs.ui.annotation.entity.web.PageDataDescriptionEntity;
 import com.groupdocs.ui.annotation.util.AnnotationMapper;
+import com.groupdocs.ui.annotation.util.DocumentTypesConverter;
 import com.groupdocs.ui.annotation.util.SupportedAnnotations;
 import com.groupdocs.ui.config.GlobalConfiguration;
 import com.groupdocs.ui.exception.TotalGroupDocsException;
@@ -34,19 +35,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import javax.annotation.PostConstruct;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.groupdocs.ui.annotation.util.DocumentTypesConverter.checkedDocumentType;
-import static com.groupdocs.ui.annotation.util.DocumentTypesConverter.getDocumentType;
-import static com.groupdocs.ui.util.Utils.getStringFromStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Iterator;
 
 @Service
 public class AnnotationServiceImpl implements AnnotationService {
+
     private static final Logger logger = LoggerFactory.getLogger(AnnotationServiceImpl.class);
+    private final List<String> SupportedImageFormats = new ArrayList<>();
 
     @Autowired
     private GlobalConfiguration globalConfiguration;
@@ -54,19 +57,21 @@ public class AnnotationServiceImpl implements AnnotationService {
     @Autowired
     private AnnotationConfiguration annotationConfiguration;
 
-    private AnnotationImageHandler annotationHandler;
+    private final List<PageDataDescriptionEntity> annotationPageDescriptionEntityList = new ArrayList<>();
 
     @PostConstruct
     public void init() {
-        // create annotation application configuration
-        AnnotationConfig config = new AnnotationConfig();
-        // set storage path
-        config.setStoragePath(annotationConfiguration.getFilesDirectory());
-        config.getFontDirectories().add(annotationConfiguration.getFontsDirectory());
-
-        annotationHandler = new AnnotationImageHandler(config);
-
         try {
+            SupportedImageFormats.add(".bmp");
+            SupportedImageFormats.add(".jpeg");
+            SupportedImageFormats.add(".jpg");
+            SupportedImageFormats.add(".tiff");
+            SupportedImageFormats.add(".tif");
+            SupportedImageFormats.add(".png");
+            SupportedImageFormats.add(".dwg");
+            SupportedImageFormats.add(".dcm");
+            SupportedImageFormats.add(".dxf");
+        
             // set GroupDocs license
             License license = new License();
             license.setLicense(globalConfiguration.getApplication().getLicensePath());
@@ -88,243 +93,520 @@ public class AnnotationServiceImpl implements AnnotationService {
     @Override
     public List<FileDescriptionEntity> getFileList(FileTreeRequest fileTreeRequest) {
         String path = fileTreeRequest.getPath();
-        // get file list from storage path
-        FileTreeOptions fileListOptions = new FileTreeOptions(path);
-        // get temp directory name
-        String tempDirectoryName = new AnnotationConfig().getTempFolderName();
+        if (StringUtils.isEmpty(path)) {
+            path = annotationConfiguration.getFilesDirectory();
+        }
         try {
-            FileTreeContainer fileListContainer = annotationHandler.loadFileTree(fileListOptions);
+            File directory = new File(path);
+            List<File> filesList = Arrays.asList(directory.listFiles());
 
-            List<FileDescriptionEntity> fileList = new ArrayList<>();
-            // parse files/folders list
-            for (FileDescription fd : fileListContainer.getFileTree()) {
-                FileDescriptionEntity fileDescription = new FileDescriptionEntity();
-                fileDescription.setGuid(fd.getGuid());
-                // check if current file/folder is temp directory or is hidden
-                if (tempDirectoryName.toLowerCase().equals(fd.getName()) || new File(fileDescription.getGuid()).isHidden()) {
-                    // ignore current file and skip to next one
-                    continue;
-                } else {
-                    // set file/folder name
-                    fileDescription.setName(fd.getName());
-                }
-                // set file type
-                fileDescription.setDocType(fd.getDocumentType());
-                // set is directory true/false
-                fileDescription.setDirectory(fd.isDirectory());
-                // set file size
-                fileDescription.setSize(fd.getSize());
-                // add object to array list
-                fileList.add(fileDescription);
-            }
+            List<FileDescriptionEntity> fileList = getFileDescriptionEntities(filesList);
             return fileList;
         } catch (Exception ex) {
+            logger.error("Exception in getting file list", ex);
             throw new TotalGroupDocsException(ex.getMessage(), ex);
         }
+    }
+
+    public List<FileDescriptionEntity> getFileDescriptionEntities(List<File> filesList) {
+        List<FileDescriptionEntity> fileList = new ArrayList<>();
+        for (File file : filesList) {
+            String guid = file.getAbsolutePath();
+            String extension = FilenameUtils.getExtension(guid);
+            if (file.isDirectory() || (!StringUtils.isEmpty(extension))) {
+                FileDescriptionEntity fileDescription = new FileDescriptionEntity();
+                fileDescription.setGuid(guid);
+                fileDescription.setName(file.getName());
+                fileDescription.setDirectory(file.isDirectory());
+                fileDescription.setSize(file.length());
+                fileList.add(fileDescription);
+            }
+        }
+        return fileList;
     }
 
     @Override
     public AnnotatedDocumentEntity getDocumentDescription(LoadDocumentRequest loadDocumentRequest) {
         try {
-            // get/set parameters
-            String documentGuid = loadDocumentRequest.getGuid();
-            String password = loadDocumentRequest.getPassword();
-            ImageOptions imageOptions = createImageOptions(password);
-            // get document info container
-            String fileName = FilenameUtils.getName(documentGuid);
-            DocumentInfoContainer documentDescription = annotationHandler.getDocumentInfo(fileName, password);
+            return loadDocument(
+                loadDocumentRequest, 
+                annotationConfiguration.getPreloadPageCount() == 0
+                //globalConfiguration.getAnnotationConfiguration().getPreloadPageCount() == 0
+            );
+        } catch (Throwable ex) {
+            throw new TotalGroupDocsException(ex);
+        }
+    }
+    
+    public final AnnotatedDocumentEntity loadDocument(LoadDocumentRequest loadDocumentRequest, boolean loadAllPages) {
+        Annotator annotator = null;
+        AnnotatedDocumentEntity description = new AnnotatedDocumentEntity();
+        String guid = loadDocumentRequest.getGuid();
+        String password = loadDocumentRequest.getPassword();
+        LoadOptions loadOptions = new LoadOptions();
+        loadOptions.setPassword(password);
+        
+        try {    
+            annotator = new Annotator(guid, loadOptions);
 
-            String documentType = checkedDocumentType(documentGuid, documentDescription.getDocumentType());
-            // check if document contains annotations
-            AnnotationInfo[] annotations = getAnnotations(documentGuid, documentType);
-            // get info about each document page
-            List<PageImage> pageImages = null;
-            if (annotationConfiguration.getPreloadPageCount() == 0) {
-                pageImages = annotationHandler.getPages(fileName, imageOptions);
+            IDocumentInfo info = annotator.getDocument().getDocumentInfo();
+            List<AnnotationBase> annotations = annotator.get();
+
+            description.setGuid(loadDocumentRequest.getGuid());
+
+            String documentType = "";
+            if (info.getFileType() != null) {
+                documentType = SupportedImageFormats.contains(info.getFileType().getExtension()) ? "image" : info.getFileType().toString();
+            } else {
+                documentType = "Portable Document Format";
             }
-            String[] supportedAnnotations = SupportedAnnotations.getSupportedAnnotations(documentType);
-            // initiate custom Document description object
-            AnnotatedDocumentEntity description = new AnnotatedDocumentEntity();
-            description.setGuid(documentGuid);
-            description.setSupportedAnnotations(supportedAnnotations);
-            // initiate pages description list
-            List<PageData> pages = documentDescription.getPages();
-            List<AnnotationPageDescriptionEntity> pagesDescriptions = new ArrayList<>(pages.size());
-            for (int i = 0; i < pages.size(); i++) {
-                PageData pageData = pages.get(i);
-                // set current page info for result
-                PageImage pageImage = pageImages != null ? pageImages.get(i) : null;
-                AnnotationPageDescriptionEntity page = getAnnotationPageDescriptionEntity(pageData, pageImage);
-                // set annotations data if document page contains annotations
-                if (annotations != null && annotations.length > 0) {
-                    page.setAnnotations(AnnotationMapper.instance.mapForPage(annotations, page.getNumber()));
+
+            description.supportedAnnotations = SupportedAnnotations.getSupportedAnnotations(documentType);
+
+            List<String> pagesContent = new ArrayList<>();
+
+            if (loadAllPages) {
+                pagesContent = getAllPagesContent(password, guid, info); //documentGuid => guid
+            }
+
+            for (int i = 0; i < info.getPageCount(); i++) {
+                PageDataDescriptionEntity page = new PageDataDescriptionEntity();
+                page.setNumber(i + 1);
+                page.setHeight(info.getPagesInfo().get(i).getHeight());
+                page.setWidth(info.getPagesInfo().get(i).getWidth());
+
+                if (annotations != null && annotations.size() > 0) {                   
+                    page.setAnnotations(AnnotationMapper.mapForPage(annotations, i + 1, info.getPagesInfo().get(i)));
                 }
-                pagesDescriptions.add(page);
+
+                if (pagesContent.size() > 0) {
+                    page.setData(pagesContent.get(i));
+                }
+                description.getPages().add(page);
             }
-            description.setPages(pagesDescriptions);
-            // return document description
-            return description;
-        } catch (Exception ex) {
-            throw new TotalGroupDocsException(ex.getMessage(), ex);
+        } finally {
+            if (annotator != null) {
+                annotator.dispose();
+            }
         }
+
+        description.setGuid(guid); //documentGuid => guid
+        // return document description
+        return description;
     }
+        
+    public static String getStringFromStream(InputStream inputStream) throws IOException {
+//        inputStream.reset();
+//        inputStream.skip(0);
+//        
+//        byte[] imageRaw = null;
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        int c;
+//        while ((c = inputStream.read()) != -1) {
+//            out.write(c);
+//        }
+//        out.flush();
+//        imageRaw = out.toByteArray();
+//
+//        String result = Base64.getEncoder().encodeToString(imageRaw);
+        
+        //Base64.encodeToString(imageRaw, Base64.DEFAULT);
 
-    /**
-     * Create initial instance of ImageOptions with documents password
-     *
-     * @param password
-     * @return
-     */
-    public ImageOptions createImageOptions(String password) {
-        ImageOptions imageOptions = new ImageOptions();
-        // set password for protected document
-        if (!StringUtils.isEmpty(password)) {
-            imageOptions.setPassword(password);
-        }
-        return imageOptions;
-    }
-
-    private AnnotationPageDescriptionEntity getAnnotationPageDescriptionEntity(PageData pageData, PageImage pageImage) throws IOException {
-        AnnotationPageDescriptionEntity page = new AnnotationPageDescriptionEntity();
-        page.setHeight(pageData.getHeight());
-        page.setWidth(pageData.getWidth());
-        page.setNumber(pageData.getNumber());
-
-        if (pageImage != null) {
-            page.setData(getStringFromStream(pageImage.getStream()));
-        }
-        return page;
+        //----
+        
+        inputStream.reset();
+        inputStream.skip(0);
+        
+        byte[] bytes = IOUtils.toByteArray(inputStream);
+        // encode ByteArray into String
+        return Base64.getEncoder().encodeToString(bytes);
+        
+//        byte[] buffer = new byte[inputStream.available()];
+//        inputStream.read(buffer);
+//        
+//        return Base64.getEncoder().encodeToString(buffer);
+        
+//        java.io.File targetFile = new java.io.File("C:\\Users\\AlexT\\Desktop\\java-answers\\ConsoleApp1/targetFile.tmp");
+//        java.io.OutputStream outStream = new java.io.FileOutputStream(targetFile);
+//        outStream.write(buffer);
+            
+//        return result;//new String(buffer);//, StandardCharsets.UTF_8);
+        //return new String(IOUtils.toByteArray(inputStream), StandardCharsets.UTF_8);
     }
 
     @Override
-    public AnnotationPageDescriptionEntity getDocumentPage(LoadDocumentPageRequest loadDocumentPageRequest) {
+    public PageDataDescriptionEntity getDocumentPage(LoadDocumentPageRequest loadDocumentPageRequest) {
+        String password = "";
         try {
             // get/set parameters
             String documentGuid = loadDocumentPageRequest.getGuid();
             int pageNumber = loadDocumentPageRequest.getPage();
-            String password = loadDocumentPageRequest.getPassword();
-            // set options
-            ImageOptions imageOptions = createImageOptions(password);
-            imageOptions.setPageNumber(pageNumber);
-            imageOptions.setCountPagesToConvert(1);
-            String fileName = FilenameUtils.getName(documentGuid);
-            List<PageImage> images = annotationHandler.getPages(fileName, imageOptions);
+            password = loadDocumentPageRequest.getPassword();
+            PageDataDescriptionEntity loadedPage = new PageDataDescriptionEntity();
 
-            DocumentInfoContainer documentDescription = annotationHandler.getDocumentInfo(fileName, password);
-            PageData pageData = documentDescription.getPages().get(pageNumber - 1);
+            // get page image
+            byte[] bytes;
 
-            AnnotationPageDescriptionEntity page = getAnnotationPageDescriptionEntity(pageData, images.get(0));
+            final Annotator annotator = new Annotator(documentGuid, getLoadOptions(password));
+            try {
+                final OutputStream renderPage = renderPageToMemoryStream(pageNumber, documentGuid, password);
+                
+                ByteArrayOutputStream bufferRenderPage = (ByteArrayOutputStream) renderPage;
+                byte[] bytesRenderPage = bufferRenderPage.toByteArray();
+                InputStream streamRenderPage = new ByteArrayInputStream(bytesRenderPage);
 
-            // return loaded page object
-            return page;
-        } catch (Exception ex) {
-            throw new TotalGroupDocsException(ex.getMessage(), ex);
-        }
-    }
+                try {
+                    bytes = IOUtils.toByteArray(streamRenderPage);
+                } finally {
+                    if (streamRenderPage != null) {
+                        streamRenderPage.close();
+                    }
+                }
 
-    @Override
-    public AnnotatedDocumentEntity annotate(AnnotateDocumentRequest annotateDocumentRequest) {
-        AnnotatedDocumentEntity annotatedDocument = new AnnotatedDocumentEntity();
-        try {
-            String documentGuid = annotateDocumentRequest.getGuid();
-            String documentType = checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
-            List<AnnotationInfo> annotations = getAnnotationInfos(annotateDocumentRequest, documentType);
+//                InputStream finput = new FileInputStream(file);
+//                byte[] imageBytes = new byte[(int)file.length()];
+//                finput.read(imageBytes, 0, imageBytes.length);
+//                finput.close();
+//                String imageStr = Base64.encodeBase64String(imageBytes);
 
-            InputStream file = annotateDocument(documentGuid, documentType, annotations);
-            if (annotateDocumentRequest.getPrint()) {
-                List<AnnotationPageDescriptionEntity> annotatedPages = getAnnotatedPages(annotateDocumentRequest.getPassword(), file);
-                annotatedDocument.setPages(annotatedPages);
-            } else {
-                try (OutputStream fileStream = new FileOutputStream(documentGuid)) {
-                    IOUtils.copyLarge(file, fileStream);
-                    annotatedDocument.setGuid(documentGuid);
+                IDocumentInfo info = annotator.getDocument().getDocumentInfo();
+                List<AnnotationBase> annotations = annotator.get();
+
+                if (annotations != null && annotations.size() > 0) {
+                    loadedPage.setAnnotations(AnnotationMapper.mapForPage(annotations, pageNumber, info.getPagesInfo().get(pageNumber - 1)));
+                }
+
+                String encodedImage = Base64.getEncoder().encodeToString(bytes);
+                loadedPage.setData(encodedImage);
+
+                loadedPage.setHeight(info.getPagesInfo().get(pageNumber - 1).getHeight());
+                loadedPage.setWidth(info.getPagesInfo().get(pageNumber - 1).getWidth());
+                loadedPage.setNumber(pageNumber);
+            } finally {
+                if (annotator != null) {
+                    annotator.dispose();
                 }
             }
+
+            // return loaded page object
+            return loadedPage;
+        } catch (Exception ex) {
+            throw new TotalGroupDocsException(ex);
+        }
+    }
+    
+    private static OutputStream renderPageToMemoryStream(int pageNumberToRender, String documentGuid, String password) {
+        try {
+            OutputStream result = new ByteArrayOutputStream(); // MemoryStream => OutputStream
+            InputStream inputStream = new FileInputStream(documentGuid); //final FileStream outputStream = File.openRead(documentGuid);
+            try {
+                final Annotator annotator = new Annotator(inputStream, getLoadOptions(password));
+                try {
+                    PreviewOptions previewOptions = new PreviewOptions( //PreviewOptions previewOptions = new PreviewOptions((pageNumber) =  > result);
+                        new CreatePageStream() {
+                            @Override
+                            public OutputStream invoke(int pageNumber) {
+                                return result;
+                            }
+                        }
+                    );
+                    previewOptions.setPreviewFormat(PreviewFormats.PNG);
+                    previewOptions.setPageNumbers(new int[]{pageNumberToRender});
+                    previewOptions.setRenderComments(false);
+
+                    annotator.getDocument().generatePreview(previewOptions);
+                } finally {
+                    if (annotator != null) {
+                        annotator.dispose();
+                    }
+                }
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            }
+            return result;
+        } catch (Exception ex) {
+            throw new TotalGroupDocsException(ex);
+	}
+    }  
+
+    private static LoadOptions getLoadOptions(String password) {
+        LoadOptions loadOptions = new LoadOptions();
+        loadOptions.setPassword(password);
+        return loadOptions;
+    }
+
+    public InputStream annotateDocument(String documentGuid, String documentType, List<AnnotationBase> annotations) throws FileNotFoundException {
+        Annotator annotator = new Annotator(documentGuid);
+        
+        SaveOptions saveOptions = new SaveOptions();
+        saveOptions.setAnnotationTypes(AnnotationType.None);
+          
+        annotator.save(documentGuid, saveOptions);
+        
+        if (annotations.size() > 0) {
+            annotator.add(annotations);
+            annotator.save(documentGuid, new SaveOptions());
+        }
+        
+        return new FileInputStream(documentGuid);
+    }
+    
+    @Override
+    public AnnotatedDocumentEntity annotate(AnnotationPostedDataEntity annotateDocumentRequest) {
+        AnnotatedDocumentEntity annotatedDocument = new AnnotatedDocumentEntity();
+        try {
+            // get/set parameters
+            String documentGuid = annotateDocumentRequest.getGuid();
+            String password = annotateDocumentRequest.getPassword();
+            
+            //String documentType1 = DocumentTypesConverter.checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
+            String documentType = SupportedImageFormats.contains(
+                FilenameUtils.getExtension(annotateDocumentRequest.getGuid())
+            ) ? "image" : annotateDocumentRequest.getDocumentType();
+            
+            String tempPath = getTempPath(documentGuid);
+
+            AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
+            // initiate list of annotations to add
+            List<AnnotationBase> annotations = new ArrayList<>();
+
+            final Annotator annotator = new Annotator(documentGuid, getLoadOptions(password));
+            try {
+                IDocumentInfo info = annotator.getDocument().getDocumentInfo();
+
+                for (int i = 0; i < annotationsData.length; i++) {
+                    AnnotationDataEntity annotationData = annotationsData[i];
+                    PageInfo pageInfo = info.getPagesInfo().get(annotationsData[i].getPageNumber() - 1);
+                    // add annotation, if current annotation type isn't supported by the current document type it will be ignored
+                    try {
+                        BaseAnnotator baseAnnotator = AnnotatorFactory.createAnnotator(annotationData, pageInfo);
+                        if (baseAnnotator.isSupported(documentType)) {
+                            annotations.add(baseAnnotator.getAnnotationBase(documentType));
+                        }
+                    } catch (java.lang.RuntimeException ex) {
+                        throw new AnnotatorException(ex.getMessage(), ex);
+                    }
+                }
+            } finally {
+                if (annotator != null) {
+                    annotator.dispose();
+                }
+            }
+
+            // Add annotation to the document
+            removeAnnotations(documentGuid, password);
+            // check if annotations array contains at least one annotation to add
+            if (annotations.size() != 0) {
+                final Annotator annotator1 = new Annotator(documentGuid, getLoadOptions(password));
+                try {
+                    //foreach to while statements conversion
+                    Iterator tmp0 = (annotations).iterator();
+
+                    while (tmp0.hasNext()) {
+                        AnnotationBase annotation = (AnnotationBase) tmp0.next();
+                        annotator1.add(annotation);
+                    }
+
+                    annotator1.save(tempPath);
+                } finally {
+                    if (annotator1 != null) {
+                        annotator1.dispose();
+                    }
+                }
+
+                try (OutputStream fileStream = new FileOutputStream(documentGuid)) {
+                    InputStream inputStream1 = new FileInputStream(tempPath);
+                    IOUtils.copyLarge(inputStream1, fileStream);
+                }
+            }
+
+            annotatedDocument = new AnnotatedDocumentEntity();
+            annotatedDocument.setGuid(documentGuid);
+            if (annotateDocumentRequest.getPrint()) {
+                annotatedDocument.setPages(getAnnotatedPagesForPrint(password, documentGuid));
+                Files.move(Paths.get(documentGuid), Paths.get(annotateDocumentRequest.getGuid()));
+            }
+        } catch (Exception ex) {
+            // set exception message
+            throw new TotalGroupDocsException(ex);
+        }
+
+        return annotatedDocument;
+        
+    }
+    
+    private List<PageDataDescriptionEntity> getAnnotatedPagesForPrint(String password, String documentGuid) {
+        AnnotatedDocumentEntity description = new AnnotatedDocumentEntity();
+        try {
+            InputStream outputStream = new FileInputStream(documentGuid);
+            try {
+                final Annotator annotator = new Annotator(outputStream, getLoadOptions(password));
+                try {
+                    IDocumentInfo info = annotator.getDocument().getDocumentInfo();
+                    List<String> pagesContent = getAllPagesContent(password, documentGuid, info);
+
+                    for (int i = 0; i < info.getPageCount(); i++) {
+                        PageDataDescriptionEntity page = new PageDataDescriptionEntity();
+
+                        if (pagesContent.size() > 0) {
+                            page.setData(pagesContent.get(i));
+                        }
+
+                        description.getPages().add(page);
+                    }
+                } finally {
+                    if (annotator != null) {
+                        annotator.dispose();
+                    }
+                }
+            } finally {
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            }
+
+            return description.getPages();
         } catch (Exception ex) {
             throw new TotalGroupDocsException(ex.getMessage(), ex);
         }
-        return annotatedDocument;
     }
-
-    public InputStream annotateDocument(String documentGuid, String documentType, List<AnnotationInfo> annotations) throws FileNotFoundException {
-        InputStream file = annotationHandler.removeAnnotationStream(new FileInputStream(documentGuid));
-        // check if annotations array contains at least one annotation to add
-        if (annotations.size() > 0) {
-            // Add annotation to the document
-            int type = getDocumentType(documentType);
-            return annotationHandler.exportAnnotationsToDocument(file, annotations, type);
-        }
-        return file;
+    
+    private static String getTempPath(String documentGuid) {
+        File fileName = new File(documentGuid);
+        return fileName.getParentFile().getPath() + "//tmp_" + fileName.getName();
     }
+    
+    public static void removeAnnotations(String documentGuid, String password) {
+        String tempPath = getTempPath(documentGuid);
 
-    public List<AnnotationInfo> getAnnotationInfos(AnnotateDocumentRequest annotateDocumentRequest, String documentType) {
-        AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
-        // get document info - required to get document page height and calculate annotation top position
-        DocumentInfoContainer documentInfo = annotationHandler.getDocumentInfo(new File(annotateDocumentRequest.getGuid()).getName(), annotateDocumentRequest.getPassword());
-        List<AnnotationInfo> annotations = new ArrayList<>();
-        for (AnnotationDataEntity annotationData : annotationsData) {
-            // create annotator
-            PageData pageData = documentInfo.getPages().get(annotationData.getPageNumber() - 1);
-            // add annotation, if current annotation type isn't supported by the current document type it will be ignored
+        try {
+            final InputStream inputStream = new FileInputStream(documentGuid);
+            //final Stream inputStream = File.open(documentGuid, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             try {
-                annotations.add(AnnotatorFactory.createAnnotator(annotationData, pageData).getAnnotationInfo(documentType));
-            } catch (Exception ex) {
-                throw new TotalGroupDocsException(ex.getMessage(), ex);
+                final Annotator annotator = new Annotator(inputStream, getLoadOptions(password));
+                try {
+                    SaveOptions tmp0 = new SaveOptions();
+                    tmp0.setAnnotationTypes(AnnotationType.None);
+                    annotator.save(tempPath, tmp0);
+                } finally {
+                    if (annotator != null) {
+                        annotator.dispose();
+                    }
+                }
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
             }
+            
+            
+            try (PrintWriter writer = new PrintWriter(documentGuid)) {                
+                writer.print("");   
+            }
+            
+            try (OutputStream fileStream = new FileOutputStream(documentGuid)) {
+                InputStream inputStream1 = new FileInputStream(tempPath);
+                IOUtils.copyLarge(inputStream1, fileStream);
+            }
+            
+//            Files.copy(Paths.get(tempPath), Paths.get(documentGuid));
+
+//            Files.deleteIfExists(Paths.get(documentGuid));
+//            Files.move(Paths.get(tempPath), Paths.get(documentGuid));
+//            Files.copy(Paths.get(tempPath), Paths.get(documentGuid), StandardCopyOption.REPLACE_EXISTING);
+
+        } catch (Exception ex) {
+            throw new TotalGroupDocsException(ex.getMessage(), ex);
         }
-        return annotations;
+    }
+    
+    private String getText1(String tempPath) {
+        String content = "";
+        try {
+            InputStream is = new FileInputStream(tempPath);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            String line = buf.readLine();
+            StringBuilder sb = new StringBuilder();
+            while(line != null){
+               sb.append(line).append("\n");
+               line = buf.readLine();
+            }
+            content = sb.toString();
+        } catch(Throwable ex) {
+            ex.getMessage();
+        }
+        return content;
+    }
+    
+    private List<String> getAllPagesContent(String password, String documentGuid, IDocumentInfo pages) {
+        List<String> allPages = new ArrayList<>();
+
+//        //get page HTML
+//        renderPageToMemoryStream(pages.getPageCount(), documentGuid, password);
+//        for (int i = 0; i < pages.getPageCount(); i++) {
+//            byte[] bytes = annotationPageDescriptionEntityList.get(i).getData().getBytes(); // getData()
+//            allPages.add(Base64.getEncoder().encodeToString(bytes));
+//            
+////            allPages.add(annotationPageDescriptionEntityList.get(i).toString());          
+////            allPages.add(annotationPageDescriptionEntityList.get(i).getData());
+//        }
+
+            for (int i = 0; i < pages.getPageCount(); i++) {
+                byte[] bytes;
+                try (OutputStream memoryStream = renderPageToMemoryStream(i + 1, documentGuid, password)) {
+                    ByteArrayOutputStream bos = (ByteArrayOutputStream) memoryStream;
+                    bytes = bos.toByteArray(); //memoryStream.ToArray();
+                } catch (IOException ex) {
+                    throw new TotalGroupDocsException(ex.getMessage(), ex);
+                }
+
+                String encodedImage = new String(Base64.getEncoder().encode(bytes)); //Convert.ToBase64String(bytes);
+                allPages.add(encodedImage);
+            }
+
+        return allPages;
+    }
+        
+//------------------------------------------
+    public List<AnnotationBase> getAnnotationInfos(AnnotationPostedDataEntity annotateDocumentRequest, String documentType) {
+        try {
+            AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
+            // get document info - required to get document page height and calculate annotation top position
+
+            List<AnnotationBase> annotations = new ArrayList<>();
+            for (AnnotationDataEntity annotationData : annotationsData) {
+                // create annotator
+                // add annotation, if current annotation type isn't supported by the current document type it will be ignored              
+                PageDataDescriptionEntity pageData = annotationPageDescriptionEntityList.get(annotationData.getPageNumber() - 1);
+                
+                PageInfo pageInfo = new PageInfo(); 
+                pageInfo.setHeight((int) pageData.getHeight());
+                //pageInfo.setPageNumber(pageData.getNumber());
+                pageInfo.setWidth((int) pageData.getWidth());
+                
+                try {
+                    annotations.add(AnnotatorFactory.createAnnotator(annotationData, pageInfo).getAnnotationBase(documentType));
+                } catch (Throwable ex) {
+                    throw new TotalGroupDocsException(ex.getMessage(), ex);
+                }
+            }
+            return annotations;
+        } catch (Exception ex) {
+            throw new TotalGroupDocsException(ex.getMessage(), ex);
+        }
     }
 
     @Override
-    public InputStream annotateByStream(AnnotateDocumentRequest annotateDocumentRequest) {
+    public InputStream annotateByStream(AnnotationPostedDataEntity annotateDocumentRequest) {
         String documentGuid = annotateDocumentRequest.getGuid();
-        String documentType = checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
-        List<AnnotationInfo> annotations = getAnnotationInfos(annotateDocumentRequest, documentType);
+        String documentType = DocumentTypesConverter.checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
+        List<AnnotationBase> annotations = getAnnotationInfos(annotateDocumentRequest, documentType);
         try {
             return annotateDocument(documentGuid, documentType, annotations);
         } catch (FileNotFoundException ex) {
             throw new TotalGroupDocsException(ex.getMessage(), ex);
         }
     }
-
-    /**
-     * Get pages images of annotated file
-     *
-     * @param password    password for the file
-     * @param inputStream stream of annotated file
-     * @return list of pages
-     * @throws IOException
-     */
-    private List<AnnotationPageDescriptionEntity> getAnnotatedPages(String password, InputStream inputStream) throws IOException {
-        ImageOptions imageOptions = createImageOptions(password);
-        List<PageImage> pages = annotationHandler.getPages(inputStream, imageOptions);
-        List<AnnotationPageDescriptionEntity> pagesDescriptions = new ArrayList<>(pages.size());
-        for (PageImage pageImage : pages) {
-            AnnotationPageDescriptionEntity page = new AnnotationPageDescriptionEntity();
-            page.setData(getStringFromStream(pageImage.getStream()));
-
-            pagesDescriptions.add(page);
-        }
-        return pagesDescriptions;
-    }
-
-    /**
-     * Get all annotations from the document
-     *
-     * @param documentGuid
-     * @param documentType
-     * @return array of the annotations
-     */
-    private AnnotationInfo[] getAnnotations(String documentGuid, String documentType) {
-        try (InputStream documentStream = new FileInputStream(documentGuid)) {
-            int docType = getDocumentType(documentType);
-            return new Importer(documentStream, annotationHandler).importAnnotations(docType);
-        } catch (AnnotatorException annotatorException) {
-            logger.error("Exception while extract annotations from file {}: {}", FilenameUtils.getName(documentGuid), annotatorException.getCause().getLocalizedMessage());
-            return new AnnotationInfo[0];
-        } catch (Exception ex) {
-            throw new TotalGroupDocsException(ex.getMessage(), ex);
-        }
-    }
-
 }

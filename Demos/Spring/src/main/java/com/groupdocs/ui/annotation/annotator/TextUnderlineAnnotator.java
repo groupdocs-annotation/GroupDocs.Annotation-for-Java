@@ -2,30 +2,28 @@ package com.groupdocs.ui.annotation.annotator;
 
 import com.groupdocs.annotation.models.PageInfo;
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
-import com.groupdocs.annotation.models.annotationmodels.WatermarkAnnotation;
+import com.groupdocs.annotation.models.annotationmodels.UnderlineAnnotation;
 import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 import com.groupdocs.ui.exception.TotalGroupDocsException;
 
-public class WatermarkAnnotator extends BaseAnnotator {
 
-    private WatermarkAnnotation watermarkAnnotation;
+public class TextUnderlineAnnotator extends AbstractTextAnnotator {
 
-    public WatermarkAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+    private UnderlineAnnotation underlineAnnotation;
+
+    public TextUnderlineAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
         super(annotationData, pageInfo);
 
-        watermarkAnnotation = new WatermarkAnnotation();
-        watermarkAnnotation.setBox(getBox());
-        watermarkAnnotation.setFontFamily(annotationData.getFont() != null ||  !"".equals(annotationData.getFont()) ? annotationData.getFont() : "Arial");
-        watermarkAnnotation.setFontColor(annotationData.getFontColor());
-        watermarkAnnotation.setFontSize(annotationData.getFontSize() == 0 ? 12 : annotationData.getFontSize());
-        watermarkAnnotation.setText(annotationData.getText());
+        underlineAnnotation = new UnderlineAnnotation();
+        underlineAnnotation.setPoints(getPoints(annotationData, pageInfo));
     }
 
     @Override
     public AnnotationBase annotateWord() {
-        watermarkAnnotation = (WatermarkAnnotation) initAnnotationBase(watermarkAnnotation);
-        return watermarkAnnotation;
+        underlineAnnotation = (UnderlineAnnotation) initAnnotationBase(underlineAnnotation);
+        underlineAnnotation.setFontColor(1201033);
+        return underlineAnnotation;
     }
 
     @Override
@@ -40,7 +38,9 @@ public class WatermarkAnnotator extends BaseAnnotator {
 
     @Override
     public AnnotationBase annotateSlides() {
-        return annotateWord();
+        underlineAnnotation = (UnderlineAnnotation) initAnnotationBase(underlineAnnotation);
+        underlineAnnotation.setFontColor(0);
+        return underlineAnnotation;
     }
 
     @Override
@@ -55,6 +55,6 @@ public class WatermarkAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Watermark;
+        return AnnotationType.TextUnderline;
     }
 }

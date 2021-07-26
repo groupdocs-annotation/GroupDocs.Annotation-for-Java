@@ -1,84 +1,58 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.AnnotationType;
-import com.groupdocs.annotation.domain.PageData;
-import com.groupdocs.annotation.domain.Rectangle;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.models.annotationmodels.ReplacementAnnotation;
+import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
+import com.groupdocs.ui.exception.TotalGroupDocsException;
 
-import java.text.ParseException;
 
-/**
- * TextAnnotator
- * Annotates documents with the text annotation
- *
- * @author Aspose Pty Ltd
- */
-public class TextReplacementAnnotator extends AbstractSvgAnnotator {
+public class TextReplacementAnnotator extends AbstractTextAnnotator {
 
-    public TextReplacementAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    private ReplacementAnnotation replacementAnnotation;
+
+    public TextReplacementAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
+
+        replacementAnnotation = new ReplacementAnnotation();
+        replacementAnnotation.setPoints(getPoints(annotationData, pageInfo));
+        replacementAnnotation.setTextToReplace(annotationData.getText());
     }
 
     @Override
-    public AnnotationInfo annotateWord() throws ParseException {
-        // init possible types of annotations
-        AnnotationInfo textReplacementAnnotation = initAnnotationInfo();
-        return textReplacementAnnotation;
+    public AnnotationBase annotateWord() {
+        replacementAnnotation = (ReplacementAnnotation) initAnnotationBase(replacementAnnotation);
+        return replacementAnnotation;
     }
 
     @Override
-    protected AnnotationInfo initAnnotationInfo() throws ParseException {
-        AnnotationInfo textReplacementAnnotation = super.initAnnotationInfo();
-        textReplacementAnnotation.setGuid(String.valueOf(annotationData.getId()));
-        textReplacementAnnotation.setFieldText(annotationData.getText());
-        return textReplacementAnnotation;
+    public AnnotationBase annotatePdf() {
+        return annotateWord();
     }
 
     @Override
-    protected String buildSvgPath() {
-        double topPosition = pageData.getHeight() - annotationData.getTop();
-        double leftPosition = pageData.getWidth() - annotationData.getLeft();
-        double topRightX = annotationData.getLeft() + annotationData.getWidth();
-        double bottomRightY = topPosition - annotationData.getHeight();
-        return super.getSvgString(topPosition, leftPosition, topRightX, bottomRightY);
+    public AnnotationBase annotateCells() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotatePdf() throws ParseException {
-        // init possible types of annotations
-        AnnotationInfo textReplacementAnnotation = initAnnotationInfo();
-        textReplacementAnnotation.setBox(new Rectangle(annotationData.getLeft(), annotationData.getTop(), annotationData.getWidth(), annotationData.getHeight()));
-        return textReplacementAnnotation;
+    public AnnotationBase annotateSlides() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateCells() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateImage() {
+        throw new TotalGroupDocsException(Message + annotationData.getType());
     }
 
     @Override
-    public AnnotationInfo annotateSlides() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateDiagram() {
+        throw new TotalGroupDocsException(Message + annotationData.getType());
     }
 
     @Override
-    public AnnotationInfo annotateImage() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
-    }
-
-    @Override
-    public AnnotationInfo annotateDiagram() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
-    }
-
-    @Override
-    protected Rectangle getBox() {
-        return new Rectangle(0, 0, 0, 0);
-    }
-
-    @Override
-    protected byte getType() {
+    protected int getType() {
         return AnnotationType.TextReplacement;
     }
 }

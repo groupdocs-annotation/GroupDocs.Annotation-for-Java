@@ -1,10 +1,10 @@
 package com.groupdocs.ui.annotation.controller;
 
 import com.groupdocs.ui.annotation.config.AnnotationConfiguration;
-import com.groupdocs.ui.annotation.entity.request.AnnotateDocumentRequest;
 import com.groupdocs.ui.annotation.entity.web.AnnotatedDocumentEntity;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
-import com.groupdocs.ui.annotation.entity.web.AnnotationPageDescriptionEntity;
+import com.groupdocs.ui.annotation.entity.web.AnnotationPostedDataEntity;
+import com.groupdocs.ui.annotation.entity.web.PageDataDescriptionEntity;
 import com.groupdocs.ui.annotation.service.AnnotationService;
 import com.groupdocs.ui.config.GlobalConfiguration;
 import com.groupdocs.ui.exception.TotalGroupDocsException;
@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.annotation.Nullable;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +31,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-
 import static com.groupdocs.ui.util.Utils.setLocalPort;
 import static com.groupdocs.ui.util.Utils.uploadFile;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -46,6 +44,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 @Controller
 @RequestMapping(value = "/annotation")
 public class AnnotationController {
+    
     private static final Logger logger = LoggerFactory.getLogger(AnnotationController.class);
 
     @Autowired
@@ -93,6 +92,7 @@ public class AnnotationController {
     /**
      * Get document description
      *
+     * @param loadDocumentRequest
      * @return document description
      */
     @RequestMapping(value = "/loadDocumentDescription", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
@@ -104,11 +104,12 @@ public class AnnotationController {
     /**
      * Get document page
      *
+     * @param loadDocumentPageRequest
      * @return document page
      */
     @RequestMapping(value = "/loadDocumentPage", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ResponseBody
-    public AnnotationPageDescriptionEntity loadDocumentPage(@RequestBody LoadDocumentPageRequest loadDocumentPageRequest) {
+    public PageDataDescriptionEntity loadDocumentPage(@RequestBody LoadDocumentPageRequest loadDocumentPageRequest) {
         return annotationService.getDocumentPage(loadDocumentPageRequest);
     }
 
@@ -119,8 +120,7 @@ public class AnnotationController {
      * @param response     http response
      */
     @RequestMapping(value = "/downloadDocument", method = RequestMethod.GET)
-    public void downloadDocument(@RequestParam("path") String documentGuid,
-                                 HttpServletResponse response) {
+    public void downloadDocument(@RequestParam("path") String documentGuid, HttpServletResponse response) {
         // get document path
         String fileName = FilenameUtils.getName(documentGuid);
 
@@ -165,10 +165,13 @@ public class AnnotationController {
     /**
      * Annotate document with annotations and download result without saving
      *
-     * @return annotated document info
+     * @param annotateDocumentRequest
+     * @param response
      */
     @RequestMapping(method = RequestMethod.POST, value = "/downloadAnnotated", consumes = APPLICATION_JSON_VALUE)
-    public void downloadAnnotated(@RequestBody AnnotateDocumentRequest annotateDocumentRequest, HttpServletResponse response) {
+    public void downloadAnnotated(@RequestBody AnnotationPostedDataEntity annotateDocumentRequest, HttpServletResponse response) {
+//        @Route("annotation/downloadAnnotated")
+//    public final HttpResponseMessage downloadAnnotated(String path) {
         AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
         if (annotationsData == null || annotationsData.length == 0) {
             throw new IllegalArgumentException("Annotations data is empty");
@@ -199,8 +202,7 @@ public class AnnotationController {
      */
     @RequestMapping(value = "/annotate", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
     @ResponseBody
-    public AnnotatedDocumentEntity annotate(@RequestBody AnnotateDocumentRequest annotateDocumentRequest) {
+    public AnnotatedDocumentEntity annotate(@RequestBody AnnotationPostedDataEntity annotateDocumentRequest) {
         return annotationService.annotate(annotateDocumentRequest);
     }
-
 }

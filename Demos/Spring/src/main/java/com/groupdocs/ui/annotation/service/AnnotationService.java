@@ -1,15 +1,14 @@
 package com.groupdocs.ui.annotation.service;
 
 import com.groupdocs.ui.annotation.config.AnnotationConfiguration;
-import com.groupdocs.ui.annotation.entity.request.AnnotateDocumentRequest;
 import com.groupdocs.ui.annotation.entity.web.AnnotatedDocumentEntity;
-import com.groupdocs.ui.annotation.entity.web.AnnotationPageDescriptionEntity;
+import com.groupdocs.ui.annotation.entity.web.AnnotationPostedDataEntity;
+import com.groupdocs.ui.annotation.entity.web.PageDataDescriptionEntity;
 import com.groupdocs.ui.config.GlobalConfiguration;
 import com.groupdocs.ui.model.request.FileTreeRequest;
 import com.groupdocs.ui.model.request.LoadDocumentPageRequest;
 import com.groupdocs.ui.model.request.LoadDocumentRequest;
 import com.groupdocs.ui.model.response.FileDescriptionEntity;
-
 import java.io.InputStream;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public interface AnnotationService {
      * @param loadDocumentPageRequest request object with document guid and page number
      * @return document page data
      */
-    AnnotationPageDescriptionEntity getDocumentPage(LoadDocumentPageRequest loadDocumentPageRequest);
+    PageDataDescriptionEntity getDocumentPage(LoadDocumentPageRequest loadDocumentPageRequest);
 
     /**
      * Annotate document
@@ -61,7 +60,7 @@ public interface AnnotationService {
      * @param annotateDocumentRequest request object with document guid and annotations data
      * @return annotated document
      */
-    AnnotatedDocumentEntity annotate(AnnotateDocumentRequest annotateDocumentRequest);
+    AnnotatedDocumentEntity annotate(AnnotationPostedDataEntity annotateDocumentRequest);
 
     /**
      * Annotate document by streams
@@ -69,5 +68,5 @@ public interface AnnotationService {
      * @param annotateDocumentRequest request object with document guid and annotations data
      * @return stream of annotated document
      */
-    InputStream annotateByStream(AnnotateDocumentRequest annotateDocumentRequest);
+    InputStream annotateByStream(AnnotationPostedDataEntity annotateDocumentRequest);
 }

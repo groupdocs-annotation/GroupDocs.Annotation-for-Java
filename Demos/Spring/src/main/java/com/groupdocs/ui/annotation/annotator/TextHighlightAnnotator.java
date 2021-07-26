@@ -2,25 +2,27 @@ package com.groupdocs.ui.annotation.annotator;
 
 import com.groupdocs.annotation.models.PageInfo;
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
-import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
+import com.groupdocs.annotation.models.annotationmodels.HighlightAnnotation;
 import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
+import com.groupdocs.ui.exception.TotalGroupDocsException;
 
-public class AreaAnnotator extends BaseAnnotator {
 
-    private AreaAnnotation areaAnnotation;
+public class TextHighlightAnnotator extends AbstractTextAnnotator {
 
-    public AreaAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+    private HighlightAnnotation highlightAnnotation;
+
+    public TextHighlightAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
         super(annotationData, pageInfo);
 
-        areaAnnotation = new AreaAnnotation();
-        areaAnnotation.setBox(getBox());
+        highlightAnnotation = new HighlightAnnotation();
+        highlightAnnotation.setPoints(getPoints(annotationData, pageInfo));
     }
 
     @Override
     public AnnotationBase annotateWord() {
-        areaAnnotation = (AreaAnnotation) initAnnotationBase(areaAnnotation);
-        return areaAnnotation;
+        highlightAnnotation = (HighlightAnnotation) initAnnotationBase(highlightAnnotation);
+        return highlightAnnotation;
     }
 
     @Override
@@ -45,11 +47,11 @@ public class AreaAnnotator extends BaseAnnotator {
 
     @Override
     public AnnotationBase annotateDiagram() {
-        return annotateWord();
+        throw new TotalGroupDocsException(Message + annotationData.getType());
     }
 
     @Override
     protected int getType() {
-        return AnnotationType.Area;
+        return AnnotationType.TextHighlight;
     }
 }

@@ -225,7 +225,6 @@ public class Utils {
          */
         @Override
         public int compare(File file1, File file2) {
-
             return String.CASE_INSENSITIVE_ORDER.compare(file1.getName(),
                     file2.getName());
         }
@@ -238,7 +237,6 @@ public class Utils {
      * @author Aspose Pty Ltd
      */
     static class FileTypeComparator implements Comparator<File> {
-
         /**
          * Compare two file types
          *
@@ -248,7 +246,6 @@ public class Utils {
          */
         @Override
         public int compare(File file1, File file2) {
-
             if (file1.isDirectory() && file2.isFile()) {
                 return -1;
             }

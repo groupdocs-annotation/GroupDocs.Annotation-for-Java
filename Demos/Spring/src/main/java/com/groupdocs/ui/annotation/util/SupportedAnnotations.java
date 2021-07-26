@@ -1,100 +1,31 @@
 package com.groupdocs.ui.annotation.util;
 
-/**
- * The list of supported annotation types for each document type
- */
-public class SupportedAnnotations {
-    public static String[] CELLS = {
-            "text"
-    };
-    public static String[] DIAGRAM = {
-            "area",
-            "point",
-            "polyline",
-            "textField",
-            "arrow",
-            "textRedaction",
-            "resourcesRedaction",
-            "distance"
-    };
-    public static String[] WORD = {
-            "point",
-            "textStrikeout",
-            "polyline",
-            "textField",
-            "watermark",
-            "textReplacement",
-            "arrow",
-            "textRedaction",
-            "resourcesRedaction",
-            "textUnderline",
-            "distance",
-            "text"
-    };
-    public static String[] PDF = {
-            "area",
-            "point",
-            "textStrikeout",
-            "polyline",
-            "textField",
-            "watermark",
-            "textReplacement",
-            "arrow",
-            "textRedaction",
-            "resourcesRedaction",
-            "textUnderline",
-            "distance",
-            "text"
-    };
-    public static String[] IMAGE = {
-            "area",
-            "point",
-            "textStrikeout",
-            "polyline",
-            "textField",
-            "watermark",
-            "arrow",
-            "textRedaction",
-            "resourcesRedaction",
-            "textUnderline",
-            "distance",
-            "text"
-    };
-    public static String[] SLIDES = {
-            "area",
-            "point",
-            "textStrikeout",
-            "polyline",
-            "textField",
-            "watermark",
-            "arrow",
-            "textRedaction",
-            "resourcesRedaction",
-            "textUnderline",
-            "text"
-    };
+import com.groupdocs.annotation.entity.Annotations;
 
-    public static String[] getSupportedAnnotations(String documentType) {
+public class SupportedAnnotations {
+
+    public static final String[] getSupportedAnnotations(String documentType) {
+        Annotations annotations = new Annotations();
         switch (documentType) {
             case "Portable Document Format":
             case "PDF":
-                return PDF;
+                return annotations.Pdf;
             case "Microsoft Word":
             case "WORDS":
-                return WORD;
+                return annotations.Word;
             case "Microsoft PowerPoint":
             case "SLIDES":
-                return SLIDES;
+                return annotations.Slides;
             case "image":
-                return IMAGE;
+                return annotations.Image;
             case "Microsoft Excel":
             case "CELLS":
-                return CELLS;
+                return annotations.Cells;
             case "AutoCAD Drawing File Format":
             case "diagram":
-                return DIAGRAM;
+                return annotations.Diagram;
             default:
-                return PDF;
+                return annotations.Pdf;
         }
     }
 }

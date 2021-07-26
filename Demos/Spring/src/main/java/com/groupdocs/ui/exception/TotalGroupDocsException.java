@@ -12,4 +12,8 @@ public class TotalGroupDocsException extends RuntimeException {
     public TotalGroupDocsException(String message, Throwable cause) {
         super(message, cause);
     }
+    
+    public TotalGroupDocsException(Throwable cause) {
+        super(cause);
+    }
 }

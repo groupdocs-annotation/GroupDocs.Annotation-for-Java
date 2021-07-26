@@ -4,16 +4,14 @@ import com.groupdocs.ui.config.CommonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
 import javax.annotation.PostConstruct;
-
 import static com.groupdocs.ui.config.DefaultDirectories.defaultAnnotationDirectory;
 import static com.groupdocs.ui.config.DefaultDirectories.relativePathToAbsolute;
 
 /**
+ * <p>
  * AnnotationConfiguration
- *
- * @author Aspose Pty Ltd
+ * </p>
  */
 @Component
 public class AnnotationConfiguration extends CommonConfiguration {
@@ -256,29 +254,29 @@ public class AnnotationConfiguration extends CommonConfiguration {
 
     @Override
     public String toString() {
-        return super.toString() +
-                "AnnotationConfiguration{" +
-                "filesDirectory='" + filesDirectory + '\'' +
-                ", defaultDocument='" + defaultDocument + '\'' +
-                ", preloadPageCount=" + preloadPageCount +
-                ", fontsDirectory='" + fontsDirectory + '\'' +
-                ", textAnnotation=" + textAnnotation +
-                ", areaAnnotation=" + areaAnnotation +
-                ", pointAnnotation=" + pointAnnotation +
-                ", textStrikeoutAnnotation=" + textStrikeoutAnnotation +
-                ", polylineAnnotation=" + polylineAnnotation +
-                ", textFieldAnnotation=" + textFieldAnnotation +
-                ", watermarkAnnotation=" + watermarkAnnotation +
-                ", textReplacementAnnotation=" + textReplacementAnnotation +
-                ", arrowAnnotation=" + arrowAnnotation +
-                ", textRedactionAnnotation=" + textRedactionAnnotation +
-                ", resourcesRedactionAnnotation=" + resourcesRedactionAnnotation +
-                ", textUnderlineAnnotation=" + textUnderlineAnnotation +
-                ", distanceAnnotation=" + distanceAnnotation +
-                ", downloadOriginal=" + downloadOriginal +
-                ", downloadAnnotated=" + downloadAnnotated +
-                ", zoom=" + zoom +
-                ", fitWidth=" + fitWidth +
-                '}';
+        return super.toString()
+                + "AnnotationConfiguration{"
+                + "filesDirectory='" + filesDirectory + '\''
+                + ", defaultDocument='" + defaultDocument + '\''
+                + ", preloadPageCount=" + preloadPageCount
+                + ", fontsDirectory='" + fontsDirectory + '\''
+                + ", textAnnotation=" + textAnnotation
+                + ", areaAnnotation=" + areaAnnotation
+                + ", pointAnnotation=" + pointAnnotation
+                + ", textStrikeoutAnnotation=" + textStrikeoutAnnotation
+                + ", polylineAnnotation=" + polylineAnnotation
+                + ", textFieldAnnotation=" + textFieldAnnotation
+                + ", watermarkAnnotation=" + watermarkAnnotation
+                + ", textReplacementAnnotation=" + textReplacementAnnotation
+                + ", arrowAnnotation=" + arrowAnnotation
+                + ", textRedactionAnnotation=" + textRedactionAnnotation
+                + ", resourcesRedactionAnnotation=" + resourcesRedactionAnnotation
+                + ", textUnderlineAnnotation=" + textUnderlineAnnotation
+                + ", distanceAnnotation=" + distanceAnnotation
+                + ", downloadOriginal=" + downloadOriginal
+                + ", downloadAnnotated=" + downloadAnnotated
+                + ", zoom=" + zoom
+                + ", fitWidth=" + fitWidth
+                + '}';
     }
 }

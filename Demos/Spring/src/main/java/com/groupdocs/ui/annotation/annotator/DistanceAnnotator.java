@@ -1,84 +1,92 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.AnnotationReplyInfo;
-import com.groupdocs.annotation.domain.AnnotationType;
-import com.groupdocs.annotation.domain.PageData;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.Rectangle;
+import com.groupdocs.annotation.models.Reply;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.models.annotationmodels.DistanceAnnotation;
+import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 import com.groupdocs.ui.annotation.entity.web.CommentsEntity;
 
-import java.text.ParseException;
+public class DistanceAnnotator extends BaseAnnotator {
 
-/**
- * TextAnnotator
- * Annotates documents with the text annotation
- *
- * @author Aspose Pty Ltd
- */
-public class DistanceAnnotator extends AbstractBoxAnnotator {
+    private DistanceAnnotation distanceAnnotation;
 
-    public DistanceAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    public DistanceAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
+
+        distanceAnnotation = new DistanceAnnotation();
+        distanceAnnotation.setBox(getBox());
     }
 
     @Override
-    public AnnotationInfo annotateWord() throws ParseException {
-        AnnotationInfo distanceAnnotation = initAnnotationInfo();
+    public AnnotationBase annotateWord() {
+        distanceAnnotation = (DistanceAnnotation) initAnnotationBaseDistanceAnnotator(distanceAnnotation);
         return distanceAnnotation;
     }
 
     @Override
-    public AnnotationInfo annotatePdf() throws ParseException {
-        AnnotationInfo distanceAnnotation = initAnnotationInfo();
-        return distanceAnnotation;
+    public AnnotationBase annotatePdf() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateCells() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateCells() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateSlides() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateSlides() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateImage() throws ParseException {
-        // init annotation object
-        AnnotationInfo distanceAnnotation = initAnnotationInfo();
-        distanceAnnotation.setBackgroundColor(15988609);
-        return distanceAnnotation;
-    }
-
-
-    @Override
-    public AnnotationInfo annotateDiagram() throws ParseException {
-        // init annotation object
-        AnnotationInfo distanceAnnotation = initAnnotationInfo();
-        distanceAnnotation.setBackgroundColor(15988609);
-        return distanceAnnotation;
+    public AnnotationBase annotateImage() {
+        return annotateWord();
     }
 
     @Override
-    protected AnnotationInfo initAnnotationInfo() throws ParseException {
-        AnnotationInfo distanceAnnotation = super.initAnnotationInfo();
+    public AnnotationBase annotateDiagram() {
+        return annotateWord();
+    }
+
+    protected final AnnotationBase initAnnotationBaseDistanceAnnotator(AnnotationBase annotationBase) {
+        distanceAnnotation = (DistanceAnnotation) super.initAnnotationBase(annotationBase);
+        String tmp0 = annotationData.getText();
+        if (tmp0 == null) {
+            tmp0 = "";
+        }
         // add replies
-        String text = (annotationData.getText() == null) ? "" : annotationData.getText();
+        String text = tmp0;
         CommentsEntity[] comments = annotationData.getComments();
         if (comments != null && comments.length != 0) {
-            AnnotationReplyInfo reply = distanceAnnotation.getReplies()[0];
+            Reply reply = distanceAnnotation.getReplies().get(0);
             if (reply != null) {
-                reply.setMessage(String.format("%s %s", annotationData.getText(), reply.getMessage()));
+                reply.setComment(String.format("{0} {1}", text, reply.getComment()));
             }
-        } else {
-            distanceAnnotation.setFieldText(text);
         }
+
         return distanceAnnotation;
     }
 
     @Override
-    protected byte getType() {
+    protected int getType() {
         return AnnotationType.Distance;
+    }
+
+    @Override
+    protected Rectangle getBox() {
+        String svgPath = annotationData.getSvgPath();
+        
+        String startPoint = svgPath.replaceAll("[a-zA-Z]+", "").split(" ")[0];
+        String endPoint = svgPath.replaceAll("[a-zA-Z]+", "").split(" ")[1];
+        String[] start = startPoint.split(",");
+        float startX = Float.parseFloat(start.length > 0 ? start[0] : "0");
+        float startY = Float.parseFloat(start.length > 1 ? start[1] : "0");
+        String[] end = endPoint.split(",");
+        float endX = Float.parseFloat(end.length > 0 ? end[0] : "0") - startX;
+        float endY = Float.parseFloat(end.length > 1 ? end[1] : "0") - startY;
+        return new Rectangle(startX, startY, endX, endY);      
     }
 }

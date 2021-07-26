@@ -1,70 +1,61 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.AnnotationType;
-import com.groupdocs.annotation.domain.PageData;
-import com.groupdocs.annotation.domain.Point;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.models.annotationmodels.TextFieldAnnotation;
+import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 
-import java.text.ParseException;
 
-/**
- * TextAnnotator
- * Annotates documents with the text annotation
- *
- * @author Aspose Pty Ltd
- */
-public class TextFieldAnnotator extends AbstractTextAnnotator {
+public class TextFieldAnnotator extends BaseAnnotator {
 
-    public TextFieldAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    private TextFieldAnnotation textFieldAnnotation;
+    
+    public TextFieldAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
+
+        textFieldAnnotation = new TextFieldAnnotation();
+        textFieldAnnotation.setBox(getBox());
+        
+        textFieldAnnotation.setFontFamily(annotationData.getFont() != null ||  !"".equals(annotationData.getFont()) ? annotationData.getFont() : "Arial");
+        textFieldAnnotation.setFontColor(annotationData.getFontColor());
+        textFieldAnnotation.setFontSize(annotationData.getFontSize() == 0 ? 12 : annotationData.getFontSize());
+        textFieldAnnotation.setText(annotationData.getText());
     }
 
     @Override
-    public AnnotationInfo annotateWord() throws ParseException {
-        // init possible types of annotations
-        AnnotationInfo textFieldAnnotation = initAnnotationInfo();
+    public AnnotationBase annotateWord() {
+        textFieldAnnotation = (TextFieldAnnotation) initAnnotationBase(textFieldAnnotation);
         return textFieldAnnotation;
     }
 
     @Override
-    public AnnotationInfo annotatePdf() throws ParseException {
-        // init possible types of annotations
-        // Text field annotation
-        AnnotationInfo textFieldAnnotation = initAnnotationInfo();
-        textFieldAnnotation.setAnnotationPosition(new Point(annotationData.getLeft(), annotationData.getTop()));
-        textFieldAnnotation.setBackgroundColor(16777215);
-        return textFieldAnnotation;
+    public AnnotationBase annotatePdf() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateCells() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateCells() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateSlides() throws ParseException {
-        // init possible types of annotations
-        AnnotationInfo textFieldAnnotation = initAnnotationInfo();
-        return textFieldAnnotation;
+    public AnnotationBase annotateSlides() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateImage() throws ParseException {
-        // init possible types of annotations
-        AnnotationInfo textFieldAnnotation = initAnnotationInfo();
-        return textFieldAnnotation;
+    public AnnotationBase annotateImage() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateDiagram() throws ParseException {
-        // init possible types of annotations
-        AnnotationInfo textFieldAnnotation = initAnnotationInfo();
-        return textFieldAnnotation;
+    public AnnotationBase annotateDiagram() {
+        return annotateWord();
     }
 
     @Override
-    protected byte getType() {
+    protected int getType() {
         return AnnotationType.TextField;
     }
 }

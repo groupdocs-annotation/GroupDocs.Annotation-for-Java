@@ -2,37 +2,38 @@ package com.groupdocs.ui.annotation.annotator;
 
 import com.groupdocs.annotation.models.PageInfo;
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
-import com.groupdocs.annotation.models.annotationmodels.ResourcesRedactionAnnotation;
+import com.groupdocs.annotation.models.annotationmodels.StrikeoutAnnotation;
 import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 import com.groupdocs.ui.exception.TotalGroupDocsException;
 
+public class TextStrikeoutAnnotator extends AbstractTextAnnotator {
 
-public class ResourceRedactionAnnotator extends BaseAnnotator {
+    private StrikeoutAnnotation strikeoutAnnotation;
 
-    private ResourcesRedactionAnnotation resourcesRedactionAnnotation;
-
-    public ResourceRedactionAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+    public TextStrikeoutAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
         super(annotationData, pageInfo);
 
-        this.resourcesRedactionAnnotation = new ResourcesRedactionAnnotation();
-        this.resourcesRedactionAnnotation.setBox(getBox());
+        strikeoutAnnotation = new StrikeoutAnnotation();
+        strikeoutAnnotation.setPoints(getPoints(annotationData, pageInfo));
     }
 
     @Override
     public AnnotationBase annotateWord() {
-        resourcesRedactionAnnotation = (ResourcesRedactionAnnotation) initAnnotationBase(resourcesRedactionAnnotation);
-        return resourcesRedactionAnnotation;
+        strikeoutAnnotation = (StrikeoutAnnotation) initAnnotationBase(strikeoutAnnotation);
+        return strikeoutAnnotation;
     }
 
     @Override
     public AnnotationBase annotatePdf() {
-        return annotateWord();
+        strikeoutAnnotation = (StrikeoutAnnotation) initAnnotationBase(strikeoutAnnotation);
+        this.strikeoutAnnotation.setFontColor(0);
+        return strikeoutAnnotation;
     }
 
     @Override
     public AnnotationBase annotateCells() {
-        throw new TotalGroupDocsException(Message + annotationData.getType());
+        return annotateWord();
     }
 
     @Override
@@ -47,11 +48,11 @@ public class ResourceRedactionAnnotator extends BaseAnnotator {
 
     @Override
     public AnnotationBase annotateDiagram() {
-        return annotateWord();
+        throw new TotalGroupDocsException(Message + annotationData.getType());
     }
 
     @Override
     protected int getType() {
-        return AnnotationType.ResourcesRedaction;
+        return AnnotationType.TextStrikeout;
     }
 }
