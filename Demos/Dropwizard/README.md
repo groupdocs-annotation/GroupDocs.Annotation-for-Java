@@ -2,8 +2,6 @@
 # GroupDocs.Annotation for Java Dropwizard Example
 ###### version 1.12.24
 
-[![Build Status](https://travis-ci.org/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard.svg?branch=master)](https://travis-ci.org/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4d0833612964debe5cf8/maintainability)](https://codeclimate.com/github/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/maintainability)
 [![GitHub license](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard.svg)](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/blob/master/LICENSE)
 
 ## System Requirements
