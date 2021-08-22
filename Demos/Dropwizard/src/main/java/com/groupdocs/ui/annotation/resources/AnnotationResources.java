@@ -296,6 +296,21 @@ public class AnnotationResources extends Resources {
         // download the file
         downloadFile(response, documentGuid);
     }
+    
+    /**
+     * Download document
+     *
+     * @param documentGuid path to document parameter
+     * @param response
+     */
+    @GET
+    @Path(value = "/downloadAnnotated")
+    @Produces(APPLICATION_OCTET_STREAM)
+    public void downloadAnnotated(@QueryParam("path") String documentGuid,
+                                 @Context HttpServletResponse response) {
+        // download the file
+        downloadFile(response, documentGuid);
+    }
 
     /**
      * Upload document
@@ -388,38 +403,6 @@ public class AnnotationResources extends Resources {
             }
         }
         return annotations;
-    }
-
-    /**
-     * Annotate document with annotations and download result without saving
-     *
-     * @return annotated document info
-     */
-    @POST
-    @Path(value = "/downloadAnnotated")
-    @Consumes(APPLICATION_JSON)
-    public void downloadAnnotated(AnnotateDocumentRequest annotateDocumentRequest, @Context HttpServletResponse response) {
-        AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
-        if (annotationsData == null || annotationsData.length == 0) {
-            throw new IllegalArgumentException("Annotations data is empty");
-        }
-
-        // get document path
-        String fileName = FilenameUtils.getName(annotateDocumentRequest.getGuid());
-        // set response content info
-        fillResponseHeaderDisposition(response, fileName);
-
-        long length;
-        try (InputStream inputStream = annotateByStream(annotateDocumentRequest);
-             ServletOutputStream outputStream = response.getOutputStream()) {
-            // download the document
-            length = IOUtils.copyLarge(inputStream, outputStream);
-        } catch (Exception ex) {
-            logger.error("Exception in downloading document", ex);
-            throw new TotalGroupDocsException(ex.getMessage(), ex);
-        }
-
-        addFileDownloadHeaders(response, fileName, length);
     }
 
     private InputStream annotateByStream(AnnotateDocumentRequest annotateDocumentRequest) {
