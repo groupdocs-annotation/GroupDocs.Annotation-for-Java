@@ -119,7 +119,7 @@ public class AnnotationController {
      * @param documentGuid path to document parameter
      * @param response     http response
      */
-    @RequestMapping(value = "/downloadDocument", method = RequestMethod.GET)
+    @RequestMapping(value = {"/downloadDocument", "/downloadAnnotated"}, method = RequestMethod.GET)
     public void downloadDocument(@RequestParam("path") String documentGuid, HttpServletResponse response) {
         // get document path
         String fileName = FilenameUtils.getName(documentGuid);
@@ -160,38 +160,6 @@ public class AnnotationController {
         UploadedDocumentEntity uploadedDocument = new UploadedDocumentEntity();
         uploadedDocument.setGuid(pathname);
         return uploadedDocument;
-    }
-
-    /**
-     * Annotate document with annotations and download result without saving
-     *
-     * @param annotateDocumentRequest
-     * @param response
-     */
-    @RequestMapping(method = RequestMethod.POST, value = "/downloadAnnotated", consumes = APPLICATION_JSON_VALUE)
-    public void downloadAnnotated(@RequestBody AnnotationPostedDataEntity annotateDocumentRequest, HttpServletResponse response) {
-//        @Route("annotation/downloadAnnotated")
-//    public final HttpResponseMessage downloadAnnotated(String path) {
-        AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
-        if (annotationsData == null || annotationsData.length == 0) {
-            throw new IllegalArgumentException("Annotations data is empty");
-        }
-
-        // get document path
-        String fileName = FilenameUtils.getName(annotateDocumentRequest.getGuid());
-        // set response content info
-        Utils.addFileDownloadHeaders(response, fileName, null);
-
-        long length;
-        try (InputStream inputStream = annotationService.annotateByStream(annotateDocumentRequest);
-             ServletOutputStream outputStream = response.getOutputStream()) {
-            // download the document
-            length = IOUtils.copyLarge(inputStream, outputStream);
-        } catch (Exception ex) {
-            logger.error("Exception in downloading document", ex);
-            throw new TotalGroupDocsException(ex.getMessage(), ex);
-        }
-        Utils.addFileDownloadLengthHeader(response, length);
     }
 
     /**
