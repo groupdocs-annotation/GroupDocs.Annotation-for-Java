@@ -8,7 +8,6 @@
 - Java 8 (JDK 1.8)
 - Maven 3
 
-
 ## Annotate & write on document with Java Spring
 
 **GroupDocs.Annotations for Java** is a powerful library that provides flexible API which allows you to **annotate PDF**, DOCX, PPT, XLS, and over 90 document formats without external dependencies and/or additional document conversions such us (DOCX to PDF or PPT to PDF). With GroupDocs.Annotation API you can write on documents using various annotation tools such as arrow annotation, text annotation or even draw on a document with help of freehand annotation drawing tool.
