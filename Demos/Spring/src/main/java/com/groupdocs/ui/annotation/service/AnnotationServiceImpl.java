@@ -131,7 +131,6 @@ public class AnnotationServiceImpl implements AnnotationService {
             return loadDocument(
                 loadDocumentRequest, 
                 annotationConfiguration.getPreloadPageCount() == 0
-                //globalConfiguration.getAnnotationConfiguration().getPreloadPageCount() == 0
             );
         } catch (Throwable ex) {
             throw new TotalGroupDocsException(ex);
@@ -166,7 +165,7 @@ public class AnnotationServiceImpl implements AnnotationService {
             List<String> pagesContent = new ArrayList<>();
 
             if (loadAllPages) {
-                pagesContent = getAllPagesContent(password, guid, info); //documentGuid => guid
+                pagesContent = getAllPagesContent(password, guid, info);
             }
 
             for (int i = 0; i < info.getPageCount(); i++) {
@@ -190,48 +189,18 @@ public class AnnotationServiceImpl implements AnnotationService {
             }
         }
 
-        description.setGuid(guid); //documentGuid => guid
+        description.setGuid(guid);
         // return document description
         return description;
     }
         
-    public static String getStringFromStream(InputStream inputStream) throws IOException {
-//        inputStream.reset();
-//        inputStream.skip(0);
-//        
-//        byte[] imageRaw = null;
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        int c;
-//        while ((c = inputStream.read()) != -1) {
-//            out.write(c);
-//        }
-//        out.flush();
-//        imageRaw = out.toByteArray();
-//
-//        String result = Base64.getEncoder().encodeToString(imageRaw);
-        
-        //Base64.encodeToString(imageRaw, Base64.DEFAULT);
-
-        //----
-        
+    public static String getStringFromStream(InputStream inputStream) throws IOException {        
         inputStream.reset();
         inputStream.skip(0);
         
         byte[] bytes = IOUtils.toByteArray(inputStream);
         // encode ByteArray into String
         return Base64.getEncoder().encodeToString(bytes);
-        
-//        byte[] buffer = new byte[inputStream.available()];
-//        inputStream.read(buffer);
-//        
-//        return Base64.getEncoder().encodeToString(buffer);
-        
-//        java.io.File targetFile = new java.io.File("C:\\Users\\AlexT\\Desktop\\java-answers\\ConsoleApp1/targetFile.tmp");
-//        java.io.OutputStream outStream = new java.io.FileOutputStream(targetFile);
-//        outStream.write(buffer);
-            
-//        return result;//new String(buffer);//, StandardCharsets.UTF_8);
-        //return new String(IOUtils.toByteArray(inputStream), StandardCharsets.UTF_8);
     }
 
     @Override
@@ -263,12 +232,6 @@ public class AnnotationServiceImpl implements AnnotationService {
                     }
                 }
 
-//                InputStream finput = new FileInputStream(file);
-//                byte[] imageBytes = new byte[(int)file.length()];
-//                finput.read(imageBytes, 0, imageBytes.length);
-//                finput.close();
-//                String imageStr = Base64.encodeBase64String(imageBytes);
-
                 IDocumentInfo info = annotator.getDocument().getDocumentInfo();
                 List<AnnotationBase> annotations = annotator.get();
 
@@ -297,12 +260,12 @@ public class AnnotationServiceImpl implements AnnotationService {
     
     private static OutputStream renderPageToMemoryStream(int pageNumberToRender, String documentGuid, String password) {
         try {
-            OutputStream result = new ByteArrayOutputStream(); // MemoryStream => OutputStream
-            InputStream inputStream = new FileInputStream(documentGuid); //final FileStream outputStream = File.openRead(documentGuid);
+            OutputStream result = new ByteArrayOutputStream();
+            InputStream inputStream = new FileInputStream(documentGuid);
             try {
                 final Annotator annotator = new Annotator(inputStream, getLoadOptions(password));
                 try {
-                    PreviewOptions previewOptions = new PreviewOptions( //PreviewOptions previewOptions = new PreviewOptions((pageNumber) =  > result);
+                    PreviewOptions previewOptions = new PreviewOptions(
                         new CreatePageStream() {
                             @Override
                             public OutputStream invoke(int pageNumber) {
@@ -328,7 +291,7 @@ public class AnnotationServiceImpl implements AnnotationService {
             return result;
         } catch (Exception ex) {
             throw new TotalGroupDocsException(ex);
-	}
+    }
     }  
 
     private static LoadOptions getLoadOptions(String password) {
@@ -360,8 +323,7 @@ public class AnnotationServiceImpl implements AnnotationService {
             // get/set parameters
             String documentGuid = annotateDocumentRequest.getGuid();
             String password = annotateDocumentRequest.getPassword();
-            
-            //String documentType1 = DocumentTypesConverter.checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
+
             String documentType = SupportedImageFormats.contains(
                 FilenameUtils.getExtension(annotateDocumentRequest.getGuid())
             ) ? "image" : annotateDocumentRequest.getDocumentType();
@@ -510,13 +472,6 @@ public class AnnotationServiceImpl implements AnnotationService {
                 InputStream inputStream1 = new FileInputStream(tempPath);
                 IOUtils.copyLarge(inputStream1, fileStream);
             }
-            
-//            Files.copy(Paths.get(tempPath), Paths.get(documentGuid));
-
-//            Files.deleteIfExists(Paths.get(documentGuid));
-//            Files.move(Paths.get(tempPath), Paths.get(documentGuid));
-//            Files.copy(Paths.get(tempPath), Paths.get(documentGuid), StandardCopyOption.REPLACE_EXISTING);
-
         } catch (Exception ex) {
             throw new TotalGroupDocsException(ex.getMessage(), ex);
         }
@@ -543,33 +498,22 @@ public class AnnotationServiceImpl implements AnnotationService {
     private List<String> getAllPagesContent(String password, String documentGuid, IDocumentInfo pages) {
         List<String> allPages = new ArrayList<>();
 
-//        //get page HTML
-//        renderPageToMemoryStream(pages.getPageCount(), documentGuid, password);
-//        for (int i = 0; i < pages.getPageCount(); i++) {
-//            byte[] bytes = annotationPageDescriptionEntityList.get(i).getData().getBytes(); // getData()
-//            allPages.add(Base64.getEncoder().encodeToString(bytes));
-//            
-////            allPages.add(annotationPageDescriptionEntityList.get(i).toString());          
-////            allPages.add(annotationPageDescriptionEntityList.get(i).getData());
-//        }
-
-            for (int i = 0; i < pages.getPageCount(); i++) {
-                byte[] bytes;
-                try (OutputStream memoryStream = renderPageToMemoryStream(i + 1, documentGuid, password)) {
-                    ByteArrayOutputStream bos = (ByteArrayOutputStream) memoryStream;
-                    bytes = bos.toByteArray(); //memoryStream.ToArray();
-                } catch (IOException ex) {
-                    throw new TotalGroupDocsException(ex.getMessage(), ex);
-                }
-
-                String encodedImage = new String(Base64.getEncoder().encode(bytes)); //Convert.ToBase64String(bytes);
-                allPages.add(encodedImage);
+        for (int i = 0; i < pages.getPageCount(); i++) {
+            byte[] bytes;
+            try (OutputStream memoryStream = renderPageToMemoryStream(i + 1, documentGuid, password)) {
+                ByteArrayOutputStream bos = (ByteArrayOutputStream) memoryStream;
+                bytes = bos.toByteArray();
+            } catch (IOException ex) {
+                throw new TotalGroupDocsException(ex.getMessage(), ex);
             }
+
+            String encodedImage = new String(Base64.getEncoder().encode(bytes));
+            allPages.add(encodedImage);
+        }
 
         return allPages;
     }
-        
-//------------------------------------------
+
     public List<AnnotationBase> getAnnotationInfos(AnnotationPostedDataEntity annotateDocumentRequest, String documentType) {
         try {
             AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
@@ -583,7 +527,6 @@ public class AnnotationServiceImpl implements AnnotationService {
                 
                 PageInfo pageInfo = new PageInfo(); 
                 pageInfo.setHeight((int) pageData.getHeight());
-                //pageInfo.setPageNumber(pageData.getNumber());
                 pageInfo.setWidth((int) pageData.getWidth());
                 
                 try {
