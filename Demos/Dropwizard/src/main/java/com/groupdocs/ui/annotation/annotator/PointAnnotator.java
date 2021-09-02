@@ -1,69 +1,56 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.*;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.models.annotationmodels.PointAnnotation;
+import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 
-import java.text.ParseException;
 
-/**
- * TextAnnotator
- * Annotates documents with the text annotation
- *
- * @author Aspose Pty Ltd
- */
-public class PointAnnotator extends Annotator {
+public class PointAnnotator extends BaseAnnotator {
 
-    public PointAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    private PointAnnotation pointAnnotation;
+
+    public PointAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
+
+        pointAnnotation = new PointAnnotation();
+        pointAnnotation.setBox(getBox());
     }
 
     @Override
-    public AnnotationInfo annotateWord() throws ParseException {
-        return initAnnotationInfo();
-    }
-
-    @Override
-    public AnnotationInfo annotatePdf() throws ParseException {
-        return initAnnotationInfo();
-    }
-
-    @Override
-    protected AnnotationInfo initAnnotationInfo() throws ParseException {
-        // init annotation object
-        AnnotationInfo pointAnnotation = super.initAnnotationInfo();
-        // set annotation position
-        pointAnnotation.setAnnotationPosition(new Point(annotationData.getLeft(), annotationData.getTop()));
+    public AnnotationBase annotateWord() {
+        pointAnnotation = (PointAnnotation) super.initAnnotationBase(pointAnnotation);
         return pointAnnotation;
     }
 
     @Override
-    public AnnotationInfo annotateCells() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotatePdf() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateSlides() throws ParseException {
-        return initAnnotationInfo();
+    public AnnotationBase annotateCells() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateImage() throws ParseException {
-        return initAnnotationInfo();
-    }
-
-
-    @Override
-    public AnnotationInfo annotateDiagram() throws ParseException {
-        return initAnnotationInfo();
+    public AnnotationBase annotateSlides() {
+        return annotateWord();
     }
 
     @Override
-    protected Rectangle getBox() {
-        return new Rectangle(annotationData.getLeft(), annotationData.getTop(), annotationData.getWidth(), annotationData.getHeight());
+    public AnnotationBase annotateImage() {
+        return annotateWord();
     }
 
     @Override
-    protected byte getType() {
+    public AnnotationBase annotateDiagram() {
+        return annotateWord();
+    }
+
+    @Override
+    protected int getType() {
         return AnnotationType.Point;
     }
 }

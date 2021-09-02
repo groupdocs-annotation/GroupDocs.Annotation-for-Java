@@ -76,9 +76,11 @@ public class SupportedAnnotations {
 
     public static String[] getSupportedAnnotations(String documentType) {
         switch (documentType) {
+        	case "Adobe Portable Document format":
             case "Portable Document Format":
             case "PDF":
                 return PDF;
+            case "Microsoft Word Open XML format":
             case "Microsoft Word":
             case "WORDS":
                 return WORD;

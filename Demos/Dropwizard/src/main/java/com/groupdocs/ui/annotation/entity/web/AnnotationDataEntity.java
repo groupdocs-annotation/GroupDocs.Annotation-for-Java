@@ -21,19 +21,19 @@ public class AnnotationDataEntity {
     /**
      * Annotation position. Left position.
      */
-    private double left;
+    private float left;
     /**
      * Annotation position. Top position.
      */
-    private double top;
+    private float top;
     /**
      * Annotation position. Width of annotation.
      */
-    private double width;
+    private float width;
     /**
      * Annotation position. Height of annotation.
      */
-    private double height;
+    private float height;
     /**
      * SVG path
      */
@@ -87,35 +87,35 @@ public class AnnotationDataEntity {
         this.fontSize = fontSize;
     }
 
-    public double getLeft() {
+    public float getLeft() {
         return left;
     }
 
-    public void setLeft(double left) {
+    public void setLeft(float left) {
         this.left = left;
     }
 
-    public double getTop() {
+    public float getTop() {
         return top;
     }
 
-    public void setTop(double top) {
+    public void setTop(float top) {
         this.top = top;
     }
 
-    public double getWidth() {
+    public float getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(float width) {
         this.width = width;
     }
 
-    public double getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 

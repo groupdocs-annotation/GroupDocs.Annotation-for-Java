@@ -1,86 +1,90 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.AnnotationReplyInfo;
-import com.groupdocs.annotation.domain.AnnotationType;
-import com.groupdocs.annotation.domain.PageData;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.Rectangle;
+import com.groupdocs.annotation.models.Reply;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.models.annotationmodels.ArrowAnnotation;
+import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 import com.groupdocs.ui.annotation.entity.web.CommentsEntity;
 
-import java.text.ParseException;
-
-/**
- * TextAnnotator
- * Annotates documents with the text annotation
- *
- * @author Aspose Pty Ltd
- */
-public class ArrowAnnotator extends AbstractBoxAnnotator {
+public class ArrowAnnotator extends BaseAnnotator {
 
     private boolean withGuid = false;
+    private ArrowAnnotation arrowAnnotation;
 
-    public ArrowAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    public ArrowAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
+
+        this.arrowAnnotation = new ArrowAnnotation();
+        this.arrowAnnotation.setBox(getBox());
     }
 
     @Override
-    public AnnotationInfo annotateWord() throws ParseException {
+    public AnnotationBase annotateWord() {
         withGuid = false;
-        AnnotationInfo arrowAnnotation = initAnnotationInfo();
+        arrowAnnotation = (ArrowAnnotation) initAnnotationBase(arrowAnnotation);
         return arrowAnnotation;
     }
 
     @Override
-    public AnnotationInfo annotatePdf() throws ParseException {
-        withGuid = false;
-        AnnotationInfo arrowAnnotation = initAnnotationInfo();
-        return arrowAnnotation;
+    public AnnotationBase annotatePdf() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateCells() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateCells() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateSlides() throws ParseException {
+    public AnnotationBase annotateSlides() {
         withGuid = true;
-        // init annotation object
-        AnnotationInfo arrowAnnotation = initAnnotationInfo();
-        arrowAnnotation.setBackgroundColor(15988609);
+        arrowAnnotation = (ArrowAnnotation) initAnnotationBase(arrowAnnotation);
         return arrowAnnotation;
     }
 
     @Override
-    public AnnotationInfo annotateImage() throws ParseException {
-        withGuid = false;
-        // init annotation object
-        AnnotationInfo arrowAnnotation = initAnnotationInfo();
-        arrowAnnotation.setBackgroundColor(-15988609);
-        return arrowAnnotation;
+    public AnnotationBase annotateImage() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateDiagram() throws ParseException {
-        withGuid = false;
-        // init annotation object
-        AnnotationInfo arrowAnnotation = initAnnotationInfo();
-        arrowAnnotation.setBackgroundColor(15988609);
-        return arrowAnnotation;
+    public AnnotationBase annotateDiagram() {
+        return annotateWord();
     }
 
     @Override
-    protected AnnotationReplyInfo getAnnotationReplyInfo(CommentsEntity comment) throws ParseException {
-        AnnotationReplyInfo annotationReplyInfo = super.getAnnotationReplyInfo(comment);
+    protected Reply getAnnotationReplyInfo(CommentsEntity comment) {
+        Reply annotationReplyInfo = super.getAnnotationReplyInfo(comment);
         if (withGuid) {
-            annotationReplyInfo.setParentReplyGuid(String.valueOf(annotationData.getId()));
+            annotationReplyInfo.setParentReply(new Reply());
+            annotationReplyInfo.getParentReply().setId(annotationData.getId());
         }
         return annotationReplyInfo;
     }
 
     @Override
-    protected byte getType() {
+    protected int getType() {
         return AnnotationType.Arrow;
     }
 
+    @Override
+    protected Rectangle getBox() {        
+        String svgPath = annotationData.getSvgPath();
+        
+        String startPoint = svgPath.replace("[a-zA-Z]+", "").split(" ")[0];
+        String endPoint = svgPath.replace("[a-zA-Z]+", "").split(" ")[1];
+        
+        String[] start = startPoint.split(",");
+        float startX = Float.parseFloat(start.length > 0 ? start[0].replace("M", "").replace(",", ".") : "0");
+        float startY = Float.parseFloat(start.length > 0 ? start[1].replace("M", "").replace(",", ".") : "0");
+        
+        String[] end = endPoint.split(",");
+        float endX = Float.parseFloat(end.length > 0 ? end[0].replace("L", "").replace(",", ".") : "0") - startX;
+        float endY = Float.parseFloat(end.length > 1 ? end[1].replace("L", "").replace(",", ".") : "0") - startY;
+        
+        return new Rectangle(startX, startY, endX, endY);
+    }
 }

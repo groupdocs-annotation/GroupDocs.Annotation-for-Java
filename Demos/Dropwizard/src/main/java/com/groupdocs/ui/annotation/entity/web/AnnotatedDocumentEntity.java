@@ -1,5 +1,6 @@
 package com.groupdocs.ui.annotation.entity.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  *
  * @author Aspose Pty Ltd
  */
-public class AnnotatedDocumentEntity {
+public class AnnotatedDocumentEntity extends PageDescriptionEntity {
     /**
      * Document Guid
      */
@@ -19,7 +20,7 @@ public class AnnotatedDocumentEntity {
     /**
      * list of pages
      */
-    private List<AnnotationPageDescriptionEntity> pages;
+    private List<PageDataDescriptionEntity> pages = new ArrayList<>();;
 
     public String getGuid() {
         return guid;
@@ -37,11 +38,11 @@ public class AnnotatedDocumentEntity {
         this.supportedAnnotations = supportedAnnotations;
     }
 
-    public List<AnnotationPageDescriptionEntity> getPages() {
+    public List<PageDataDescriptionEntity> getPages() {
         return pages;
     }
 
-    public void setPages(List<AnnotationPageDescriptionEntity> pages) {
+    public void setPages(List<PageDataDescriptionEntity> pages) {
         this.pages = pages;
     }
 }

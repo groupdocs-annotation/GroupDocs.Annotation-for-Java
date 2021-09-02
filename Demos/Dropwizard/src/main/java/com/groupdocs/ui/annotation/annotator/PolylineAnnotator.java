@@ -1,92 +1,79 @@
 package com.groupdocs.ui.annotation.annotator;
 
-import com.groupdocs.annotation.domain.AnnotationInfo;
-import com.groupdocs.annotation.domain.AnnotationType;
-import com.groupdocs.annotation.domain.PageData;
-import com.groupdocs.annotation.domain.Rectangle;
+import com.groupdocs.annotation.models.PageInfo;
+import com.groupdocs.annotation.models.User;
+import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.annotation.models.annotationmodels.PolylineAnnotation;
+import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.ui.annotation.entity.web.AnnotationDataEntity;
 import com.groupdocs.ui.annotation.entity.web.CommentsEntity;
 
-import java.text.ParseException;
 
-/**
- * TextAnnotator
- * Annotates documents with the text annotation
- *
- * @author Aspose Pty Ltd
- */
-public class PolylineAnnotator extends Annotator {
+public class PolylineAnnotator extends BaseAnnotator {
 
-    public PolylineAnnotator(AnnotationDataEntity annotationData, PageData pageData) {
-        super(annotationData, pageData);
+    private PolylineAnnotation polylineAnnotation;
+
+    public PolylineAnnotator(AnnotationDataEntity annotationData, PageInfo pageInfo) {
+        super(annotationData, pageInfo);
+
+        this.polylineAnnotation = new PolylineAnnotation();
+        this.polylineAnnotation.setBox(getBox());
+        this.polylineAnnotation.setPenColor(1201033);
+        this.polylineAnnotation.setPenWidth((byte) 2);
+        this.polylineAnnotation.setSvgPath(annotationData.getSvgPath());
     }
 
     @Override
-    public AnnotationInfo annotateWord() throws ParseException {
-        return initAnnotationInfo();
-    }
-
-
-    @Override
-    public AnnotationInfo annotatePdf() throws ParseException {
-        AnnotationInfo polylineAnnotation = initAnnotationInfo();
+    public AnnotationBase annotateWord() {
+        polylineAnnotation = (PolylineAnnotation) initAnnotationBase(polylineAnnotation);
         return polylineAnnotation;
     }
 
     @Override
-    protected AnnotationInfo initAnnotationInfo() throws ParseException {
-        AnnotationInfo polylineAnnotation = super.initAnnotationInfo();
-        polylineAnnotation.setPenColor(1201033);
-        polylineAnnotation.setPenWidth((byte) 2);
-        polylineAnnotation.setSvgPath(annotationData.getSvgPath());
-        return polylineAnnotation;
+    public AnnotationBase annotatePdf() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateCells() {
-        throw new UnsupportedOperationException(String.format(MESSAGE, annotationData.getType()));
+    public AnnotationBase annotateCells() {
+        return annotateWord();
     }
 
     @Override
-    public AnnotationInfo annotateSlides() throws ParseException {
-        AnnotationInfo polylineAnnotation = initAnnotationInfo();
-        fillCreatorName(polylineAnnotation);
+    public AnnotationBase annotateSlides() {
+        polylineAnnotation = (PolylineAnnotation) initAnnotationBase(polylineAnnotation);
+        fillCreatorName(polylineAnnotation, annotationData);
         return polylineAnnotation;
     }
 
     /**
+     * <p>
      * Fill creator name field in annotation info
+     * </p>
      *
-     * @param polylineAnnotation annotation info
+     * @param polylineAnnotation AnnotationBase
+     * @param annotationData
      */
-    protected void fillCreatorName(AnnotationInfo polylineAnnotation) {
+    protected static void fillCreatorName(AnnotationBase polylineAnnotation, AnnotationDataEntity annotationData) {
         CommentsEntity[] comments = annotationData.getComments();
         if (comments != null && comments.length > 0 && comments[0] != null) {
-            polylineAnnotation.setCreatorName(comments[0].getUserName());
+            polylineAnnotation.setUser(new User());
+            polylineAnnotation.getUser().setName(comments[0].getUserName());
         }
     }
 
     @Override
-    public AnnotationInfo annotateImage() throws ParseException {
-        AnnotationInfo polylineAnnotation = initAnnotationInfo();
-        fillCreatorName(polylineAnnotation);
-        return polylineAnnotation;
+    public AnnotationBase annotateImage() {
+        return annotateSlides();
     }
 
     @Override
-    public AnnotationInfo annotateDiagram() throws ParseException {
-        AnnotationInfo polylineAnnotation = initAnnotationInfo();
-        fillCreatorName(polylineAnnotation);
-        return polylineAnnotation;
+    public AnnotationBase annotateDiagram() {
+        return annotateSlides();
     }
 
     @Override
-    protected Rectangle getBox() {
-        return new Rectangle(annotationData.getLeft(), annotationData.getTop(), annotationData.getWidth(), annotationData.getHeight());
-    }
-
-    @Override
-    protected byte getType() {
+    protected int getType() {
         return AnnotationType.Polyline;
     }
 }
