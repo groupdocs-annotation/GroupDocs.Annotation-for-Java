@@ -132,7 +132,7 @@
         <dependency>
             <groupId>com.groupdocs</groupId>
             <artifactId>groupdocs-annotation</artifactId>
-            <version>21.7</version>
+            <version>21.7.1</version>
         </dependency>
 
         <dependency>
