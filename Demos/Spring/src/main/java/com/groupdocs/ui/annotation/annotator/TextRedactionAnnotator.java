@@ -43,6 +43,11 @@ public class TextRedactionAnnotator extends TextHighlightAnnotator {
         textRedactionAnnotation = (TextRedactionAnnotation) initAnnotationBase(textRedactionAnnotation);
         return textRedactionAnnotation;
     }
+    
+    @Override
+    public AnnotationBase annotateWord() {
+        return annotatePdf();
+    }
 
     @Override
     protected int getType() {

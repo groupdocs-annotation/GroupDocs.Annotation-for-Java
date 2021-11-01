@@ -1,6 +1,5 @@
 package com.groupdocs.ui.annotation.util;
 
-import com.groupdocs.annotation.internal.c.a.ms.System.Convert;
 import com.groupdocs.annotation.models.PageInfo;
 import com.groupdocs.annotation.models.Point;
 import com.groupdocs.annotation.models.Rectangle;
@@ -65,11 +64,11 @@ public class AnnotationMapper {
      * @param annotationInfo AnnotationInfo
      */
     public static AnnotationDataEntity mapAnnotationDataEntity(AnnotationBase annotationInfo, PageInfo pageInfo) {
-        String annotationTypeName = AnnotationType.getName(annotationInfo.getType()); //getAnnotationType(annotationInfo.getType()); //Enum.GetName(Operators.typeOf(AnnotationType.class), annotationInfo.getType());
-        float maxY = 0, minY = 0, maxX = 0, minX = 0;
+        String annotationTypeName = AnnotationType.getName(annotationInfo.getType());
+        float maxY = 0, minY = Float.MAX_VALUE, maxX = 0, minX = Float.MAX_VALUE; // minY = 0, minX = 0
         float boxX = 0, boxY = 0, boxHeight = 0, boxWidth = 0;
         String svgPath = "";
-        //annotationTypeName (java.lang.String) "Watermark"
+
         if (annotationInfo instanceof IPoints) {
             List<Point> points = ((IPoints)annotationInfo).getPoints();
             for (Point point : points) {
@@ -117,6 +116,8 @@ public class AnnotationMapper {
         String text = "";
         if (annotationInfo.getMessage() == null && annotationInfo instanceof ITextToReplace) {
             text = ((ITextToReplace) annotationInfo).getTextToReplace();
+        } else if (annotationInfo instanceof IText && ((IText) annotationInfo).getText() != null) {
+            text = ((IText) annotationInfo).getText();
         } else if (annotationInfo.getMessage() != null) {
             text = annotationInfo.getMessage();
         }
@@ -124,8 +125,7 @@ public class AnnotationMapper {
         
         // TODO: remove comment after check all annotations types on main formats
         annotation.setTop(annotationInfo instanceof IBox ? boxY : (annotationInfo instanceof IPoints ? pageInfo.getHeight() - maxY : 0));
-        //annotation.setType(char.ToLowerInvariant(annotationTypeName[0]) + annotationTypeName.Substring(1)); !!!
-        annotation.setType(annotationTypeName.toUpperCase()); 
+        annotation.setType(annotationTypeName.toLowerCase()); 
         annotation.setWidth(annotationInfo instanceof IBox ? boxWidth : (annotationInfo instanceof IPoints ? (maxX - minX) : 0));
         //  each reply data
         List<Reply> replies = annotationInfo.getReplies();

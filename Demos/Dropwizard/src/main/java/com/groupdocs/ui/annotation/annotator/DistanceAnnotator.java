@@ -63,7 +63,7 @@ public class DistanceAnnotator extends BaseAnnotator {
         if (comments != null && comments.length != 0) {
             Reply reply = distanceAnnotation.getReplies().get(0);
             if (reply != null) {
-                reply.setComment(String.format("{0} {1}", text, reply.getComment()));
+                reply.setComment(String.format("%s %s", text, reply.getComment()));
             }
         }
 

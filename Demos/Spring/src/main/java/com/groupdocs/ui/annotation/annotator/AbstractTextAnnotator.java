@@ -15,9 +15,9 @@ public abstract class AbstractTextAnnotator extends BaseAnnotator {
     protected static java.util.List<Point> getPoints(AnnotationDataEntity annotationData, PageInfo pageInfo) {
         List<Point> tmp0 = new ArrayList<>();
         tmp0.add(new Point(annotationData.getLeft(), pageInfo.getHeight() - annotationData.getTop()));
-        tmp0.add(new Point(annotationData.getLeft()+ annotationData.getWidth(), pageInfo.getHeight() - annotationData.getTop()));
-        tmp0.add(new Point(annotationData.getLeft(), pageInfo.getHeight() - annotationData.getTop()- annotationData.getHeight()));
-        tmp0.add(new Point(annotationData.getLeft()+ annotationData.getWidth(), pageInfo.getHeight() - annotationData.getTop()- annotationData.getHeight()));
+        tmp0.add(new Point(annotationData.getLeft() + annotationData.getWidth(), pageInfo.getHeight() - annotationData.getTop()));
+        tmp0.add(new Point(annotationData.getLeft(), pageInfo.getHeight() - annotationData.getTop() - annotationData.getHeight()));
+        tmp0.add(new Point(annotationData.getLeft() + annotationData.getWidth(), pageInfo.getHeight() - annotationData.getTop() - annotationData.getHeight()));
         return tmp0;
     }
 }

@@ -475,24 +475,6 @@ public class AnnotationServiceImpl implements AnnotationService {
         }
     }
     
-    private String getText1(String tempPath) {
-        String content = "";
-        try {
-            InputStream is = new FileInputStream(tempPath);
-            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-            String line = buf.readLine();
-            StringBuilder sb = new StringBuilder();
-            while(line != null){
-               sb.append(line).append("\n");
-               line = buf.readLine();
-            }
-            content = sb.toString();
-        } catch(Throwable ex) {
-            ex.getMessage();
-        }
-        return content;
-    }
-    
     private List<String> getAllPagesContent(String password, String documentGuid, IDocumentInfo pages) {
         List<String> allPages = new ArrayList<>();
 
@@ -512,7 +494,7 @@ public class AnnotationServiceImpl implements AnnotationService {
         return allPages;
     }
         
-//------------------------------------------
+
     public List<AnnotationBase> getAnnotationInfos(AnnotationPostedDataEntity annotateDocumentRequest, String documentType) {
         try {
             AnnotationDataEntity[] annotationsData = annotateDocumentRequest.getAnnotationsData();
