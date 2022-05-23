@@ -30,7 +30,7 @@
         <repository>
             <id>GroupDocsArtifactRepository</id>
             <name>GroupDocs Artifact Repository</name>
-            <url>http://repository.groupdocs.com/repo/</url>
+            <url>https://repository.groupdocs.com/repo/</url>
         </repository>
         <repository>
             <id>GroupDocsJavaAPI</id>
