@@ -10,7 +10,7 @@
     <packaging>${packaging.type}</packaging>
 
     <name>GroupDocs.Annotation for Java Spring Sample</name>
-    <url>http://groupdocs.com</url>
+    <url>https://groupdocs.com</url>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
