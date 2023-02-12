@@ -1,4 +1,4 @@
-package com.groupdocs.annotation.examples.advanced_usage.loading.loadingdocumentsfromdifferentsources;
+package com.groupdocs.annotation.examples.advanced_usage.loading.loading_documents_from_different_sources;
 
 /**
  * <p>

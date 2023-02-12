@@ -67,7 +67,7 @@ public class ArrowAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Arrow;
+        return AnnotationType.ARROW;
     }
 
     @Override

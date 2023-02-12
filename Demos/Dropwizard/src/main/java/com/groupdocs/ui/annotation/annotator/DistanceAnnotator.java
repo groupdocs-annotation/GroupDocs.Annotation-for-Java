@@ -72,7 +72,7 @@ public class DistanceAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Distance;
+        return AnnotationType.DISTANCE;
     }
 
     @Override

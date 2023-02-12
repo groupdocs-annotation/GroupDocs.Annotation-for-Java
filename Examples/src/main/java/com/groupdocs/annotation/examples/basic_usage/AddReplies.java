@@ -44,7 +44,7 @@ public class AddReplies {
         area.setOpacity(0.7);
         area.setPageNumber(0);
         area.setPenColor(65535);
-        area.setPenStyle(PenStyle.Dot);
+        area.setPenStyle(PenStyle.DOT);
         area.setPenWidth((byte) 3);
 
         Reply reply1 = new Reply();

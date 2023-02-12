@@ -26,7 +26,7 @@ public class RemoveRepliesById {
         List<AnnotationBase> annotations = annotator.get();
 
         // Remove reply with Id = 4
-        annotations.get(0).getReplies().remove(4);
+        if(!annotations.isEmpty())annotations.get(0).getReplies().remove(4);
 
         // Save changes
         annotator.update(annotations);

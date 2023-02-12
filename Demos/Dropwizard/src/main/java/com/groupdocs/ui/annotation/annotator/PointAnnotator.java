@@ -51,6 +51,6 @@ public class PointAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Point;
+        return AnnotationType.POINT;
     }
 }

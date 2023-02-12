@@ -23,30 +23,30 @@ public class DocumentTypesConverter {
      * @return int
      * @param documentType string
      */
-    public static int getDocumentType(String documentType) {
-        switch (documentType) {
-            case "Portable Document Format":
-            case "PDF":
-                return DocumentType.Pdf;
-            case "Microsoft Word":
-            case "WORDS":
-            case "Microsoft Word Open XML format (.docx)":
-                return DocumentType.Words;
-            case "Microsoft PowerPoint":
-            case "SLIDES":
-                return DocumentType.Slides;
-            case "image":
-                return DocumentType.Images;
-            case "Microsoft Excel":
-            case "CELLS":
-                return DocumentType.Cells;
-            case "AutoCAD Drawing File Format":
-            case "diagram":
-                return DocumentType.Diagram;
-            default:
-                return DocumentType.Undefined;
-        }
-    }
+//    public static int getDocumentType(String documentType) {
+//        switch (documentType) {
+//            case "Portable Document Format":
+//            case "PDF":
+//                return DocumentType.Pdf;
+//            case "Microsoft Word":
+//            case "WORDS":
+//            case "Microsoft Word Open XML format (.docx)":
+//                return DocumentType.Words;
+//            case "Microsoft PowerPoint":
+//            case "SLIDES":
+//                return DocumentType.Slides;
+//            case "image":
+//                return DocumentType.Images;
+//            case "Microsoft Excel":
+//            case "CELLS":
+//                return DocumentType.Cells;
+//            case "AutoCAD Drawing File Format":
+//            case "diagram":
+//                return DocumentType.Diagram;
+//            default:
+//                return DocumentType.Undefined;
+//        }
+//    }
     
     /**
      * Check image and diagram document types

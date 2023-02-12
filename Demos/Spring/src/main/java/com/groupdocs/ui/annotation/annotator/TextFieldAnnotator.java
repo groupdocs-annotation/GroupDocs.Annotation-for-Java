@@ -56,6 +56,6 @@ public class TextFieldAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.TextField;
+        return AnnotationType.TEXT_FIELD;
     }
 }

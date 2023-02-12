@@ -55,6 +55,6 @@ public class TextUnderlineAnnotator extends AbstractTextAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.TextUnderline;
+        return AnnotationType.TEXT_UNDERLINE;
     }
 }

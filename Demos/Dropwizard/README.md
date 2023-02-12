@@ -1,6 +1,6 @@
 ![Groupdocs document & pdf annotator](https://raw.githubusercontent.com/groupdocs-annotation/groupdocs-annotation.github.io/master/resources/image/banner.png "GroupDocs.Annotation")
 # GroupDocs.Annotation for Java Dropwizard Example
-###### version 1.12.24
+###### version 1.12.25
 
 [![GitHub license](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard.svg)](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/blob/master/LICENSE)
 
@@ -123,10 +123,10 @@ Download [latest release](https://github.com/groupdocs-annotation/GroupDocs.Anno
 **Note**: This method is **recommended** for running this sample behind firewall.
 
 ```bash
-curl -J -L -o release.tar.gz https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/releases/download/1.12.24/release.tar.gz
+curl -J -L -o release.tar.gz https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/releases/download/1.12.25/release.tar.gz
 tar -xvzf release.tar.gz
 cd release
-java -jar annotation-1.12.24.jar configuration.yaml
+java -jar annotation-1.12.25.jar configuration.yaml
 ## Open http://localhost:8080/annotation/ in your favorite browser.
 ```
 

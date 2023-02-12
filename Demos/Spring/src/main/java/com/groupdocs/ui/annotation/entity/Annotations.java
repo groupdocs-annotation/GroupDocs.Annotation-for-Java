@@ -1,4 +1,4 @@
-package com.groupdocs.annotation.entity;
+package com.groupdocs.ui.annotation.entity;
 
 public class Annotations {
 

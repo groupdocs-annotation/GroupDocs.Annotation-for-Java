@@ -52,6 +52,6 @@ public class ResourceRedactionAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.ResourcesRedaction;
+        return AnnotationType.RESOURCES_REDACTION;
     }
 }

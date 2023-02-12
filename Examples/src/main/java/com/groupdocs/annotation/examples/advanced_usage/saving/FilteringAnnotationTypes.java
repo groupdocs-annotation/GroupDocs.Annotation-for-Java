@@ -37,7 +37,7 @@ public class FilteringAnnotationTypes {
             annotations.add(ellipse);
             annotator.add(annotations);
             SaveOptions saveOptions = new SaveOptions();
-            saveOptions.setAnnotationTypes(AnnotationType.Ellipse);
+            saveOptions.setAnnotationTypes(AnnotationType.ELLIPSE);
             annotator.save(outputPath, saveOptions);
         } finally {
             if (annotator != null) {

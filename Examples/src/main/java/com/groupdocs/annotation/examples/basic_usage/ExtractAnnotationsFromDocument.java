@@ -4,7 +4,11 @@ import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.examples.Constants;
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
 import com.groupdocs.annotation.options.LoadOptions;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,20 +19,29 @@ import java.util.List;
  */
 public class ExtractAnnotationsFromDocument {
 
-    public static void run() throws IOException {
+    public static void run() {
+        //LoadOptions loadOptions = new LoadOptions();
 
-        LoadOptions loadOptions = new LoadOptions();
-        final Annotator annotator = new Annotator(Constants.ANNOTATED_IMPORT, loadOptions);
+        try (final InputStream inputStream = new FileInputStream(Constants.ANNOTATED_IMPORT);
+             final Annotator annotator = new Annotator(inputStream/*, loadOptions*/)){
+            List<AnnotationBase> annotations = annotator.get();
 
-        List<AnnotationBase> annotations = annotator.get();
+            Iterator items = (annotations).iterator();
+            while (items.hasNext()) {
+                AnnotationBase annotation = (AnnotationBase) items.next();
+                System.out.println(annotation.getMessage());
+            }
+            System.out.println("Annotations extracted successfully.");
 
-        Iterator items = (annotations).iterator();
-        while (items.hasNext()) {
-            AnnotationBase annotation = (AnnotationBase) items.next();
-            System.out.println(annotation.getMessage());
-        }
-        System.out.println("Annotations extracted successfully.");
+            annotator.dispose();
+        }catch (IOException e) {
+            e.printStackTrace();
+        } /*catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }*/
 
-        annotator.dispose();
+
     }
 }

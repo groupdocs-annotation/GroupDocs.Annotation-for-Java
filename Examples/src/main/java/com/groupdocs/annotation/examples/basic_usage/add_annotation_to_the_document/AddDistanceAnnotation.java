@@ -41,7 +41,7 @@ public class AddDistanceAnnotation {
         distance.setOpacity(0.7);
         distance.setPageNumber(0);
         distance.setPenColor(65535);
-        distance.setPenStyle(PenStyle.Dot);
+        distance.setPenStyle(PenStyle.DOT);
         distance.setPenWidth((byte) 3);
         distance.setReplies(replies);
         annotator.add(distance);

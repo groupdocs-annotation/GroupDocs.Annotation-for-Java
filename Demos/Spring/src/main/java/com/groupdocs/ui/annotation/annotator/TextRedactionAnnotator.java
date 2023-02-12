@@ -51,6 +51,6 @@ public class TextRedactionAnnotator extends TextHighlightAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.TextRedaction;
+        return AnnotationType.TEXT_REDACTION;
     }
 }

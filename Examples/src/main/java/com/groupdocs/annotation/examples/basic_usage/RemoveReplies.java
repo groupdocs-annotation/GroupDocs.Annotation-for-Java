@@ -24,7 +24,7 @@ public class RemoveReplies {
         // Obtain annotations collection from document
         List<AnnotationBase> annotations = annotator.get();
         // Remove first reply by index
-        annotations.get(0).getReplies().remove(0);
+        if(!annotations.isEmpty())annotations.get(0).getReplies().remove(0);
 
         // Save changes
         annotator.update(annotations);

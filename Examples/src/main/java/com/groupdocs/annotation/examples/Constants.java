@@ -4,7 +4,7 @@ public class Constants {
 
     public static String PROJECT_PATH = System.getProperty("user.dir");
 
-    public static final String LicensePath = "C:\\GroupDocs.Total.Java.lic";
+    public static final String LicensePath = "C:\\Conholdate.Total.Product.Family.lic";//GroupDocs.Total.Java.lic";
     public static final String SamplesPath = "\\Resources\\SampleFiles\\";
     public static final String OutputPath = "\\Resources\\Output\\";
     

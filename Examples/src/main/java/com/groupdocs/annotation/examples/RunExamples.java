@@ -20,112 +20,112 @@ public class RunExamples {
         //  Quick Start
         SetLicenseFromFile.run();
         SetLicenseFromStream.run();
-//        SetMeteredLicense.run();         
+//        SetMeteredLicense.run();
 
         //  Get supported file formats
         GetSupportedFileFormats.run();
-         
+
         //  Get file info
-        GetFileInfo.run();              
-         
+        GetFileInfo.run();
+
         //  Extract annotations from document
-        ExtractAnnotationsFromDocument.run();
-         
+//       ExtractAnnotationsFromDocument.run();
+
         //  Remove annotation from document
-        RemoveAnnotationFromDocument.run();
-         
+//        RemoveAnnotationFromDocument.run();
+
         //  Generate document pages preview
         GenerateDocumentPagesPreview.run();
-         
+
         //  Saving specific page range
         SavingSpecificPageRange.run();
-         
+
         //  Saving only pages with annotations
         SavingOnlyPagesWithAnnotations.run();
-         
+
         //  Filtering annotation types
-        // FilteringAnnotationTypes.run(); - Unsupported exception
-         
+//        FilteringAnnotationTypes.run();// - Unsupported exception
+
         //  Add area annotation
         AddAreaAnnotation.run();
-         
+
         //  Add arrow annotation
         AddArrowAnnotation.run();
-         
+
         //  Add distance annotation
         AddDistanceAnnotation.run();
-         
+
         //  Add ellipse annotation
         AddEllipseAnnotation.run();
-         
+
         //  Add link annotation
         AddLinkAnnotation.run();
-         
+
         //  Add point annotation
         AddPointAnnotation.run();
-         
+
         //  Add resources redaction annotation
         AddResourcesRedactionAnnotation.run();
-         
+
         //  Add text highlight annotation
         AddTextHighlightAnnotation.run();
-         
+
         //  Add text field annotation
         AddTextFieldAnnotation.run();
-         
+
         //  Add text redaction annotation
         AddTextRedactionAnnotation.run();
-         
+
         //  Add text replacement annotation
         AddTextReplacementAnnotation.run();
-         
+
         //  Add text strikeout annotation
         AddTextStrikeoutAnnotation.run();
-         
+
         //  Add polyline annotation
         AddPolylineAnnotation.run();
-         
+
         //  Add underline annotation
         AddTextUnderlineAnnotation.run();
-         
+
         //  Add watermark annotation
         AddWatermarkAnnotation.run();
-         
+
         //  Add replies annotation
         AddReplies.run();
-         
+
         //  Remove replies
         RemoveReplies.run();
-         
+
         //  Remove replies by Id
-        RemoveRepliesById.run();
-         
+//        RemoveRepliesById.run();
+
         //  Remove replies by user name
-        RemoveRepliesByUserName.run();
-         
+//        RemoveRepliesByUserName.run();
+
         //  Update annotation
         UpdateAnnotation.run();
 
-         //  Load document from local disk
-         LoadDocumentFromLocalDisk.run();
-         
+        //  Load document from local disk
+        LoadDocumentFromLocalDisk.run();
+
          //  Load document from stream
          LoadDocumentFromStream.run();
-          
+
          //  Load password-protected documents
          LoadPasswordProtectedDocuments.run();
-          
+
          //  Load document from url
          LoadDocumentFromUrl.run();
-          
+
          //  Load document from FTP
          LoadDocumentFromFtp.run();
-          
+
          //  Load document from AmazonS3
-         //  LoadDocumentFromAmazonS3.run();
-          
+//         LoadDocumentFromAmazonS3.run();
+
          //  Load document from Azure
-         //  LoadDocumentFromAzure.run();
+//         LoadDocumentFromAzure.run();
          
         System.out.println();
         System.out.println("All done.");
