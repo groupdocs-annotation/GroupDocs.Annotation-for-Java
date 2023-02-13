@@ -20,6 +20,8 @@ public class Constants {
     public static String ANNOTATED = getSampleFilePath("annotated.pdf");
     public static String ANNOTATED_IMPORT = getSampleFilePath("annotated_import.pdf");
 
+    public static String INPUT_DOC = getSampleFilePath("sample.docx");
+
     private static String getSampleFilePath(String fileName) {
         return PROJECT_PATH + SamplesPath + fileName;
     }

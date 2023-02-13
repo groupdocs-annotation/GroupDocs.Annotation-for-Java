@@ -126,6 +126,8 @@ public class RunExamples {
 
          //  Load document from Azure
 //         LoadDocumentFromAzure.run();
+
+        MinimalAnnotation.run();
          
         System.out.println();
         System.out.println("All done.");
