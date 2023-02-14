@@ -74,6 +74,6 @@ public class PolylineAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Polyline;
+        return AnnotationType.POLYLINE;
     }
 }

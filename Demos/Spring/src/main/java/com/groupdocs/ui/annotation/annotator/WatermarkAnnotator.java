@@ -55,6 +55,6 @@ public class WatermarkAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Watermark;
+        return AnnotationType.WATERMARK;
     }
 }

@@ -6,7 +6,7 @@
 
     <groupId>com.groupdocs.ui</groupId>
     <artifactId>annotation-spring</artifactId>
-    <version>1.12.25</version>
+    <version>1.12.28</version>
     <packaging>${packaging.type}</packaging>
 
     <name>GroupDocs.Annotation for Java Spring Sample</name>
@@ -128,12 +128,23 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>2.0.4.RELEASE</version>
         </dependency>
-
         <dependency>
             <groupId>com.groupdocs</groupId>
             <artifactId>groupdocs-annotation</artifactId>
-            <version>21.7.2</version>
+            <version>23.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.tukaani</groupId>
+            <artifactId>xz</artifactId>
+            <version>1.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-note</artifactId>
+            <version>22.3</version>
+            <classifier>jdk17</classifier>
+        </dependency>
+
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -152,6 +163,11 @@
             <id>GroupDocsJavaAPI</id>
             <name>GroupDocs Java API</name>
             <url>https://artifact.groupdocs.com/repo/</url>
+        </repository>
+        <repository>
+            <id>aspose-central</id>
+            <name>repository.aspose.com-releases</name>
+            <url>https://repository.aspose.com/repo</url>
         </repository>
     </repositories>
 

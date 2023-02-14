@@ -50,6 +50,6 @@ public class AreaAnnotator extends BaseAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.Area;
+        return AnnotationType.AREA;
     }
 }

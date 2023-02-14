@@ -1,6 +1,6 @@
 package com.groupdocs.ui.annotation.util;
 
-import com.groupdocs.annotation.entity.Annotations;
+import com.groupdocs.ui.annotation.entity.Annotations;
 
 public class SupportedAnnotations {
 

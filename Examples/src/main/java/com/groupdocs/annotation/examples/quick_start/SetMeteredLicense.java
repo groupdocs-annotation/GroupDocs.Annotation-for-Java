@@ -1,6 +1,6 @@
 package com.groupdocs.annotation.examples.quick_start;
 
-import com.groupdocs.annotation.license.Metered;
+import com.groupdocs.annotation.licenses.Metered;
 
 /**
  * <p>

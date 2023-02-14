@@ -53,6 +53,6 @@ public class TextStrikeoutAnnotator extends AbstractTextAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.TextStrikeout;
+        return AnnotationType.TEXT_STRIKEOUT;
     }
 }

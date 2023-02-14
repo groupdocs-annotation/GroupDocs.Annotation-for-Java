@@ -41,7 +41,7 @@ public class AddArrowAnnotation {
         arrow.setOpacity(0.7);
         arrow.setPageNumber(0);
         arrow.setPenColor(65535);
-        arrow.setPenStyle(PenStyle.Dot);
+        arrow.setPenStyle(PenStyle.DOT);
         arrow.setPenWidth((byte) 3);
         arrow.setReplies(replies);
         annotator.add(arrow);

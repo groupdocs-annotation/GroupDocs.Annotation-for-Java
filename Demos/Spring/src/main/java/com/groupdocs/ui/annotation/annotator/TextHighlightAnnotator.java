@@ -52,6 +52,6 @@ public class TextHighlightAnnotator extends AbstractTextAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.TextHighlight;
+        return AnnotationType.TEXT_HIGHLIGHT;
     }
 }

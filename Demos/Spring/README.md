@@ -1,6 +1,6 @@
 ![Groupdocs document & pdf annotator](https://raw.githubusercontent.com/groupdocs-annotation/groupdocs-annotation.github.io/master/resources/image/banner.png "GroupDocs.Annotation")
 # GroupDocs.Annotation for Java Spring Example
-###### version 1.12.27
+###### version 1.12.28
 
 [![GitHub license](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java-Spring.svg)](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Spring/blob/master/LICENSE)
 
@@ -131,10 +131,10 @@ Download [latest release](https://github.com/groupdocs-annotation/GroupDocs.Anno
 **Note**: This method is **recommended** for running this sample behind firewall.
 
 ```bash
-curl -J -L -o release.tar.gz https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Spring/releases/download/1.12.27/release.tar.gz
+curl -J -L -o release.tar.gz https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Spring/releases/download/1.12.28/release.tar.gz
 tar -xvzf release.tar.gz
 cd release
-java -jar annotation-spring-1.12.27.jar configuration.yml
+java -jar annotation-spring-1.12.28.jar configuration.yml
 ## Open http://localhost:8080/annotation/ in your favorite browser.
 ```
 

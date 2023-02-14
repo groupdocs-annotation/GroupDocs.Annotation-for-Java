@@ -53,6 +53,6 @@ public class TextReplacementAnnotator extends AbstractTextAnnotator {
 
     @Override
     protected int getType() {
-        return AnnotationType.TextReplacement;
+        return AnnotationType.TEXT_REPLACEMENT;
     }
 }

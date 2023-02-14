@@ -42,7 +42,7 @@ public class AddEllipseAnnotation {
         ellipse.setOpacity(0.7);
         ellipse.setPageNumber(0);
         ellipse.setPenColor(65535);
-        ellipse.setPenStyle(PenStyle.Dot);
+        ellipse.setPenStyle(PenStyle.DOT);
         ellipse.setPenWidth((byte) 3);
         ellipse.setReplies(replies);
         annotator.add(ellipse);

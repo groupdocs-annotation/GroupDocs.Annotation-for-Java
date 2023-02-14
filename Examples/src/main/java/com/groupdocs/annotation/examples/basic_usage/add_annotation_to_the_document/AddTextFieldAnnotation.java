@@ -44,7 +44,7 @@ public class AddTextFieldAnnotation {
         textField.setMessage("This is text field annotation");
         textField.setOpacity(0.7);
         textField.setPageNumber(0);
-        textField.setPenStyle(PenStyle.Dot);
+        textField.setPenStyle(PenStyle.DOT);
         textField.setPenWidth((byte) 3);
         textField.setReplies(replies);
         annotator.add(textField);

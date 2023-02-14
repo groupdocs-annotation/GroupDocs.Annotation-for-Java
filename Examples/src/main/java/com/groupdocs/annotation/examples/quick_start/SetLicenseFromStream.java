@@ -1,7 +1,7 @@
 package com.groupdocs.annotation.examples.quick_start;
 
 import com.groupdocs.annotation.examples.Constants;
-import com.groupdocs.annotation.license.License;
+import com.groupdocs.annotation.licenses.License;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

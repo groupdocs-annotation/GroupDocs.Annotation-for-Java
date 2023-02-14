@@ -3,7 +3,7 @@ package com.groupdocs.annotation.examples.advanced_usage;
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.examples.Constants;
 import com.groupdocs.annotation.exception.GroupDocsException;
-import com.groupdocs.annotation.options.PreviewFormats;
+import com.groupdocs.annotation.options.pagepreview.PreviewFormats;
 import com.groupdocs.annotation.options.pagepreview.CreatePageStream;
 import com.groupdocs.annotation.options.pagepreview.PreviewOptions;
 import com.groupdocs.annotation.options.pagepreview.PageStreamFactory;
@@ -27,8 +27,8 @@ public class GenerateDocumentPagesPreview {
             @Override
             public OutputStream invoke(int pageNumber) {
                 try {
-                    String OutputPath = "//Resources//Output/";
-                    String fileName = OutputPath + "GenerateDocumentPagesPreview_"+pageNumber+".png";
+                    //String OutputPath = "//Resources//Output/";
+                    String fileName = Constants.getOutputFilePath("GenerateDocumentPagesPreview_"+pageNumber, "png");//OutputPath + "GenerateDocumentPagesPreview_"+pageNumber+".png";
                     OutputStream result = new FileOutputStream(fileName);
                     return result;
                 } catch (Exception ex) {

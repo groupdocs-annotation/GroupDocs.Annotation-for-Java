@@ -19,7 +19,7 @@ public class RemoveAnnotationFromDocument {
         final Annotator annotator = new Annotator(Constants.ANNOTATED_AREA_REPLIES_5);
 
         SaveOptions saveOptions = new SaveOptions();
-        saveOptions.setAnnotationTypes(AnnotationType.None);
+        saveOptions.setAnnotationTypes(AnnotationType.NONE);
         annotator.save(outputPath, saveOptions);
 
         annotator.dispose();

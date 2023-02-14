@@ -1,13 +1,13 @@
 package com.groupdocs.ui.annotation.service;
 
-import com.groupdocs.annotation.license.License;
+import com.groupdocs.annotation.licenses.License;
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.IDocumentInfo;
 import com.groupdocs.annotation.exceptions.AnnotatorException;
 import com.groupdocs.annotation.models.PageInfo;
 import com.groupdocs.annotation.options.LoadOptions;
-import com.groupdocs.annotation.options.PreviewFormats;
+import com.groupdocs.annotation.options.pagepreview.PreviewFormats;
 import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.annotation.options.export.SaveOptions;
 import com.groupdocs.annotation.options.pagepreview.CreatePageStream;
@@ -146,7 +146,12 @@ public class AnnotationServiceImpl implements AnnotationService {
         try {
             annotator = new Annotator(guid, loadOptions);
 
-            IDocumentInfo info = annotator.getDocument().getDocumentInfo();
+            IDocumentInfo info = null;
+            try {
+                info = annotator.getDocument().getDocumentInfo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             List<AnnotationBase> annotations = annotator.get();
 
             description.setGuid(loadDocumentRequest.getGuid());
@@ -301,7 +306,7 @@ public class AnnotationServiceImpl implements AnnotationService {
         Annotator annotator = new Annotator(documentGuid);
         
         SaveOptions saveOptions = new SaveOptions();
-        saveOptions.setAnnotationTypes(AnnotationType.None);
+        saveOptions.setAnnotationTypes(AnnotationType.NONE);
           
         annotator.save(documentGuid, saveOptions);
         
@@ -448,7 +453,7 @@ public class AnnotationServiceImpl implements AnnotationService {
                 final Annotator annotator = new Annotator(inputStream, getLoadOptions(password));
                 try {
                     SaveOptions tmp0 = new SaveOptions();
-                    tmp0.setAnnotationTypes(AnnotationType.None);
+                    tmp0.setAnnotationTypes(AnnotationType.NONE);
                     annotator.save(tempPath, tmp0);
                 } finally {
                     if (annotator != null) {

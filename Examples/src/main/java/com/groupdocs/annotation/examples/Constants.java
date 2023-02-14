@@ -4,7 +4,7 @@ public class Constants {
 
     public static String PROJECT_PATH = System.getProperty("user.dir");
 
-    public static final String LicensePath = "C:\\GroupDocs.Total.Java.lic";
+    public static final String LicensePath = "C:\\Conholdate.Total.Product.Family.lic";//GroupDocs.Total.Java.lic";
     public static final String SamplesPath = "\\Resources\\SampleFiles\\";
     public static final String OutputPath = "\\Resources\\Output\\";
     
@@ -19,6 +19,8 @@ public class Constants {
     public static String RESULT = getSampleFilePath("result.pdf");
     public static String ANNOTATED = getSampleFilePath("annotated.pdf");
     public static String ANNOTATED_IMPORT = getSampleFilePath("annotated_import.pdf");
+
+    public static String INPUT_DOC = getSampleFilePath("sample.docx");
 
     private static String getSampleFilePath(String fileName) {
         return PROJECT_PATH + SamplesPath + fileName;
