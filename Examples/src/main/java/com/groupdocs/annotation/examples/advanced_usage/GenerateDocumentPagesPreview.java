@@ -3,14 +3,11 @@ package com.groupdocs.annotation.examples.advanced_usage;
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.examples.Constants;
 import com.groupdocs.annotation.exception.GroupDocsException;
-import com.groupdocs.annotation.options.pagepreview.PreviewFormats;
 import com.groupdocs.annotation.options.pagepreview.CreatePageStream;
+import com.groupdocs.annotation.options.pagepreview.PreviewFormats;
 import com.groupdocs.annotation.options.pagepreview.PreviewOptions;
-import com.groupdocs.annotation.options.pagepreview.PageStreamFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -21,7 +18,7 @@ import java.io.OutputStream;
 public class GenerateDocumentPagesPreview {
 
     public static void run() {
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_NEW);
         
         PreviewOptions previewOptions = new PreviewOptions(new CreatePageStream() {
             @Override
@@ -36,6 +33,8 @@ public class GenerateDocumentPagesPreview {
                 }
             }
         });
+
+        previewOptions.setResolution(50);
 
         previewOptions.setPreviewFormat(PreviewFormats.PNG);
 
