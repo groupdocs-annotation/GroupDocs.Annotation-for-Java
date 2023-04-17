@@ -16,7 +16,7 @@ public class LoadDocumentFromUrl {
 
     public static void run() {
         try {
-            String outputPath = Constants.getOutputFilePath("LoadDocumentFromUrl", FilenameUtils.getExtension(Constants.INPUT));
+            String outputPath = Constants.getOutputFilePath("LoadDocumentFromUrl", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
             String url = "https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/raw/api-v2/Examples/Resources/SampleFiles/input.pdf?raw=true";
             final Annotator annotator = new Annotator(new URL(url).openStream());

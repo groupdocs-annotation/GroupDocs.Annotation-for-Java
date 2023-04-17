@@ -1,14 +1,13 @@
 package com.groupdocs.annotation.examples;
 
 public class Constants {
-
     public static String PROJECT_PATH = System.getProperty("user.dir");
 
     public static final String LicensePath = "C:\\Conholdate.Total.Product.Family.lic";//GroupDocs.Total.Java.lic";
     public static final String SamplesPath = "\\Resources\\SampleFiles\\";
     public static final String OutputPath = "\\Resources\\Output\\";
     
-    public static String INPUT = getSampleFilePath("input.pdf");
+    public static String INPUT_PDF = getSampleFilePath("input.pdf");
     public static String CLEAR = getSampleFilePath("clear.pdf");
     public static String ANNOTATED_BIG = getSampleFilePath("annotated_big.pdf");
     public static String ANNOTATED_WITH_REPLIES = getSampleFilePath("annotated_with_replies.pdf");
@@ -22,6 +21,8 @@ public class Constants {
 
     public static String INPUT_DOC = getSampleFilePath("sample.docx");
     public static String INPUT_NEW = getSampleFilePath("sampleNew.pdf");
+
+    public static String INPUT_CELL = getSampleFilePath("input.xlsx");
 
     private static String getSampleFilePath(String fileName) {
         return PROJECT_PATH + SamplesPath + fileName;

@@ -19,9 +19,9 @@ public class UpdateAnnotation {
 
     public static void run() {
 
-        String outputPath = Constants.getOutputFilePath("UpdateAnnotation", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("UpdateAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         Reply reply1 = new Reply();
         reply1.setComment("Original first comment");

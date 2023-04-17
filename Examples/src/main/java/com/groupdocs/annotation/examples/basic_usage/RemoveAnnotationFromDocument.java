@@ -14,7 +14,7 @@ import org.apache.commons.io.FilenameUtils;
 public class RemoveAnnotationFromDocument {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("RemoveAnnotationFromDocument", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("RemoveAnnotationFromDocument", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
         final Annotator annotator = new Annotator(Constants.ANNOTATED_AREA_REPLIES_5);
 

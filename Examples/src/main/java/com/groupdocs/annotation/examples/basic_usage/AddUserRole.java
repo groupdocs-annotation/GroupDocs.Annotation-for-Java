@@ -1,38 +1,41 @@
-package com.groupdocs.annotation.examples.basic_usage.add_annotation_to_the_document;
+package com.groupdocs.annotation.examples.basic_usage;
 
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.examples.Constants;
-import com.groupdocs.annotation.models.PenStyle;
-import com.groupdocs.annotation.models.Rectangle;
-import com.groupdocs.annotation.models.Reply;
+
+import com.groupdocs.annotation.models.*;
 import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
+import org.apache.commons.io.FilenameUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import org.apache.commons.io.FilenameUtils;
 
 /**
  * <p>
- * This example demonstrates adding area annotation.
+ * This example demonstrates adding user role to reply.
  * </p>
  */
-public class AddAreaAnnotation {
-
+public class AddUserRole {
     public static void run() {
+        String outputPath = Constants.getOutputFilePath("AddUserRole", FilenameUtils.getExtension(Constants.INPUT_PDF));
+
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
+
         Reply reply1 = new Reply();
-        reply1.setComment("First comment");
+        reply1.setComment("This comment will be applied");
         reply1.setRepliedOn(Calendar.getInstance().getTime());
+        User user1 = new User(1, "Reviewer", Role.Editor);
+        reply1.setUser(user1);
 
         Reply reply2 = new Reply();
-        reply2.setComment("Second comment");
+        reply2.setComment("This comment will NOT be applied");
         reply2.setRepliedOn(Calendar.getInstance().getTime());
+        User user2 = new User(1, "Member", Role.Viewer);
+        reply2.setUser(user2);
 
         java.util.List<Reply> replies = new ArrayList<>();
         replies.add(reply1);
         replies.add(reply2);
-
-        String outputPath = Constants.getOutputFilePath("AddAreaAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
-
-        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         AreaAnnotation area = new AreaAnnotation();
         area.setBackgroundColor(65535);

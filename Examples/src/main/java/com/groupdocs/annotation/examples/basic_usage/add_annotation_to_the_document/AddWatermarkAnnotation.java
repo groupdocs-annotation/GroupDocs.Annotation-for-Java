@@ -17,9 +17,9 @@ import org.apache.commons.io.FilenameUtils;
 public class AddWatermarkAnnotation {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("AddWatermarkAnnotation", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("AddWatermarkAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         Reply reply1 = new Reply();
         reply1.setComment("First comment");

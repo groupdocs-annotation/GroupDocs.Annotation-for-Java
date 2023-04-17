@@ -19,9 +19,9 @@ import org.apache.commons.io.FilenameUtils;
 public class AddReplies {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("AddReplies", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("AddReplies", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         User user1 = new User();
         user1.setId(1);

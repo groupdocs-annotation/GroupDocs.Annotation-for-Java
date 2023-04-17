@@ -24,9 +24,9 @@ public class AddTextUnderlineAnnotation {
 
     public static void run() {
         //String outputPath = Constants.getOutputFilePath("sample", "docx");
-        String outputPath = Constants.getOutputFilePath("AddTextUnderlineAnnotation", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("AddTextUnderlineAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        Annotator annotator = new Annotator(/*Constants.PROJECT_PATH + Constants.SamplesPath + "sample.docx"*/Constants.INPUT);
+        Annotator annotator = new Annotator(/*Constants.PROJECT_PATH + Constants.SamplesPath + "sample.docx"*/Constants.INPUT_PDF);
 
         Reply reply1 = new Reply();
         reply1.setComment("First comment");

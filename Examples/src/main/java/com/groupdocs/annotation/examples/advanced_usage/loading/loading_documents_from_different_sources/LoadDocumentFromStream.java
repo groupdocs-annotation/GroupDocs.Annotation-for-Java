@@ -17,9 +17,9 @@ public class LoadDocumentFromStream {
 
     public static void run() {
         try {
-            String outputPath = Constants.getOutputFilePath("LoadDocumentFromStream", FilenameUtils.getExtension(Constants.INPUT));
+            String outputPath = Constants.getOutputFilePath("LoadDocumentFromStream", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-            InputStream stream = new FileInputStream(Constants.INPUT);
+            InputStream stream = new FileInputStream(Constants.INPUT_PDF);
             final Annotator annotator = new Annotator(stream);
 
             AreaAnnotation area = new AreaAnnotation();
