@@ -16,7 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 public class LoadPasswordProtectedDocuments {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("LoadPasswordProtectedDocuments", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("LoadPasswordProtectedDocuments", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
         LoadOptions loadOptions = new LoadOptions();
         loadOptions.setPassword("1234");

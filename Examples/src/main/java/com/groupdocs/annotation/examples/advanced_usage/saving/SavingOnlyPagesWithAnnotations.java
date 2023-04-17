@@ -17,30 +17,27 @@ import org.apache.commons.io.FilenameUtils;
  * </p>
  */
 public class SavingOnlyPagesWithAnnotations {
+    public static void run(String fileName) {
+        String outputPath = Constants.getOutputFilePath("SavingOnlyPagesWithAnnotations", FilenameUtils.getExtension(fileName));
 
-    public static void run() {
-        String outputPath = Constants.getOutputFilePath("SavingOnlyPagesWithAnnotations", FilenameUtils.getExtension(Constants.INPUT));
+        try(final Annotator annotator = new Annotator(fileName)) {
+            AreaAnnotation area = new AreaAnnotation();
+            area.setBox(new Rectangle(100, 100, 100, 100));
+            area.setBackgroundColor(65535);
+            area.setPageNumber(1);
+            EllipseAnnotation ellipse = new EllipseAnnotation();
+            ellipse.setBox(new Rectangle(100, 100, 100, 100));
+            ellipse.setBackgroundColor(123456);
+            ellipse.setPageNumber(2);
+            List<AnnotationBase> annotations = new ArrayList<AnnotationBase>();
+            annotations.add(area);
+            annotations.add(ellipse);
+            annotator.add(annotations);
+            SaveOptions saveOptions = new SaveOptions();
+            saveOptions.setOnlyAnnotatedPages(true);
+            annotator.save(outputPath, saveOptions);
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
-
-        AreaAnnotation area = new AreaAnnotation();
-        area.setBox(new Rectangle(100, 100, 100, 100));
-        area.setBackgroundColor(65535);
-        area.setPageNumber(1);
-        EllipseAnnotation ellipse = new EllipseAnnotation();
-        ellipse.setBox(new Rectangle(100, 100, 100, 100));
-        ellipse.setBackgroundColor(123456);
-        ellipse.setPageNumber(2);
-        List<AnnotationBase> annotations = new ArrayList<AnnotationBase>();
-        annotations.add(area);
-        annotations.add(ellipse);
-        annotator.add(annotations);
-        SaveOptions saveOptions = new SaveOptions();
-        saveOptions.setOnlyAnnotatedPages(true);
-        annotator.save(outputPath, saveOptions);
-
-        annotator.dispose();
-
-        System.out.println("\nDocument saved successfully.\nCheck output in " + outputPath);
+            System.out.println("\nDocument saved successfully.\nCheck output in " + outputPath);
+        }
     }
 }

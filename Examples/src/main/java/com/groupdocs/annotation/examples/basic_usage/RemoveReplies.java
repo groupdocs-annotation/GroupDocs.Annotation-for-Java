@@ -15,7 +15,7 @@ import org.apache.commons.io.FilenameUtils;
 public class RemoveReplies {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("RemoveRepliesById", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("RemoveRepliesById", FilenameUtils.getExtension(Constants.INPUT_PDF));
         LoadOptions loadOptions = new LoadOptions();
 
         // NOTE: Input document already contain annotations with replies

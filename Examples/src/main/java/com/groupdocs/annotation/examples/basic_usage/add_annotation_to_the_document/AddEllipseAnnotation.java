@@ -18,9 +18,9 @@ import org.apache.commons.io.FilenameUtils;
 public class AddEllipseAnnotation {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("AddLinkAnnotation", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("AddLinkAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         Reply reply1 = new Reply();
         reply1.setComment("First comment");
@@ -30,7 +30,7 @@ public class AddEllipseAnnotation {
         reply2.setComment("Second comment");
         reply2.setRepliedOn(Calendar.getInstance().getTime());
 
-        java.util.List<Reply> replies = new ArrayList<Reply>();
+        java.util.List<Reply> replies = new ArrayList<>();
         replies.add(reply1);
         replies.add(reply2);
 

@@ -14,9 +14,9 @@ import org.apache.commons.io.FilenameUtils;
 public class LoadDocumentFromLocalDisk {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("LoadDocumentFromLocalDisk", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("LoadDocumentFromLocalDisk", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         AreaAnnotation area = new AreaAnnotation();
         area.setBox(new Rectangle(100, 100, 100, 100));

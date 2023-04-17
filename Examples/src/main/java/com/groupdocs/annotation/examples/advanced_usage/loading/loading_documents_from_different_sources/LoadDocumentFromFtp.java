@@ -19,7 +19,7 @@ public class LoadDocumentFromFtp {
 
     public static void run() {
         try {
-            String outputPath = Constants.getOutputFilePath("LoadDocumentFromFtp", FilenameUtils.getExtension(Constants.INPUT));
+            String outputPath = Constants.getOutputFilePath("LoadDocumentFromFtp", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
             String filePath = "sample.pdf";
             String server = "localhost";

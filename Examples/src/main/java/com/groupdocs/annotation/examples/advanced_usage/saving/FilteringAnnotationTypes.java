@@ -18,32 +18,29 @@ import org.apache.commons.io.FilenameUtils;
  * </p>
  */
 public class FilteringAnnotationTypes {
+    public static void run(String fileName) {
+        String outputPath = Constants.getOutputFilePath("FilteringAnnotationTypes", FilenameUtils.getExtension(fileName));
 
-    public static void run() {
-        String outputPath = Constants.getOutputFilePath("FilteringAnnotationTypes", FilenameUtils.getExtension(Constants.INPUT));
-
-        final Annotator annotator = new Annotator(Constants.ANNOTATED_BIG);
-        try {
+        try(final Annotator annotator = new Annotator(fileName)) {
             AreaAnnotation area = new AreaAnnotation();
             area.setBox(new Rectangle(100, 100, 100, 100));
             area.setBackgroundColor(65535);
             area.setPageNumber(1);
+
             EllipseAnnotation ellipse = new EllipseAnnotation();
             ellipse.setBox(new Rectangle(100, 100, 100, 100));
             ellipse.setBackgroundColor(123456);
-            ellipse.setPageNumber(4);
-            List<AnnotationBase> annotations = new ArrayList<AnnotationBase>();
+            ellipse.setPageNumber(2);
+
+            List<AnnotationBase> annotations = new ArrayList<>();
             annotations.add(area);
             annotations.add(ellipse);
             annotator.add(annotations);
             SaveOptions saveOptions = new SaveOptions();
             saveOptions.setAnnotationTypes(AnnotationType.ELLIPSE);
             annotator.save(outputPath, saveOptions);
-        } finally {
-            if (annotator != null) {
-                annotator.dispose();
-            }
+
+            System.out.println("\nDocument saved successfully.\nCheck output in " + outputPath);
         }
-        System.out.println("\nDocument saved successfully.\nCheck output in " + outputPath);
     }
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
 public class RunExamples {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("Open RunExamples.cs. \nIn Main() method uncomment the example that you want to run.");
+        System.out.println("Open RunExamples.java. \nIn Main() method uncomment the example that you want to run.");
         System.out.println("=====================================================");
         
         //NOTE: Please uncomment the example you want to try out
@@ -26,25 +26,31 @@ public class RunExamples {
         GetSupportedFileFormats.run();
 
         //  Get file info
-        GetFileInfo.run();
+        GetFileInfo.run(Constants.INPUT_PDF);
+        GetFileInfo.run(Constants.INPUT_DOC);
+        GetFileInfo.run(Constants.INPUT_CELL);
 
         //  Extract annotations from document
-//       ExtractAnnotationsFromDocument.run();
+       ExtractAnnotationsFromDocument.run(Constants.INPUT_PDF);
+//       ExtractAnnotationsFromDocument.run(Constants.INPUT_DOC);
+//       ExtractAnnotationsFromDocument.run(Constants.INPUT_CELL);
 
         //  Remove annotation from document
 //        RemoveAnnotationFromDocument.run();
 
         //  Generate document pages preview
-        GenerateDocumentPagesPreview.run();
+        GenerateDocumentPagesPreview.run(Constants.INPUT_PDF);
+//        GenerateDocumentPagesPreview.run(Constants.INPUT_DOC);
+//        GenerateDocumentPagesPreview.run(Constants.INPUT_CELL);
 
         //  Saving specific page range
-        SavingSpecificPageRange.run();
+        SavingSpecificPageRange.run(Constants.INPUT_PDF);
 
         //  Saving only pages with annotations
-        SavingOnlyPagesWithAnnotations.run();
+        SavingOnlyPagesWithAnnotations.run(Constants.INPUT_PDF);
 
         //  Filtering annotation types
-//        FilteringAnnotationTypes.run();// - Unsupported exception
+        FilteringAnnotationTypes.run(Constants.INPUT_PDF);
 
         //  Add area annotation
         AddAreaAnnotation.run();
@@ -128,6 +134,8 @@ public class RunExamples {
 //         LoadDocumentFromAzure.run();
 
         MinimalAnnotation.run();
+
+        AddUserRole.run();
          
         System.out.println();
         System.out.println("All done.");

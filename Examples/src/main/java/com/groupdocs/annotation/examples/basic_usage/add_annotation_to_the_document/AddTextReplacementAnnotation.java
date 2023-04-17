@@ -18,9 +18,9 @@ import org.apache.commons.io.FilenameUtils;
 public class AddTextReplacementAnnotation {
 
     public static void run() {
-        String outputPath = Constants.getOutputFilePath("AddTextStrikeoutAnnotation", FilenameUtils.getExtension(Constants.INPUT));
+        String outputPath = Constants.getOutputFilePath("AddTextReplacementAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
 
         Reply reply1 = new Reply();
         reply1.setComment("First comment");
@@ -30,7 +30,7 @@ public class AddTextReplacementAnnotation {
         reply2.setComment("Second comment");
         reply2.setRepliedOn(Calendar.getInstance().getTime());
 
-        java.util.List<Reply> replies = new ArrayList<Reply>();
+        java.util.List<Reply> replies = new ArrayList<>();
         replies.add(reply1);
         replies.add(reply2);
 
@@ -39,7 +39,7 @@ public class AddTextReplacementAnnotation {
         Point point3 = new Point(80, 650);
         Point point4 = new Point(240, 650);
 
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.add(point1);
         points.add(point2);
         points.add(point3);
@@ -48,6 +48,7 @@ public class AddTextReplacementAnnotation {
         ReplacementAnnotation replacement = new ReplacementAnnotation();
         replacement.setCreatedOn(Calendar.getInstance().getTime());
         replacement.setFontColor(65535);
+        replacement.setFontSize(8.);
         replacement.setMessage("This is replacement annotation");
         replacement.setOpacity(0.7);
         replacement.setPageNumber(0);

@@ -12,18 +12,16 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class SavingSpecificPageRange {
 
-    public static void run() {
-        String outputPath = Constants.getOutputFilePath("SavingSpecificPageRange", FilenameUtils.getExtension(Constants.INPUT));
+    public static void run(String inputFile) {
+        String outputPath = Constants.getOutputFilePath("SavingSpecificPageRange", FilenameUtils.getExtension(inputFile));
 
-        final Annotator annotator = new Annotator(Constants.INPUT);
+        try(final Annotator annotator = new Annotator(inputFile)) {
+            SaveOptions saveOptions = new SaveOptions();
+            saveOptions.setFirstPage(2);
+            saveOptions.setLastPage(4);
+            annotator.save(outputPath, saveOptions);
 
-        SaveOptions saveOptions = new SaveOptions();
-        saveOptions.setFirstPage(2);
-        saveOptions.setLastPage(4);
-        annotator.save(outputPath, saveOptions);
-
-        annotator.dispose();
-
-        System.out.println("\nDocument saved successfully.\nCheck output in {outputPath}.");
+            System.out.println("\nDocument saved successfully.\nCheck output in {outputPath}.");
+        }
     }
 }
