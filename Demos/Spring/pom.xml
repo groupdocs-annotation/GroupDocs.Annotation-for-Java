@@ -131,7 +131,7 @@
         <dependency>
             <groupId>com.groupdocs</groupId>
             <artifactId>groupdocs-annotation</artifactId>
-            <version>23.4</version>
+            <version>23.6</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
