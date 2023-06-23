@@ -24,13 +24,13 @@ public class AddUserRole {
         Reply reply1 = new Reply();
         reply1.setComment("This comment will be applied");
         reply1.setRepliedOn(Calendar.getInstance().getTime());
-        User user1 = new User(1, "Reviewer", Role.Editor);
+        User user1 = new User(1, "Reviewer", Role.EDITOR);
         reply1.setUser(user1);
 
         Reply reply2 = new Reply();
         reply2.setComment("This comment will NOT be applied");
         reply2.setRepliedOn(Calendar.getInstance().getTime());
-        User user2 = new User(1, "Member", Role.Viewer);
+        User user2 = new User(1, "Member", Role.VIEWER);
         reply2.setUser(user2);
 
         java.util.List<Reply> replies = new ArrayList<>();
