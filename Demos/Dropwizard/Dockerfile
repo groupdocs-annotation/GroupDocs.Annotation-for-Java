@@ -1,5 +1,10 @@
-FROM openjdk:8-jre-alpine
-RUN mkdir -p /app && apk add fontconfig && apk add msttcorefonts-installer && update-ms-fonts && fc-cache -f
+FROM openjdk:18-jdk-bullseye
+RUN mkdir -p /app
+
+RUN apt-get update && \
+    apt-get install -y fontconfig && \
+    fc-cache -f
+
 WORKDIR /app
 COPY /DocumentSamples /app
 COPY /Licenses /app

@@ -1,10 +1,15 @@
-FROM openjdk:8-jre-alpine
-RUN mkdir -p /home/groupdocs/app && apk add fontconfig && apk add msttcorefonts-installer && update-ms-fonts && fc-cache -f
-WORKDIR /home/groupdocs/app
-COPY target/release/DocumentSamples /home/groupdocs/app
-COPY target/release/Licenses /home/groupdocs/app
-COPY target/release/annotation-spring-*.jar /home/groupdocs/app/app.jar
+FROM openjdk:18-jdk-bullseye
+RUN mkdir -p /app
+
+RUN apt-get update && \
+    apt-get install -y fontconfig && \
+    fc-cache -f
+
+WORKDIR /app
+COPY /DocumentSamples /app
+COPY /Licenses /app
+COPY target/annotation-spring-*.jar /app/app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT java -jar /home/groupdocs/app/app.jar configuration.yml
+ENTRYPOINT java -jar /app/app.jar configuration.yml
