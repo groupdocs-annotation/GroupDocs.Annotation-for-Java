@@ -6,7 +6,7 @@
 
     <groupId>com.groupdocs.ui</groupId>
     <artifactId>annotation</artifactId>
-    <version>1.12.25</version>
+    <version>1.12.26</version>
     <packaging>jar</packaging>
 
     <name>GroupDocs.Annotation Dropwizard</name>

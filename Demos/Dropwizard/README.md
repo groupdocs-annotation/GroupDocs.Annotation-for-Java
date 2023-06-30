@@ -1,6 +1,6 @@
 ![Groupdocs document & pdf annotator](https://raw.githubusercontent.com/groupdocs-annotation/groupdocs-annotation.github.io/master/resources/image/banner.png "GroupDocs.Annotation")
 # GroupDocs.Annotation for Java Dropwizard Example
-###### version 1.12.25
+###### version 1.12.26
 
 [![GitHub license](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard.svg)](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/blob/master/LICENSE)
 
@@ -16,7 +16,7 @@
 With GroupDocs.Annotation for Java Dropwizard application, you can annotate and **write on document** using our modern and responsive web UI interface. Thanks to flexible and highly customizable configuration it can be used as standalone application or can be integrated into your project within few simple steps.
 
 
-**Note:** without a license application will run in trial mode, purchase [GroupDocs.Annotation for Java license](https://purchase.groupdocs.com/order-online-step-1-of-8.aspx) or request [GroupDocs.Annotation for Java temporary license](https://purchase.groupdocs.com/temporary-license).
+**Note:** without a license application will run in trial mode, purchase [GroupDocs.Annotation for Java license](https://purchase.groupdocs.com/buy) or request [GroupDocs.Annotation for Java temporary license](https://purchase.groupdocs.com/temporary-license/).
 
 
 ## Demo Video
@@ -110,23 +110,9 @@ You can run this sample by one of following methods
 Download [source code](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/archive/master.zip) from github or clone this repository.
 
 ```bash
-git clone https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard
-cd GroupDocs.Annotation-for-Java-Dropwizard
+git clone https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/
+cd /Demos/Dropwizard
 mvn clean compile exec:java
-## Open http://localhost:8080/annotation/ in your favorite browser.
-```
-
-#### Binary release (with all dependencies)
-
-Download [latest release](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/releases/latest) from [releases page](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/releases). 
-
-**Note**: This method is **recommended** for running this sample behind firewall.
-
-```bash
-curl -J -L -o release.tar.gz https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/releases/download/1.12.25/release.tar.gz
-tar -xvzf release.tar.gz
-cd release
-java -jar annotation-1.12.25.jar configuration.yaml
 ## Open http://localhost:8080/annotation/ in your favorite browser.
 ```
 
@@ -136,7 +122,7 @@ Use [docker](https://hub.docker.com/u/groupdocs) image.
 ```bash
 mkdir DocumentSamples
 mkdir Licenses
-docker run -p 8080:8080 --env application.hostAddress=localhost -v `pwd`/DocumentSamples:/home/groupdocs/app/DocumentSamples -v `pwd`/Licenses:/home/groupdocs/app/Licenses groupdocs/annotation
+docker run -p 8080:8080 --env application.hostAddress=localhost -v `pwd`/DocumentSamples:/home/groupdocs/app/DocumentSamples -v `pwd`/Licenses:/home/groupdocs/app/Licenses groupdocs/annotation-dropwizard
 ## Open http://localhost:8080/annotation/ in your favorite browser.
 ```
 
@@ -166,7 +152,7 @@ For all methods above you can adjust settings in `configuration.yml`. By default
 | **`textUnderlineAnnotation`**      | Boolean |      `true`       | Enable/disable TextUnderline annotation                                                                                                      |
 | **`distanceAnnotation`**           | Boolean |      `true`       | Enable/disable Distance annotation                                                                                                           |
 | **`downloadOriginal`**             | Boolean |      `true`       | Enable/disable original document downloading                                                                                                 |
-| **`downloadAnnotated`**            | Boolen  |      `true`       | Enable/disable signed document downloading                                                                                                   |
+| **`downloadAnnotated`**            | Boolean |      `true`       | Enable/disable signed document downloading                                                                                                   |
 | **`zoom`**                         | Boolean |      `true`       | Enable/disable zoom                                                                                                                          |
 | **`fitWidth`**                     | Boolean |      `true`       | Enable/disable fit width. Set true to zoom document pages fit width                                                                          | 
 
@@ -177,8 +163,8 @@ Please have a look at the LICENSE.md for more details
 
 ## GroupDocs Annotation on other platforms & frameworks
 
-- JAVA Spring [Document & PDF annotator](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Spring) 
-- .NET MVC [Document & PDF annotator](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET-MVC)
-- .NET WebForms [Document & PDF annotator](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET-WebForms)
+- JAVA Spring [Document & PDF annotator](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Demos/Spring) 
+- .NET MVC [Document & PDF annotator](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET/tree/master/Demos)
+- .NET WebForms [Document & PDF annotator](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-.NET/tree/master/Demos)
 
 [Home](https://www.groupdocs.com/) | [Product Page](https://products.groupdocs.com/annotation/java) | [Documentation](https://docs.groupdocs.com/annotation/java/) | [Demos](https://products.groupdocs.app/annotation/family) | [API Reference](https://apireference.groupdocs.com/java/annotation) | [Examples](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java/tree/master/Examples) | [Blog](https://blog.groupdocs.com/category/annotation/) | [Free Support](https://forum.groupdocs.com/c/annotation) | [Temporary License](https://purchase.groupdocs.com/temporary-license)
