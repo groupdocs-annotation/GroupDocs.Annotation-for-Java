@@ -30,7 +30,7 @@ public class AddPolylineAnnotation {
         reply2.setComment("Second comment");
         reply2.setRepliedOn(Calendar.getInstance().getTime());
 
-        java.util.List<Reply> replies = new ArrayList<Reply>();
+        java.util.List<Reply> replies = new ArrayList<>();
         replies.add(reply1);
         replies.add(reply2);
 
