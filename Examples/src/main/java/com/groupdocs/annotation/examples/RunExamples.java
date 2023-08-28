@@ -17,21 +17,22 @@ public class RunExamples {
         System.out.println("=====================================================");
         
         //NOTE: Please uncomment the example you want to try out
+
         //  Quick Start
         SetLicenseFromFile.run();
-        SetLicenseFromStream.run();
-//        SetMeteredLicense.run();
+//        SetLicenseFromStream.run();
+//      SetMeteredLicense.run();
 
         //  Get supported file formats
-        GetSupportedFileFormats.run();
+//        GetSupportedFileFormats.run();
 
         //  Get file info
-        GetFileInfo.run(Constants.INPUT_PDF);
-        GetFileInfo.run(Constants.INPUT_DOC);
-        GetFileInfo.run(Constants.INPUT_CELL);
+//        GetFileInfo.run(Constants.INPUT_PDF);
+//        GetFileInfo.run(Constants.INPUT_DOC);
+//        GetFileInfo.run(Constants.INPUT_CELL);
 
         //  Extract annotations from document
-       ExtractAnnotationsFromDocument.run(Constants.INPUT_PDF);
+//       ExtractAnnotationsFromDocument.run(Constants.INPUT_PDF);
 //       ExtractAnnotationsFromDocument.run(Constants.INPUT_DOC);
 //       ExtractAnnotationsFromDocument.run(Constants.INPUT_CELL);
 
@@ -39,69 +40,69 @@ public class RunExamples {
 //        RemoveAnnotationFromDocument.run();
 
         //  Generate document pages preview
-        GenerateDocumentPagesPreview.run(Constants.INPUT_PDF);
+//        GenerateDocumentPagesPreview.run(Constants.INPUT_PDF);
 //        GenerateDocumentPagesPreview.run(Constants.INPUT_DOC);
 //        GenerateDocumentPagesPreview.run(Constants.INPUT_CELL);
 
         //  Saving specific page range
-        SavingSpecificPageRange.run(Constants.INPUT_PDF);
+//        SavingSpecificPageRange.run(Constants.INPUT_PDF);
 
         //  Saving only pages with annotations
-        SavingOnlyPagesWithAnnotations.run(Constants.INPUT_PDF);
+//        SavingOnlyPagesWithAnnotations.run(Constants.INPUT_PDF);
 
         //  Filtering annotation types
-        FilteringAnnotationTypes.run(Constants.INPUT_PDF);
+//        FilteringAnnotationTypes.run(Constants.INPUT_PDF);
 
         //  Add area annotation
-        AddAreaAnnotation.run();
+//        AddAreaAnnotation.run();
 
         //  Add arrow annotation
-        AddArrowAnnotation.run();
+//        AddArrowAnnotation.run();
 
         //  Add distance annotation
-        AddDistanceAnnotation.run();
+//        AddDistanceAnnotation.run();
 
         //  Add ellipse annotation
-        AddEllipseAnnotation.run();
+//        AddEllipseAnnotation.run();
 
         //  Add link annotation
-        AddLinkAnnotation.run();
+//        AddLinkAnnotation.run();
 
         //  Add point annotation
-        AddPointAnnotation.run();
+//        AddPointAnnotation.run();
 
         //  Add resources redaction annotation
-        AddResourcesRedactionAnnotation.run();
+//        AddResourcesRedactionAnnotation.run();
 
         //  Add text highlight annotation
-        AddTextHighlightAnnotation.run();
+//        AddTextHighlightAnnotation.run();
 
         //  Add text field annotation
-        AddTextFieldAnnotation.run();
+//        AddTextFieldAnnotation.run();
 
         //  Add text redaction annotation
-        AddTextRedactionAnnotation.run();
+//        AddTextRedactionAnnotation.run();
 
         //  Add text replacement annotation
-        AddTextReplacementAnnotation.run();
+//        AddTextReplacementAnnotation.run();
 
         //  Add text strikeout annotation
         AddTextStrikeoutAnnotation.run();
 
         //  Add polyline annotation
-        AddPolylineAnnotation.run();
+//        AddPolylineAnnotation.run();
 
         //  Add underline annotation
         AddTextUnderlineAnnotation.run();
 
         //  Add watermark annotation
-        AddWatermarkAnnotation.run();
+//        AddWatermarkAnnotation.run();
 
         //  Add replies annotation
-        AddReplies.run();
+//        AddReplies.run();
 
         //  Remove replies
-        RemoveReplies.run();
+//        RemoveReplies.run();
 
         //  Remove replies by Id
 //        RemoveRepliesById.run();
@@ -110,22 +111,22 @@ public class RunExamples {
 //        RemoveRepliesByUserName.run();
 
         //  Update annotation
-        UpdateAnnotation.run();
+//        UpdateAnnotation.run();
 
         //  Load document from local disk
-        LoadDocumentFromLocalDisk.run();
+//        LoadDocumentFromLocalDisk.run();
 
          //  Load document from stream
-         LoadDocumentFromStream.run();
+//         LoadDocumentFromStream.run();
 
          //  Load password-protected documents
-         LoadPasswordProtectedDocuments.run();
+//         LoadPasswordProtectedDocuments.run();
 
          //  Load document from url
-         LoadDocumentFromUrl.run();
+//         LoadDocumentFromUrl.run();
 
          //  Load document from FTP
-         LoadDocumentFromFtp.run();
+//         LoadDocumentFromFtp.run();
 
          //  Load document from AmazonS3
 //         LoadDocumentFromAmazonS3.run();
@@ -133,10 +134,10 @@ public class RunExamples {
          //  Load document from Azure
 //         LoadDocumentFromAzure.run();
 
-        MinimalAnnotation.run();
+//        MinimalAnnotation.run();
 
-        AddUserRole.run();
-         
+//        AddUserRole.run();
+
         System.out.println();
         System.out.println("All done.");
     }

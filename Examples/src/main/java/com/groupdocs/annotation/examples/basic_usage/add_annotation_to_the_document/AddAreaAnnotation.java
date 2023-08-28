@@ -16,7 +16,6 @@ import org.apache.commons.io.FilenameUtils;
  * </p>
  */
 public class AddAreaAnnotation {
-
     public static void run() {
         Reply reply1 = new Reply();
         reply1.setComment("First comment");
@@ -32,23 +31,21 @@ public class AddAreaAnnotation {
 
         String outputPath = Constants.getOutputFilePath("AddAreaAnnotation", FilenameUtils.getExtension(Constants.INPUT_PDF));
 
-        final Annotator annotator = new Annotator(Constants.INPUT_PDF);
-
-        AreaAnnotation area = new AreaAnnotation();
-        area.setBackgroundColor(65535);
-        area.setBox(new Rectangle(100, 100, 100, 100));
-        area.setCreatedOn(Calendar.getInstance().getTime());
-        area.setMessage("This is area annotation");
-        area.setOpacity(0.7);
-        area.setPageNumber(0);
-        area.setPenColor(65535);
-        area.setPenStyle(PenStyle.DOT);
-        area.setPenWidth((byte) 3);
-        area.setReplies(replies);
-        annotator.add(area);
-        annotator.save(outputPath);
-
-        annotator.dispose();
+        try(final Annotator annotator = new Annotator(Constants.INPUT_PDF)) {
+            AreaAnnotation area = new AreaAnnotation();
+            area.setBackgroundColor(65535);
+            area.setBox(new Rectangle(100, 100, 100, 100));
+            area.setCreatedOn(Calendar.getInstance().getTime());
+            area.setMessage("This is area annotation");
+            area.setOpacity(0.7);
+            area.setPageNumber(0);
+            area.setPenColor(65535);
+            area.setPenStyle(PenStyle.DOT);
+            area.setPenWidth((byte) 3);
+            area.setReplies(replies);
+            annotator.add(area);
+            annotator.save(outputPath);
+        }
 
         System.out.println("\nDocument saved successfully.\nCheck output in " + outputPath);
     }

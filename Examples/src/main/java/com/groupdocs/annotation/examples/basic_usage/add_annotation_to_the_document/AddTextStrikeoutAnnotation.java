@@ -30,7 +30,7 @@ public class AddTextStrikeoutAnnotation {
         reply2.setComment("Second comment");
         reply2.setRepliedOn(Calendar.getInstance().getTime());
 
-        java.util.List<Reply> replies = new ArrayList<Reply>();
+        java.util.List<Reply> replies = new ArrayList<>();
         replies.add(reply1);
         replies.add(reply2);
 
@@ -39,7 +39,7 @@ public class AddTextStrikeoutAnnotation {
         Point point3 = new Point(80, 650);
         Point point4 = new Point(240, 650);
 
-        List<Point> points = new ArrayList<Point>();
+        List<Point> points = new ArrayList<>();
         points.add(point1);
         points.add(point2);
         points.add(point3);
