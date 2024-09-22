@@ -82,6 +82,6 @@ public class FilesUtils {
     }
 
     public static String obtainExtension(Path path) {
-        return path.getNameCount() > 1 ? "." + path.getFileName().toString().substring(path.getNameCount() - 1) : "";
+        return path.getNameCount() > 1 ? path.getFileName().toString().substring(path.getFileName().toString().lastIndexOf('.')) : "";
     }
 }
