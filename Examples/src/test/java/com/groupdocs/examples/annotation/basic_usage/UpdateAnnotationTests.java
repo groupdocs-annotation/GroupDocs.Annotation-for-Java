@@ -6,8 +6,6 @@ import org.testng.annotations.Test;
 
 import java.nio.file.Path;
 
-import static org.testng.Assert.*;
-
 public class UpdateAnnotationTests {
 
     @Test

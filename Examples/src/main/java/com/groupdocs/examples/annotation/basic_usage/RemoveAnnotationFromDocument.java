@@ -3,7 +3,6 @@ package com.groupdocs.examples.annotation.basic_usage;
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.annotation.options.export.SaveOptions;
-import com.groupdocs.examples.annotation.SampleFiles;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;

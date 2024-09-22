@@ -5,7 +5,6 @@ import com.groupdocs.annotation.models.PenStyle;
 import com.groupdocs.annotation.models.Rectangle;
 import com.groupdocs.annotation.models.Reply;
 import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
-import com.groupdocs.examples.annotation.SampleFiles;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;

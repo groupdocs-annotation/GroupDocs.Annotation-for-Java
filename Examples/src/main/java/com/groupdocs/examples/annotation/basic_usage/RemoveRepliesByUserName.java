@@ -31,7 +31,7 @@ public class RemoveRepliesByUserName {
 
             // Remove all replies where author name is "Tom"
             if (!annotations.isEmpty()) {
-                annotations.get(0).getReplies().removeIf(reply -> reply.getUser().getName().toString().equals("Tom"));
+                annotations.get(0).getReplies().removeIf(reply -> reply.getUser().getName().equals("Tom"));
             }
 
             annotator.update(annotations);

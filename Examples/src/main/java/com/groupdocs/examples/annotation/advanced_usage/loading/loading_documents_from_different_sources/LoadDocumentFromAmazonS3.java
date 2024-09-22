@@ -1,12 +1,7 @@
 package com.groupdocs.examples.annotation.advanced_usage.loading.loading_documents_from_different_sources;
 
-import com.groupdocs.annotation.Annotator;
-import com.groupdocs.annotation.models.Rectangle;
-import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
 import static com.groupdocs.examples.annotation.utils.FilesUtils.makeOutputPath;
 import static com.groupdocs.examples.annotation.utils.FilesUtils.obtainExtension;

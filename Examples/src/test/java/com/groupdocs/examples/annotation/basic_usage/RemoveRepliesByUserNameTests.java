@@ -2,12 +2,9 @@ package com.groupdocs.examples.annotation.basic_usage;
 
 import com.groupdocs.examples.annotation.SampleFiles;
 import org.assertj.core.api.Assertions;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.nio.file.Path;
-
-import static org.testng.Assert.*;
 
 public class RemoveRepliesByUserNameTests {
 

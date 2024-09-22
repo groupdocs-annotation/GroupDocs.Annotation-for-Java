@@ -2,10 +2,9 @@ package com.groupdocs.examples.annotation.basic_usage;
 
 import com.groupdocs.annotation.IDocumentInfo;
 import com.groupdocs.examples.annotation.SampleFiles;
-import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class GetFileInfoTests {
 
