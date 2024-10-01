@@ -1,5 +1,7 @@
 package com.groupdocs.examples.annotation.utils;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -78,7 +80,15 @@ public class FilesUtils {
      * @return An absolute Path object representing the resolved output path, which includes the full path to the output file.
      */
     public static Path makeOutputPath(String relativePath) {
-        return OUTPUT_PATH.resolve(relativePath).toAbsolutePath().normalize();
+        final Path normalizedPath = OUTPUT_PATH.resolve(relativePath).toAbsolutePath().normalize();
+        if (Files.notExists(normalizedPath.getParent())) {
+            try {
+                Files.createDirectories(normalizedPath.getParent());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return normalizedPath;
     }
 
     public static String obtainExtension(Path path) {

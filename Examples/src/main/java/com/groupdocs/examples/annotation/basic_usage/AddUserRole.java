@@ -3,6 +3,7 @@ package com.groupdocs.examples.annotation.basic_usage;
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.models.*;
 import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -54,6 +55,9 @@ public class AddUserRole {
             annotator.add(areaAnnotation);
 
             annotator.save(outputPath.toString());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());

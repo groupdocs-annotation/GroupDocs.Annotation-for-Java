@@ -2,6 +2,7 @@ package com.groupdocs.examples.annotation.advanced_usage.saving;
 
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.options.export.SaveOptions;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -25,6 +26,9 @@ public class SavingSpecificPageRange {
             annotator.save(outputPath.toString(), saveOptions);
 
             System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
         return outputPath;
     }

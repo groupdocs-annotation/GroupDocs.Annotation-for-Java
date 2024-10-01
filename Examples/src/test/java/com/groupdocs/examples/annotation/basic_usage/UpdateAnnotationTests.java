@@ -1,12 +1,13 @@
 package com.groupdocs.examples.annotation.basic_usage;
 
 import com.groupdocs.examples.annotation.SampleFiles;
+import com.groupdocs.examples.annotation.TestsSetUp;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 import java.nio.file.Path;
 
-public class UpdateAnnotationTests {
+public class UpdateAnnotationTests extends TestsSetUp {
 
     @Test
     public void testRun() {

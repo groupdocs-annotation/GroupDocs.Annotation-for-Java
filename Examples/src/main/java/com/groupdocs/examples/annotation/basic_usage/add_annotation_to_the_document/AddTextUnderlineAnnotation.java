@@ -6,6 +6,7 @@ import com.groupdocs.annotation.models.Reply;
 import com.groupdocs.annotation.models.annotationmodels.UnderlineAnnotation;
 import com.groupdocs.annotation.options.export.AnnotationType;
 import com.groupdocs.annotation.options.export.SaveOptions;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -58,7 +59,9 @@ public class AddTextUnderlineAnnotation {
             annotator.add(underline);
 
             annotator.save(outputPathWithAnnotations.toString());
-
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         final Path outputPathNoneAnnotations = FilesUtils.makeOutputPath("AddTextUnderlineAnnotation-none-annotations" + obtainExtension(inputFile));
@@ -69,7 +72,9 @@ public class AddTextUnderlineAnnotation {
             saveOptions.setAnnotationTypes(AnnotationType.NONE);
 
             annotator.save(outputPathNoneAnnotations.toString(), saveOptions);
-
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         System.out.println("\nDocument saved successfully.\nCheck output: " + outputPathWithAnnotations.getParent());

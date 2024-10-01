@@ -5,6 +5,7 @@ import com.groupdocs.annotation.models.Rectangle;
 import com.groupdocs.annotation.models.Reply;
 import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
 import com.groupdocs.annotation.options.LoadOptions;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -50,6 +51,9 @@ public class UpdateAnnotation {
             annotator.add(original);
 
             annotator.save(originOutputPath.toString());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         LoadOptions loadOptions = new LoadOptions();
@@ -83,6 +87,9 @@ public class UpdateAnnotation {
             annotator1.update(updated);
 
             annotator1.save(updatedOutputPath.toString());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         System.out.println("\nDocument saved successfully.\nCheck output: " + updatedOutputPath.getParent());

@@ -4,6 +4,7 @@ import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.options.pagepreview.CreatePageStream;
 import com.groupdocs.annotation.options.pagepreview.PreviewFormats;
 import com.groupdocs.annotation.options.pagepreview.PreviewOptions;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.io.IOException;
@@ -45,6 +46,9 @@ public class GenerateDocumentPagesPreview {
             final Optional<Path> optionalPath = pagePaths.stream().findFirst();
             optionalPath.ifPresent(path -> System.out.println("\nDocument previews generated successfully.\nCheck output: " + path.getParent()));
             return pagePaths;
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
     }
 }

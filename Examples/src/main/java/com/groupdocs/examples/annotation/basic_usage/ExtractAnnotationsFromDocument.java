@@ -2,6 +2,7 @@ package com.groupdocs.examples.annotation.basic_usage;
 
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,9 +26,9 @@ public class ExtractAnnotationsFromDocument {
             }
             System.out.println("Annotations extracted successfully.");
             return annotations;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
-        return null;
     }
 }

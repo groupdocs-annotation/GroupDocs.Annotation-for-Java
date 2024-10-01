@@ -4,6 +4,7 @@ import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.models.Rectangle;
 import com.groupdocs.annotation.models.Reply;
 import com.groupdocs.annotation.models.annotationmodels.ResourcesRedactionAnnotation;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -46,6 +47,9 @@ public class AddResourcesRedactionAnnotation {
             annotator.add(resourcesRedactionAnnotation);
 
             annotator.save(outputPath.toString());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());

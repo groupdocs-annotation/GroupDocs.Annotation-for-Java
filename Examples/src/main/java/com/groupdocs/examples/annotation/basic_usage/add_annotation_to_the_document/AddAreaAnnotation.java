@@ -5,6 +5,7 @@ import com.groupdocs.annotation.models.PenStyle;
 import com.groupdocs.annotation.models.Rectangle;
 import com.groupdocs.annotation.models.Reply;
 import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -48,6 +49,9 @@ public class AddAreaAnnotation {
             annotator.add(areaAnnotation);
 
             annotator.save(outputPath.toString());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
 
         System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());

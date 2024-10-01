@@ -2,13 +2,14 @@ package com.groupdocs.examples.annotation.basic_usage;
 
 import com.groupdocs.annotation.models.annotationmodels.AnnotationBase;
 import com.groupdocs.examples.annotation.SampleFiles;
+import com.groupdocs.examples.annotation.TestsSetUp;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ExtractAnnotationsFromDocumentTests {
+public class ExtractAnnotationsFromDocumentTests extends TestsSetUp {
 
     @Test
     public void testRunPdf() {

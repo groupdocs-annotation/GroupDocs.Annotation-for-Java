@@ -24,6 +24,9 @@ public class LoadDocumentFromAzure {
 //            annotator.add(area);
 //
 //            annotator.save(outputPath.toString());
+//        } catch (Exception e) {
+//            FailureRegister.getInstance().registerFailedSample(e);
+//            return null;
 //        }
 //
 //        System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());

@@ -11,6 +11,7 @@ import com.groupdocs.examples.annotation.advanced_usage.saving.SavingSpecificPag
 import com.groupdocs.examples.annotation.basic_usage.*;
 import com.groupdocs.examples.annotation.basic_usage.add_annotation_to_the_document.*;
 import com.groupdocs.examples.annotation.licensing.SetLicenseFromStream;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +20,11 @@ public class Main {
 
         runExamples();
 
+        final boolean printFailedSamplesStacktrace = System.getenv("PRINT_FAILED_SAMPLES_STACKTRACE") != null;
+        FailureRegister.getInstance().printFailedSamples(printFailedSamplesStacktrace);
+
         System.out.println("\nAll done.");
+        System.exit(FailureRegister.getInstance().getFailedSamplesCount());
     }
 
     public static void runExamples() {

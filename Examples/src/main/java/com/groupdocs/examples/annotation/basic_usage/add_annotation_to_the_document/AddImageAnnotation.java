@@ -3,6 +3,7 @@ package com.groupdocs.examples.annotation.basic_usage.add_annotation_to_the_docu
 import com.groupdocs.annotation.Annotator;
 import com.groupdocs.annotation.models.Rectangle;
 import com.groupdocs.annotation.models.annotationmodels.ImageAnnotation;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -24,7 +25,11 @@ public class AddImageAnnotation {
             annotator.add(imageAnnotation);
 
             annotator.save(outputPath.toString());
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
+
         System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
         return outputPath.getParent();
     }

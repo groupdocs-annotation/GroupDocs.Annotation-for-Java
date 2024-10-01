@@ -126,7 +126,6 @@
                 <version>3.5.0</version>
                 <configuration>
                     <includes>
-                        <include>com.groupdocs.examples.annotation.TestsSetUp</include>
                         <include>**/*Tests.java</include>
                     </includes>
                     <systemPropertyVariables>

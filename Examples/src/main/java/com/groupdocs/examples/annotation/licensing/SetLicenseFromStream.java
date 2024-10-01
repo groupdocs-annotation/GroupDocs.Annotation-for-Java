@@ -1,6 +1,7 @@
 package com.groupdocs.examples.annotation.licensing;
 
 import com.groupdocs.annotation.licenses.License;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.LicenseUtils;
 
 import java.io.IOException;
@@ -34,7 +35,8 @@ public class SetLicenseFromStream {
                                 "\nCheck README.md to see how to configure the project to obtain license file"
                 );
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
             throw new RuntimeException(e);
         }
     }

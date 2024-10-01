@@ -1,6 +1,7 @@
 package com.groupdocs.examples.annotation.advanced_usage;
 
 import com.groupdocs.examples.annotation.SampleFiles;
+import com.groupdocs.examples.annotation.TestsSetUp;
 import org.testng.annotations.Test;
 
 import java.nio.file.Path;
@@ -8,7 +9,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class GenerateDocumentPagesPreviewTests {
+public class GenerateDocumentPagesPreviewTests extends TestsSetUp {
 
     @Test
     public void testRunPdf() {
