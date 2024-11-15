@@ -72,12 +72,11 @@ public class AddTextUnderlineAnnotation {
             saveOptions.setAnnotationTypes(AnnotationType.NONE);
 
             annotator.save(outputPathNoneAnnotations.toString(), saveOptions);
+
+            System.out.println("\nDocument saved successfully.\nCheck output: " + outputPathWithAnnotations.getParent());
         } catch (Exception e) {
             FailureRegister.getInstance().registerFailedSample(e);
-            return null;
         }
-
-        System.out.println("\nDocument saved successfully.\nCheck output: " + outputPathWithAnnotations.getParent());
         return outputPathWithAnnotations;
     }
 }

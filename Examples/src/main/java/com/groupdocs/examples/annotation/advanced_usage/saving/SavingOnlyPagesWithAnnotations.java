@@ -49,7 +49,6 @@ public class SavingOnlyPagesWithAnnotations {
             System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
         } catch (Exception e) {
             FailureRegister.getInstance().registerFailedSample(e);
-            return null;
         }
         return outputPath;
     }

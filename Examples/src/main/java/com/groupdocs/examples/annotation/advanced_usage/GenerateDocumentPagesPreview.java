@@ -33,7 +33,7 @@ public class GenerateDocumentPagesPreview {
                         pagePaths.add(outputPagePath);
                         return Files.newOutputStream(outputPagePath);
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException("Failed to create output stream for page " + pageNumber, e);
                     }
                 }
             });

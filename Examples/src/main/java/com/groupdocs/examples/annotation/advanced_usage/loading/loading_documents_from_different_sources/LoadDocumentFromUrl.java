@@ -22,8 +22,8 @@ public class LoadDocumentFromUrl {
 
     public static Path run(String urlStr) {
         try {
-            final URL url = new URL(urlStr);
             Path outputPath = FilesUtils.makeOutputPath("LoadDocumentFromUrl" + obtainExtension(Paths.get(url.getPath())));
+            final URL url = new URL(urlStr);
             try (final Annotator annotator = new Annotator(url.openStream())) {
 
                 AreaAnnotation area = new AreaAnnotation();

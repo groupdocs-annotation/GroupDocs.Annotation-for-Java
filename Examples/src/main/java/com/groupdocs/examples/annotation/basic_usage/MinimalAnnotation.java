@@ -19,11 +19,11 @@ public class MinimalAnnotation {
             arrowAnnotation.setBox(new Rectangle(100, 100, 200, 200));
             annotator.add(arrowAnnotation);
             annotator.save(outputPath.toString());
+
+            System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
         } catch (Exception e) {
             FailureRegister.getInstance().registerFailedSample(e);
-            return null;
         }
-        System.out.println("Document saved successfully. Check output: " + outputPath.getParent());
         return outputPath;
     }
 }

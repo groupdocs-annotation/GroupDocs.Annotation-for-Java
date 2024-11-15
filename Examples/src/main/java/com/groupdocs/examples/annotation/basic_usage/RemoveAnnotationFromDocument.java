@@ -24,10 +24,9 @@ public class RemoveAnnotationFromDocument {
             saveOptions.setAnnotationTypes(AnnotationType.NONE);
             annotator.save(outputPath.toString(), saveOptions);
 
-            System.out.println("\nDocument saved successfully.\nCheck output in " + outputPath);
+            System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
         } catch (Exception e) {
             FailureRegister.getInstance().registerFailedSample(e);
-            return null;
         }
         return outputPath;
     }

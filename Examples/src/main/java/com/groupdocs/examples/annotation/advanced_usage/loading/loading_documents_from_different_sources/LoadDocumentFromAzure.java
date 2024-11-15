@@ -1,5 +1,8 @@
 package com.groupdocs.examples.annotation.advanced_usage.loading.loading_documents_from_different_sources;
 
+import com.groupdocs.annotation.Annotator;
+import com.groupdocs.annotation.models.annotationmodels.AreaAnnotation;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.FilesUtils;
 
 import java.nio.file.Path;
@@ -24,13 +27,11 @@ public class LoadDocumentFromAzure {
 //            annotator.add(area);
 //
 //            annotator.save(outputPath.toString());
+//
+//            System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
 //        } catch (Exception e) {
 //            FailureRegister.getInstance().registerFailedSample(e);
-//            return null;
 //        }
-//
-//        System.out.println("\nDocument saved successfully.\nCheck output: " + outputPath.getParent());
-
         return outputPath;
     }
 

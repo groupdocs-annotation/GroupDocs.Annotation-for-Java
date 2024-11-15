@@ -1,6 +1,7 @@
 package com.groupdocs.examples.annotation.basic_usage;
 
 import com.groupdocs.annotation.options.FileType;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 
 import java.util.List;
 
@@ -12,16 +13,20 @@ import java.util.List;
 public class GetSupportedFileFormats {
 
     public static List<FileType> run() {
+        try {
+            List<FileType> fileTypes = FileType.getSupportedFileTypes();
+            final StringBuffer stringBuffer = new StringBuffer();
+            for (FileType fileType : fileTypes) {
+                stringBuffer.append(fileType.getFileFormat()).append(" (").append(fileType.getExtension()).append("), ");
+            }
+            stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length() - 1);
+            System.out.println(stringBuffer);
 
-        List<FileType> fileTypes = FileType.getSupportedFileTypes();
-        final StringBuffer stringBuffer = new StringBuffer();
-        for (FileType fileType : fileTypes) {
-            stringBuffer.append(fileType.getFileFormat()).append(" (").append(fileType.getExtension()).append("), ");
+            System.out.println("\nSupported file types retrieved successfully.");
+            return fileTypes;
+        } catch (Exception e) {
+            FailureRegister.getInstance().registerFailedSample(e);
+            return null;
         }
-        stringBuffer.delete(stringBuffer.length() - 2, stringBuffer.length() - 1);
-        System.out.println(stringBuffer);
-
-        System.out.println("\nSupported file types retrieved successfully.");
-        return fileTypes;
     }
 }

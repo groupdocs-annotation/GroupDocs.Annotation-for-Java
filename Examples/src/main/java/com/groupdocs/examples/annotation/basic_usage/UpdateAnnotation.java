@@ -87,12 +87,11 @@ public class UpdateAnnotation {
             annotator1.update(updated);
 
             annotator1.save(updatedOutputPath.toString());
+
+            System.out.println("\nDocument saved successfully.\nCheck output: " + updatedOutputPath.getParent());
         } catch (Exception e) {
             FailureRegister.getInstance().registerFailedSample(e);
-            return null;
         }
-
-        System.out.println("\nDocument saved successfully.\nCheck output: " + updatedOutputPath.getParent());
         return originOutputPath;
     }
 }

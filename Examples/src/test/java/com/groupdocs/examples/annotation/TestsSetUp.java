@@ -1,6 +1,7 @@
 package com.groupdocs.examples.annotation;
 
 import com.groupdocs.annotation.licenses.License;
+import com.groupdocs.examples.annotation.utils.FailureRegister;
 import com.groupdocs.examples.annotation.utils.LicenseUtils;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -8,10 +9,14 @@ import org.testng.annotations.BeforeSuite;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 public class TestsSetUp {
     @BeforeSuite
     public void setUp() throws IOException {
+        Locale.setDefault(Locale.US);
+        FailureRegister.getInstance().setThrowExceptionsImmediately(true);
+
         try (final InputStream licenseStream = LicenseUtils.createLicenseStream()) {
             if (licenseStream == null) {
                 throw new RuntimeException("License was NOT set!");
