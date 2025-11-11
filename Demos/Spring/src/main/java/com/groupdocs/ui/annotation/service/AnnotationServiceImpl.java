@@ -342,7 +342,7 @@ public class AnnotationServiceImpl implements AnnotationService {
 
                 for (int i = 0; i < annotationsData.length; i++) {
                     AnnotationDataEntity annotationData = annotationsData[i];
-                    PageInfo pageInfo = info.getPagesInfo().get(annotationsData[i].getPageNumber() - 1);
+                    PageInfo pageInfo = info.getPagesInfo().get(annotationsData[i].getPageNumber() - 1);//-1
                     // add annotation, if current annotation type isn't supported by the current document type it will be ignored
                     try {
                         BaseAnnotator baseAnnotator = AnnotatorFactory.createAnnotator(annotationData, pageInfo);
@@ -507,7 +507,7 @@ public class AnnotationServiceImpl implements AnnotationService {
             for (AnnotationDataEntity annotationData : annotationsData) {
                 // create annotator
                 // add annotation, if current annotation type isn't supported by the current document type it will be ignored              
-                PageDataDescriptionEntity pageData = annotationPageDescriptionEntityList.get(annotationData.getPageNumber() - 1);
+                PageDataDescriptionEntity pageData = annotationPageDescriptionEntityList.get(annotationData.getPageNumber() - 1);//-1
                 
                 PageInfo pageInfo = new PageInfo(); 
                 pageInfo.setHeight((int) pageData.getHeight());
