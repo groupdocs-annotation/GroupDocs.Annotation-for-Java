@@ -44,7 +44,7 @@ public class AnnotationMapper {
         // GroupDocs.Annotation library are obfuscated
         for (int n = 0; n < annotations.size(); n++) {
             AnnotationBase annotationInfo = annotations.get(n);
-            if (pageNumber == annotationInfo.getPageNumber() + 1) {
+            if (pageNumber == annotationInfo.getPageNumber()) {//+1
                 AnnotationDataEntity annotation = mapAnnotationDataEntity(annotationInfo, pageInfo);
                 pageAnnotations.add(annotation);
             }
@@ -109,7 +109,7 @@ public class AnnotationMapper {
         annotation.setHeight(annotationInfo instanceof IBox ? boxHeight : (annotationInfo instanceof IPoints ? (maxY - minY) : 0));
         annotation.setLeft(annotationInfo instanceof IBox ? boxX : (annotationInfo instanceof IPoints ? minX : 0));
         
-        annotation.setPageNumber((int)annotationInfo.getPageNumber() + 1);
+        annotation.setPageNumber((int)annotationInfo.getPageNumber());//+1
         annotation.setSvgPath(annotationInfo instanceof ISvgPath ? (((ISvgPath)annotationInfo).getSvgPath().replace("l", "L")) : svgPath);
         
         String text = "";

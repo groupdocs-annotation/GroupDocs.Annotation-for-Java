@@ -103,7 +103,7 @@ public abstract class BaseAnnotator {
      */    
     protected final AnnotationBase initAnnotationBase(AnnotationBase annotationBase) {
         // set page number to add annotation
-        annotationBase.setPageNumber(annotationData.getPageNumber() - 1);
+        annotationBase.setPageNumber(annotationData.getPageNumber());//-1
         // set annotation type
         annotationBase.setType(getType());
         annotationBase.setCreatedOn(Date.from(Instant.now()));
