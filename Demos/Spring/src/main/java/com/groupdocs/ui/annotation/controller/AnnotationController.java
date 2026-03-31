@@ -114,6 +114,38 @@ public class AnnotationController {
     }
 
     /**
+     * Get raw page image (PNG) - avoids Base64/JSON overhead for better performance
+     *
+     * @param documentGuid document path
+     * @param page page number (1-based)
+     * @param password document password (optional)
+     * @param response http response with PNG image
+     */
+    @RequestMapping(value = "/pageImage", method = RequestMethod.GET, produces = "image/png")
+    public void getPageImage(@RequestParam("guid") String documentGuid,
+                             @RequestParam("page") int page,
+                             @RequestParam(value = "password", required = false) String password,
+                             HttpServletResponse response) {
+        try {
+            byte[] imageBytes = annotationService.getPageImageBytes(documentGuid, page, password);
+
+            // Enable browser caching
+            response.setContentType("image/png");
+            response.setContentLength(imageBytes.length);
+            response.setHeader("Cache-Control", "private, max-age=300");
+
+            String etag = "\"" + documentGuid.hashCode() + "-" + page + "-" + new java.io.File(documentGuid).lastModified() + "\"";
+            response.setHeader("ETag", etag);
+
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(imageBytes);
+            outputStream.flush();
+        } catch (Exception ex) {
+            throw new TotalGroupDocsException(ex.getMessage(), ex);
+        }
+    }
+
+    /**
      * Download document
      *
      * @param documentGuid path to document parameter

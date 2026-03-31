@@ -69,4 +69,14 @@ public interface AnnotationService {
      * @return stream of annotated document
      */
     InputStream annotateByStream(AnnotationPostedDataEntity annotateDocumentRequest);
+
+    /**
+     * Get raw page image bytes (PNG) for streaming endpoint
+     *
+     * @param guid document path
+     * @param pageNumber page number (1-based)
+     * @param password document password (nullable)
+     * @return PNG image bytes
+     */
+    byte[] getPageImageBytes(String guid, int pageNumber, String password);
 }
