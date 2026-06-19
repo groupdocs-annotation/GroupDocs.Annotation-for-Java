@@ -1,5 +1,5 @@
 # Build the project
-FROM maven:3-eclipse-temurin-11 AS builder
+FROM maven:3-eclipse-temurin-8 AS builder
 COPY pom.xml /usr/local/build/pom.xml
 COPY src /usr/local/build/src
 WORKDIR /usr/local/build

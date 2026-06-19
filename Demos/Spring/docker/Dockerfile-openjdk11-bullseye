@@ -1,5 +1,5 @@
 # Build the project
-FROM maven:3-eclipse-temurin-11 AS builder
+FROM maven:3-eclipse-temurin-8 AS builder
 COPY pom.xml /usr/local/build/pom.xml
 COPY src /usr/local/build/src/
 WORKDIR /usr/local/build
@@ -46,5 +46,7 @@ LABEL version="25.6" \
 EXPOSE 8080
 
 VOLUME [ "/home/groupdocs/app", "/home/groupdocs/app/DocumentSamples", "/home/groupdocs/app/Licenses" ]
+
+ENV JAVA_TOOL_OPTIONS="--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED"
 
 ENTRYPOINT [ "java", "-jar", "-Dlogback.configurationFile=/home/groupdocs/app/logback-spring.xml", "app.jar", "configuration.yml" ]

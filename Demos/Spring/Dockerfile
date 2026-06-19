@@ -24,4 +24,6 @@ COPY --from=builder /usr/local/build/target/annotation-spring-*.jar /home/groupd
 
 EXPOSE 8080
 
+ENV JAVA_TOOL_OPTIONS="--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED"
+
 ENTRYPOINT [ "java", "-jar", "-Dlogback.configurationFile=/home/groupdocs/app/logback-spring.xml", "app.jar", "configuration.yml" ]
