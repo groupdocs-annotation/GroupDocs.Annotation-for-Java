@@ -14,6 +14,7 @@ import com.groupdocs.ui.model.request.LoadDocumentRequest;
 import com.groupdocs.ui.model.response.FileDescriptionEntity;
 import com.groupdocs.ui.model.response.UploadedDocumentEntity;
 import com.groupdocs.ui.util.Utils;
+import com.groupdocs.ui.util.PathSecurityUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -153,14 +154,15 @@ public class AnnotationController {
      */
     @RequestMapping(value = {"/downloadDocument", "/downloadAnnotated"}, method = RequestMethod.GET)
     public void downloadDocument(@RequestParam("path") String documentGuid, HttpServletResponse response) {
-        // get document path
-        String fileName = FilenameUtils.getName(documentGuid);
+        String filesDirectory = annotationService.getAnnotationConfiguration().getFilesDirectory();
+        String documentPath = PathSecurityUtils.resolveInsideBaseDirectoryAsString(filesDirectory, documentGuid);
+        String fileName = FilenameUtils.getName(documentPath);
 
         // set response content info
         Utils.addFileDownloadHeaders(response, fileName, null);
 
         long length;
-        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(documentGuid));
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(documentPath));
              ServletOutputStream outputStream = response.getOutputStream()) {
             // download the document
             length = IOUtils.copyLarge(inputStream, outputStream);
@@ -190,7 +192,7 @@ public class AnnotationController {
         String pathname = uploadFile(documentStoragePath, content, url, rewrite);
         // create response data
         UploadedDocumentEntity uploadedDocument = new UploadedDocumentEntity();
-        uploadedDocument.setGuid(pathname);
+        uploadedDocument.setGuid(Utils.normalizePathToGuid(documentStoragePath, pathname));
         return uploadedDocument;
     }
 

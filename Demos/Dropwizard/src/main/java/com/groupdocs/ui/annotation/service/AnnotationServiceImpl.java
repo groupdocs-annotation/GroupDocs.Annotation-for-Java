@@ -28,6 +28,9 @@ import com.groupdocs.ui.common.entity.web.request.FileTreeRequest;
 import com.groupdocs.ui.common.entity.web.request.LoadDocumentPageRequest;
 import com.groupdocs.ui.common.entity.web.request.LoadDocumentRequest;
 import com.groupdocs.ui.common.exception.TotalGroupDocsException;
+import com.groupdocs.ui.common.util.ExceptionMessageUtils;
+import com.groupdocs.ui.common.util.PathSecurityUtils;
+import com.groupdocs.ui.common.util.Utils;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -38,6 +41,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Base64;
@@ -90,13 +94,18 @@ public class AnnotationServiceImpl implements AnnotationService {
 
     @Override
     public List<FileDescriptionEntity> getFileList(FileTreeRequest fileTreeRequest) {
-        String path = fileTreeRequest.getPath();
-        if (StringUtils.isEmpty(path)) {
-            path = annotationConfiguration.getFilesDirectory();
-        }
+        String filesDirectory = annotationConfiguration.getFilesDirectory();
+        Path filesSubDirectoryPath = PathSecurityUtils.resolveInsideBaseDirectoryOrRoot(filesDirectory, fileTreeRequest.getPath());
+        File directory = filesSubDirectoryPath.toFile();
         try {
-            File directory = new File(path);
-            List<File> filesList = Arrays.asList(directory.listFiles());
+            if (!directory.isDirectory()) {
+                throw new TotalGroupDocsException(PathSecurityUtils.ACCESS_DENIED);
+            }
+            File[] files = directory.listFiles();
+            if (files == null) {
+                throw new TotalGroupDocsException("Can't list files");
+            }
+            List<File> filesList = Arrays.asList(files);
 
             List<FileDescriptionEntity> fileList = getFileDescriptionEntities(filesList);
             return fileList;
@@ -107,13 +116,17 @@ public class AnnotationServiceImpl implements AnnotationService {
     }
 
     public List<FileDescriptionEntity> getFileDescriptionEntities(List<File> filesList) {
+        String filesDirectory = annotationConfiguration.getFilesDirectory();
         List<FileDescriptionEntity> fileList = new ArrayList<>();
         for (File file : filesList) {
-            String guid = file.getAbsolutePath();
-            String extension = FilenameUtils.getExtension(guid);
+            String extension = FilenameUtils.getExtension(file.getName());
             if (file.isDirectory() || (!StringUtils.isEmpty(extension))) {
                 FileDescriptionEntity fileDescription = new FileDescriptionEntity();
-                fileDescription.setGuid(guid);
+                try {
+                    fileDescription.setGuid(Utils.normalizePathToGuid(filesDirectory, file.getCanonicalFile().getAbsolutePath()));
+                } catch (IOException e) {
+                    throw new TotalGroupDocsException(e.getMessage(), e);
+                }
                 fileDescription.setName(file.getName());
                 fileDescription.setDirectory(file.isDirectory());
                 fileDescription.setSize(file.length());
@@ -138,7 +151,7 @@ public class AnnotationServiceImpl implements AnnotationService {
     public final AnnotatedDocumentEntity loadDocument(LoadDocumentRequest loadDocumentRequest, boolean loadAllPages) {
         Annotator annotator = null;
         AnnotatedDocumentEntity description = new AnnotatedDocumentEntity();
-        String guid = loadDocumentRequest.getGuid();
+        String guid = resolveDocumentPath(loadDocumentRequest.getGuid());
         String password = loadDocumentRequest.getPassword();
         LoadOptions loadOptions = new LoadOptions();
         loadOptions.setPassword(password);
@@ -153,8 +166,6 @@ public class AnnotationServiceImpl implements AnnotationService {
                 e.printStackTrace();
             }
             List<AnnotationBase> annotations = annotator.get();
-
-            description.setGuid(loadDocumentRequest.getGuid());
 
             String documentType = "";
             if (info.getFileType() != null) {
@@ -191,7 +202,7 @@ public class AnnotationServiceImpl implements AnnotationService {
             }
         }
 
-        description.setGuid(guid);
+        description.setGuid(Utils.normalizePathToGuid(annotationConfiguration.getFilesDirectory(), guid));
         // return document description
         return description;
     }
@@ -210,7 +221,7 @@ public class AnnotationServiceImpl implements AnnotationService {
         String password = "";
         try {
             // get/set parameters
-            String documentGuid = loadDocumentPageRequest.getGuid();
+            String documentGuid = resolveDocumentPath(loadDocumentPageRequest.getGuid());
             int pageNumber = loadDocumentPageRequest.getPage();
             password = loadDocumentPageRequest.getPassword();
             PageDataDescriptionEntity loadedPage = new PageDataDescriptionEntity();
@@ -303,6 +314,7 @@ public class AnnotationServiceImpl implements AnnotationService {
     }
 
     public InputStream annotateDocument(String documentGuid, String documentType, List<AnnotationBase> annotations) throws FileNotFoundException {
+        documentGuid = resolveDocumentPath(documentGuid);
         Annotator annotator = new Annotator(documentGuid);
         
         SaveOptions saveOptions = new SaveOptions();
@@ -323,7 +335,7 @@ public class AnnotationServiceImpl implements AnnotationService {
         AnnotatedDocumentEntity annotatedDocument = new AnnotatedDocumentEntity();
         try {
             // get/set parameters
-            String documentGuid = annotateDocumentRequest.getGuid();
+            String documentGuid = resolveDocumentPath(annotateDocumentRequest.getGuid());
             String password = annotateDocumentRequest.getPassword();
             
             //String documentType1 = DocumentTypesConverter.checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
@@ -388,14 +400,13 @@ public class AnnotationServiceImpl implements AnnotationService {
             }
 
             annotatedDocument = new AnnotatedDocumentEntity();
-            annotatedDocument.setGuid(documentGuid);
+            annotatedDocument.setGuid(Utils.normalizePathToGuid(annotationConfiguration.getFilesDirectory(), documentGuid));
             if (annotateDocumentRequest.getPrint()) {
                 annotatedDocument.setPages(getAnnotatedPagesForPrint(password, documentGuid));
                 Files.move(Paths.get(documentGuid), Paths.get(annotateDocumentRequest.getGuid()));
             }
         } catch (Exception ex) {
-            // set exception message
-            throw new TotalGroupDocsException(ex.getMessage());
+            throw new TotalGroupDocsException(ExceptionMessageUtils.toUserMessage(ex), ex);
         }
 
         return annotatedDocument;
@@ -530,7 +541,7 @@ public class AnnotationServiceImpl implements AnnotationService {
 
     @Override
     public InputStream annotateByStream(AnnotationPostedDataEntity annotateDocumentRequest) {
-        String documentGuid = annotateDocumentRequest.getGuid();
+        String documentGuid = resolveDocumentPath(annotateDocumentRequest.getGuid());
         String documentType = DocumentTypesConverter.checkedDocumentType(documentGuid, annotateDocumentRequest.getDocumentType());
         List<AnnotationBase> annotations = getAnnotationInfos(annotateDocumentRequest, documentType);
         try {
@@ -538,5 +549,10 @@ public class AnnotationServiceImpl implements AnnotationService {
         } catch (FileNotFoundException ex) {
             throw new TotalGroupDocsException(ex.getMessage(), ex);
         }
+    }
+
+    private String resolveDocumentPath(String guid) {
+        return PathSecurityUtils.resolveInsideBaseDirectoryAsString(
+                annotationConfiguration.getFilesDirectory(), guid);
     }
 }

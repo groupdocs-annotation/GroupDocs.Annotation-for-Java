@@ -18,6 +18,14 @@
         <version>2.0.4.RELEASE</version>
     </parent>
 
+
+    <properties>
+        <start-class>com.groupdocs.ui.Application</start-class>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skip.npm>false</skip.npm>
+    </properties>
+
     <profiles>
         <!--mvn package -P jar-->
         <profile>
@@ -83,12 +91,6 @@
         </profile>
     </profiles>
 
-    <properties>
-        <start-class>com.groupdocs.ui.Application</start-class>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -147,14 +149,13 @@
 
     <repositories>
         <repository>
-            <id>GroupDocsJavaAPI</id>
-            <name>GroupDocs Java API</name>
-            <url>https://artifact.groupdocs.com/repo/</url>
+            <id>GroupDocs Artifact Repository</id>
+            <name>GroupDocs Artifact Repository</name>
+            <url>https://releases.groupdocs.com/java/repo/</url>
         </repository>
         <repository>
-            <id>aspose-central</id>
-            <name>repository.aspose.com-releases</name>
-            <url>https://repository.aspose.com/repo</url>
+            <id>maven-central</id>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
     </repositories>
 
@@ -175,6 +176,7 @@
                 <version>1.6</version>
                 <configuration>
                     <workingDirectory>client</workingDirectory>
+                    <skip>${skip.npm}</skip>
                 </configuration>
                 <executions>
                     <execution>

@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.List;
 
@@ -60,6 +62,15 @@ public class Utils {
      */
     public static String getExceptionMessage(String password) {
         return StringUtils.isEmpty(password) ? PASSWORD_REQUIRED : INCORRECT_PASSWORD;
+    }
+
+    public static String normalizePathToGuid(String filesDirectory, String path) {
+        final Path relativePath = Paths.get(filesDirectory).relativize(Paths.get(path));
+        return relativePath.toString().replace(File.separatorChar, '/');
+    }
+
+    public static String normalizeGuidToPath(String path) {
+        return path.replace('/', File.separatorChar);
     }
 
     /**

@@ -4,6 +4,16 @@
 
 [![GitHub license](https://img.shields.io/github/license/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard.svg)](https://github.com/groupdocs-annotation/GroupDocs.Annotation-for-Java-Dropwizard/blob/master/LICENSE)
 
+## Security Notice
+
+This Dropwizard sample is a **demonstration application**. It is provided to show how GroupDocs.Annotation can be integrated with a web UI.
+
+- Intended for **local development and evaluation** only
+- **Not** audited or hardened for production deployment
+- File upload, download, and document path handling must be reviewed and adapted before any external exposure
+
+When integrating GroupDocs.Annotation into your product, implement your own secure file storage, input validation, and access control — do not copy this demo directly into a public-facing service.
+
 ## System Requirements
 - Java 8 (JDK 1.8)
 - Maven 3
@@ -117,14 +127,19 @@ mvn clean compile exec:java
 ```
 
 #### Docker image
-Use [docker](https://hub.docker.com/u/groupdocs) image.
+Use [Docker Hub](https://hub.docker.com/r/groupdocs/annotation) images.
 
 ```bash
 mkdir DocumentSamples
 mkdir Licenses
-docker run -p 8080:8080 --env application.hostAddress=localhost -v `pwd`/DocumentSamples:/home/groupdocs/app/DocumentSamples -v `pwd`/Licenses:/home/groupdocs/app/Licenses groupdocs/annotation-dropwizard
+docker run -p 8080:8080 --env HOST_ADDRESS=localhost \
+  -v `pwd`/DocumentSamples:/home/groupdocs/app/DocumentSamples \
+  -v `pwd`/Licenses:/home/groupdocs/app/Licenses \
+  groupdocs/annotation:25.6-java-openjdk18-bullseye-dropwizard
 ## Open http://localhost:8080/annotation/ in your favorite browser.
 ```
+
+**Security notice:** Docker images ship with demo defaults (upload and browse enabled, no authentication). Use for local evaluation only.
 
 ## Configuration
 For all methods above you can adjust settings in `configuration.yml`. By default in this sample will lookup for license file in `./Licenses` folder, so you can simply put your license file in that folder or specify relative/absolute path by setting `licensePath` value in `configuration.yml`. 

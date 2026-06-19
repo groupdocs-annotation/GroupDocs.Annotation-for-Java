@@ -1,0 +1,9 @@
+.git
+target
+client/node_modules
+client/.angular
+client/package-lock.json
+docker
+Dockerfile
+DocumentSamples/*
+!DocumentSamples/.gitkeep

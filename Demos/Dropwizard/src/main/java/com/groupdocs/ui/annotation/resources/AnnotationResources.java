@@ -14,6 +14,8 @@ import com.groupdocs.ui.common.entity.web.request.FileTreeRequest;
 import com.groupdocs.ui.common.entity.web.request.LoadDocumentPageRequest;
 import com.groupdocs.ui.common.entity.web.request.LoadDocumentRequest;
 import com.groupdocs.ui.common.resources.Resources;
+import com.groupdocs.ui.common.util.PathSecurityUtils;
+import com.groupdocs.ui.common.util.Utils;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.slf4j.Logger;
@@ -119,9 +121,8 @@ public class AnnotationResources extends Resources {
     @Path(value = "/downloadDocument")
     @Produces(APPLICATION_OCTET_STREAM)
     public void downloadDocument(@QueryParam("path") String documentGuid,
-                                 @Context HttpServletResponse response) {     
-        // download the file
-        downloadFile(response, documentGuid);
+                                 @Context HttpServletResponse response) {
+        downloadFile(response, resolveDocumentPath(documentGuid));
     }
 
     /**
@@ -145,7 +146,8 @@ public class AnnotationResources extends Resources {
         String pathname = uploadFile(documentUrl, inputStream, fileDetail, rewrite, null);
         // create response
         UploadedDocumentEntity uploadedDocument = new UploadedDocumentEntity();
-        uploadedDocument.setGuid(pathname);
+        uploadedDocument.setGuid(Utils.normalizePathToGuid(
+                annotationService.getAnnotationConfiguration().getFilesDirectory(), pathname));
         return uploadedDocument;
 
     }
@@ -181,7 +183,11 @@ public class AnnotationResources extends Resources {
     @Produces(APPLICATION_OCTET_STREAM)
     public void downloadAnnotated(@QueryParam("path") String documentGuid,
                                  @Context HttpServletResponse response) {
-        // download the file
-        downloadFile(response, documentGuid);
+        downloadFile(response, resolveDocumentPath(documentGuid));
+    }
+
+    private String resolveDocumentPath(String documentGuid) {
+        return PathSecurityUtils.resolveInsideBaseDirectoryAsString(
+                globalConfiguration.getAnnotation().getFilesDirectory(), documentGuid);
     }
 }

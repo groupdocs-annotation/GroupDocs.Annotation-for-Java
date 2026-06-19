@@ -8,11 +8,14 @@ target/*
 vs.bin
 App_Data/*
 node_modules
+client/.angular
 src/main/resources/static/*
-!src/main/resources/static/.gitkeep
+!src/main/resources/static/angular/
+!src/main/resources/static/angular/**
 node/
 etc/
 package-lock.json
+cp.txt
 Licenses/*
 !Licenses/.gitkeep
 DocumentSamples/*

@@ -23,7 +23,7 @@
         <dependency>
             <groupId>com.groupdocs</groupId>
             <artifactId>groupdocs-annotation</artifactId>
-            <version>24.6</version>
+            <version>25.6</version>
         </dependency>
     </dependencies>
     <repositories>

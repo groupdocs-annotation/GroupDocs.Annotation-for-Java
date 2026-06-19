@@ -1,6 +1,8 @@
 package com.groupdocs.ui.common.exception;
 
 import com.groupdocs.ui.common.entity.web.ExceptionEntity;
+import com.groupdocs.ui.common.util.ExceptionMessageUtils;
+import com.groupdocs.ui.common.util.PathSecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,10 +23,21 @@ public class TotalGroupDocsExceptionMapper implements ExceptionMapper<TotalGroup
     @Override
     public Response toResponse(TotalGroupDocsException exception) {
         ExceptionEntity exceptionEntity = new ExceptionEntity();
-        String message = exception.getMessage();
+        String message = ExceptionMessageUtils.toUserMessage(exception);
         exceptionEntity.setMessage(message);
         if (PASSWORD_REQUIRED.equals(message) || INCORRECT_PASSWORD.equals(message)) {
             return Response.ok(exceptionEntity).build();
+        }
+        if (PathSecurityUtils.ACCESS_DENIED.equals(message)) {
+            return Response.status(Response.Status.FORBIDDEN).entity(exceptionEntity).build();
+        }
+        if (ExceptionMessageUtils.isUserFacingMessage(message)) {
+            logger.error(message);
+            return Response
+                    .serverError()
+                    .entity(exceptionEntity)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
         }
         if (logger.isDebugEnabled()) {
             exception.printStackTrace();
