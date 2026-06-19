@@ -7,22 +7,27 @@ on:
         description: 'Version tag for docker images (e.g. 25.6)'
         required: true
         type: string
-      push:
-        description: 'Push images to Docker Hub and update repository description'
+      push_images:
+        description: 'Push images to Docker Hub'
+        required: true
+        type: boolean
+        default: false
+      update_description:
+        description: 'Update Docker Hub repository description'
         required: true
         type: boolean
         default: false
       latest:
-        description: 'Also tag openjdk18-bullseye-spring as latest'
+        description: 'Also tag openjdk18-bullseye-spring as latest (when pushing images)'
         required: true
         type: boolean
         default: false
 
-run-name: "Docker ${{ inputs.version }} | push=${{ inputs.push }} | latest=${{ inputs.latest }}"
+run-name: "Docker ${{ inputs.version }} | push=${{ inputs.push_images }} | docs=${{ inputs.update_description }} | latest=${{ inputs.latest }}"
 
 jobs:
   update-description:
-    if: ${{ inputs.push }}
+    if: ${{ inputs.update_description }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,6 +47,7 @@ jobs:
           short-description: GroupDocs.Annotation for Java ${{ inputs.version }} demo (Spring & Dropwizard)
 
   build:
+    if: ${{ inputs.push_images }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -56,7 +62,6 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
-        if: ${{ inputs.push }}
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -86,7 +91,7 @@ jobs:
         with:
           context: ${{ steps.ctx.outputs.dir }}
           file: ${{ steps.ctx.outputs.dir }}/docker/Dockerfile-${{ matrix.jdk }}-bullseye
-          push: ${{ inputs.push }}
+          push: true
           tags: ${{ steps.tags.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
